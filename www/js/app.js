@@ -41,11 +41,20 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.contact', {
+      url: '/contact',
+      views: {
+          'menuContent': {
+              templateUrl: 'templates/contacto.html'
+          }
+      }
+  })
+
+  .state('app.products', {
+      url: '/products',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/productos.html'
         }
       }
     })
@@ -57,6 +66,46 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           controller: 'PlaylistsCtrl'
         }
       }
+    })
+    .state('app.micarrito', {
+        url: '/micarrito',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/micarrito.html',
+            }
+        }
+    })
+    .state('app.seguimientos', {
+        url: '/seguimientos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/seguimientos.html',
+            }
+        }
+    })
+    .state('app.scanner', {
+        url: '/scanner',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/scanner.html',
+            }
+        }
+    })
+    .state('app.login', {
+        url: '/login',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/login.html',
+            }
+        }
+    })
+    .state('app.registro', {
+        url: '/registro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/registro.html',
+            }
+        }
     })
 
   .state('app.single', {
