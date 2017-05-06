@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<ion-view view-title="registro">
+    <ion-content>
+        <h1>Registro</h1>
+        <!--@RequestParam(required=false) String apellidos,-->
+        <!--@RequestParam(required=false)  Long telefono,-->
+        <!--@RequestParam String email,-->
+        <!--@RequestParam String password,-->
+        <!--@RequestParam int id_localidad){-->
+
+        <form ng-submit="register()">
+            <label for="nombre">nombre</label><input type="text" name="nombre" id="nombre" required>
+            <label for="apellidos">apellidos</label><input type="text" name="apellidos" id="apellidos" required>
+            <label for="telefono">telefono</label><input type="tel" name="telefono" id="telefono" maxlength="9" required>
+            <label for="email">email</label><input type="email" name="email" id="email" required>
+            <label for="pass">password</label><input type="password" name="password" id="pass" required>
+            <label for="localidad">localidad</label>
+            <select id="localidad" required>
+                <option ng-repeat="localidad in localidades"></option>
+
+            </select>
+        </form>
+    </ion-content>
+</ion-view>

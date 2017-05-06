@@ -40,17 +40,24 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 })
+.controller("registroCtrl", function($http, $scope){
+    $scope.registerData = {};
+    $scope.localidades = peticion("GET", "http://localhost:3000/ObtenerTodasLocalidades","");
+    //
+    // $scope.getRegisterData = function(){
+    //
+    // };
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+    function peticion(method, url, data){
+        $http({
+            method: method,
+            url: url,
+            data: data
+        }).then(function(resp){
+            return resp.data;
+        }, function(err){
+            console.log(err.statusText);
+        });
+    };
 });
+

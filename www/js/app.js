@@ -32,15 +32,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
   .state('app.contact', {
       url: '/contact',
       views: {
@@ -58,20 +49,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
     .state('app.micarrito', {
         url: '/micarrito',
         views: {
             'menuContent': {
-                templateUrl: 'templates/micarrito.html',
+                templateUrl: 'templates/micarrito.html'
             }
         }
     })
@@ -79,7 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/seguimientos',
         views: {
             'menuContent': {
-                templateUrl: 'templates/seguimientos.html',
+                templateUrl: 'templates/seguimientos.html'
             }
         }
     })
@@ -87,7 +69,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/scanner',
         views: {
             'menuContent': {
-                templateUrl: 'templates/scanner.html',
+                templateUrl: 'templates/scanner.html'
             }
         }
     })
@@ -95,28 +77,21 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/login',
         views: {
             'menuContent': {
-                templateUrl: 'templates/login.html',
+                templateUrl: 'templates/login.html'
             }
         }
     })
     .state('app.registro', {
         url: '/registro',
+        controller: 'registroCtrl',
         views: {
             'menuContent': {
                 templateUrl: 'templates/registro.html',
+                controller: "registroCtrl"
             }
         }
-    })
+    });
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/login');
 });
