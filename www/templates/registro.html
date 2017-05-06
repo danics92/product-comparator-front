@@ -7,17 +7,36 @@
         <!--@RequestParam String password,-->
         <!--@RequestParam int id_localidad){-->
 
-        <form ng-submit="register()">
-            <label for="nombre">nombre</label><input type="text" name="nombre" id="nombre" required>
-            <label for="apellidos">apellidos</label><input type="text" name="apellidos" id="apellidos" required>
-            <label for="telefono">telefono</label><input type="tel" name="telefono" id="telefono" maxlength="9" required>
-            <label for="email">email</label><input type="email" name="email" id="email" required>
-            <label for="pass">password</label><input type="password" name="password" id="pass" required>
-            <label for="localidad">localidad</label>
-            <select id="localidad" required>
-                <option ng-repeat="localidad in localidades"></option>
-
-            </select>
+        <form ng-submit="registro()">
+            <div class="list">
+                <label class="item item-input" for="nombre">
+                    <span class="input-label">nombre</span>
+                    <input type="text" name="nombre" id="nombre" required ng-model="register.nombre">
+                </label>
+                <label class="item item-input" for="apellidos">
+                    <span class="input-label">apellidos</span>
+                    <input type="text" name="apellidos" id="apellidos" required ng-model="register.apellidos">
+                </label>
+                <label class="item item-input" for="telefono">
+                    <span class="input-label">telefono</span>
+                    <input type="tel" name="telefono" id="telefono" maxlength="9" required ng-model="register.telefono">
+                </label>
+                <label class="item item-input" for="email">
+                    <span class="input-label">email</span>
+                    <input type="email" name="email" id="email" required ng-model="register.email">
+                </label>
+                <label class="item item-input" for="pass">
+                    <span class="input-label">password</span>
+                    <input type="password" name="password" id="pass" required ng-model="register.pass">
+                </label>
+                <label class="item item-input" for="localidad">
+                    <span class="input-label">localidad</span>
+                    <select id="localidad" required ng-model="register.localidad">
+                        <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
+                    </select>
+                </label>
+                <input type="submit" value="Registrate">
+            </div>
         </form>
     </ion-content>
 </ion-view>

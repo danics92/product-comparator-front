@@ -41,23 +41,32 @@ angular.module('starter.controllers', [])
   };
 })
 .controller("registroCtrl", function($http, $scope){
-    $scope.registerData = {};
-    $scope.localidades = peticion("GET", "http://localhost:3000/ObtenerTodasLocalidades","");
-    //
-    // $scope.getRegisterData = function(){
-    //
-    // };
+    $scope.register = {};
 
-    function peticion(method, url, data){
-        $http({
-            method: method,
-            url: url,
-            data: data
-        }).then(function(resp){
-            return resp.data;
-        }, function(err){
-            console.log(err.statusText);
-        });
-    };
+    $http.get("http://192.168.1.44:3005/ObtenerTodasLocalidades")
+    .then(function(response){
+        $scope.localidades =  response.data;
+    });
+
+    $scope.registro = function(){
+        console.log($scope.register);
+        $http.post("http://192.168.1.44:3005/usuario/insertarUsuario",$scope.register)
+            .then(function(resp){
+                console.log(resp.data);
+            });
+    }
+
+    // function peticion(method, url, data){
+    //     $http({
+    //         method: method,
+    //         url: url,
+    //         data: data
+    //     }).then(function(resp){
+    //         // console.log(resp.data);
+    //         return resp.data;
+    //     }, function(err){
+    //         console.log(err.statusText);
+    //     });
+    // };
 });
 
