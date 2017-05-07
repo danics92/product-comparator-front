@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
   $stateProvider
 
     .state('app', {
@@ -73,18 +73,59 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         }
     })
-    .state('app.login', {
+    .state('login', {
         url: '/login',
         controller: 'loginCtrl',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/login.html',
-                controller: 'loginCtrl'
-            }
-        }
-    });
+        templateUrl: 'templates/login.html'
+
+    }).state('registro', {
+        url: '/registro',
+        controller: 'registroCtrl',
+        templateUrl: 'templates/registro.html'
+
+    })
+
+    $provide.factory('AuthInterceptor', function ($q, $location) {
+
+              return {
+                  // On request success
+                  request: function (config) {
+
+
+                      // console.log(config); // Contains the data about the request before it is sent.
+                      if (($location.path() === "/login" || $location.path() === "/registro") && localStorage.getItem("access_token")) {
+                          console.log($q);
+                          $location.path("/app/micarrito");
+
+                      } else if (!localStorage.getItem("access_token") && $location.path() != "/registro") {
+
+                          $location.path("/login");
+
+                      }
+
+
+                      return config || $q.when(config);
+                      // Return the config or wrap it in a promise if blank.
+
+                  },
+                  // On response success
+                  response: function (response) {
+                      // console.log(response); // Contains the data from the response.
+                      // Return the response or promise.
+
+                      return response || $q.when(response);
+                  }
+              };
+          });
+
+          $httpProvider.interceptors.push('AuthInterceptor');
+
+          if (localStorage.getItem("acces_token")) {
+              $urlRouterProvider.otherwise('/app/micarrito');
+          } else {
+              $urlRouterProvider.otherwise('/login');
+          }
 
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
 });

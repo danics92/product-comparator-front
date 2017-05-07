@@ -1,82 +1,95 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,$location) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.closeSession = function () {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        $location.path('/login');
+    };
+    /*
+    $scope.dataVerify = {
+        access_token: localStorage.getItem("access_token")
+    };
 
-  // Form data for the login modal
+    $scope.verifyToken = function () {
+        var res = $http.post('http://localhost:3000/verify-token', $scope.dataVerify);
+        res.success(function (data, status, headers, config) {
+            localStorage.setItem("username", data.user.username);
+        });
+        res.error(function (data, status, headers, config) {
+            if (status === 400) {
+                $scope.message = "el usuario o la contraseña no son validos";
+                $scope.closeSession();
+            } else if (status === 402) {
+                console.log("refresh_token");
+                $scope.refreshToken();
+            }
+        });
+    };
 
+    $scope.dataRefresh = {
+        access_token: localStorage.getItem("access_token"),
+        refresh_token: localStorage.getItem("refresh_token")
+    };
 
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
-})
-.controller("loginCtrl", function($http, $scope,$ionicModal){
-    $scope.loginData = {};
-
-  $scope.login = function(){
-    console.log("dentro funcion");
-    $http.post("http://localhost:3005/token/crearToken",$scope.loginData)
-        .then(function(resp){
-            console.log(resp.data);
+    $scope.refreshToken = function () {
+        var res = $http.post('http://localhost:3000/refresh-token', $scope.dataRefresh);
+        res.success(function (data, status, headers, config) {
+            localStorage.setItem("access_token", data.access_token);
+            localStorage.setItem("refresh_token", data.refresh_token);
 
         });
-  }
-
-  $ionicModal.fromTemplateUrl('templates/registro.html', {
-    scope: $scope,
-     animation: 'slide-in-up'
-  }).then(function(modal) {
-    console.log(modal);
-    $scope.modal = modal;
-  });
+        res.error(function (data, status, headers, config) {
+            $scope.message = "el usuario o la contraseña no son validos";
+            $location.path('/login');
+        });
+    };
+    */
+}).controller("registroCtrl", function($http, $scope,$location){
 
   $scope.register = {};
 
-  $http.get("http://localhost:3005/ObtenerTodasLocalidades")
-  .then(function(response){
-      $scope.localidades =  response.data;
-  });
+  var obtenerLocalidadesRegistro = function(){
+    $http.get("http://localhost:3005/ObtenerTodasLocalidades")
+      .then(function(response){
+          $scope.localidades = response.data;
+        });
+};
+    obtenerLocalidadesRegistro();
 
-  $scope.registro = function(){
-    $scope.error.nombreObligatorio = true;
-      /*console.log($scope.register);
-      $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register)
-          .then(function(resp){
-              console.log(resp.data);
-          });
-          */
+  $scope.doRegistro = function(){
+    console.log($scope.register);
+    $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register)
+    .then(function(response){
+
+        $location.path("/login");
+    });
   };
 
-  $scope.error = {
-    nombreObligatorio: false
-  };
+
+
+})
+.controller("loginCtrl", function($http, $scope,$ionicModal,$location){
+
+
+    $scope.loginData = {};
+
+    var createToken = function () {
+              var res = $http.post('http://localhost:3005/token/crearToken', $scope.loginData);
+              res.success(function (data, status, headers, config) {
+                console.log(data);
+                if(data.status == null){
+                  localStorage.setItem("access_token", data.accesToken);
+                  localStorage.setItem("refresh_token", data.refreshToken);
+                  $location.path("/app/micarrito")
+                }
+              });
+          };
+
+        $scope.login = function(){
+              createToken();
+          }
+
 
 });

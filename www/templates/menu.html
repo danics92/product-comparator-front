@@ -18,9 +18,6 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/login">
-          Login
-        </ion-item>
         <ion-item menu-close href="#/app/products">
           Productos
         </ion-item>
@@ -36,8 +33,8 @@
         <ion-item menu-close href="#/app/scanner">
           Scanner
         </ion-item>
-        <ion-item menu-close href="#/app/registro">
-          Registro
+        <ion-item menu-close ng-click="closeSession()">
+          Cerrar Session
         </ion-item>
       </ion-list>
     </ion-content>

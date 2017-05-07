@@ -1,52 +1,46 @@
 
-<ion-modal-view>
-      <ion-header-bar class="bar bar-header bar-positive">
-        <h1 class="title">Registro</h1>
-        <button class="button button-clear button-primary" ng-click="modal.hide()">Salir</button>
-      </ion-header-bar>
+<ion-view view-title="registro">
       <ion-content class="padding">
+        <div class = "list">
           <form name="registro">
-
-                  <label class="padding item item-input item-floating-label" for="nombre">
+                  <label class="padding item item-input item-stacked-label" for="nombre">
                       <span class="input-label">Nombre</span>
                       <input type="text" name="nombre" id="nombre" placeholder="Nombre" required ng-model="register.nombre">
                   </label>
-                  <label class="padding item item-input item-floating-label" for="apellidos">
+                  <label class="padding item item-input item-stacked-label" for="apellidos">
                       <span class="input-label">Apellidos</span>
                       <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" required ng-model="register.apellidos">
                   </label>
-                  <label class="padding item item-input item-floating-label" for="telefono">
+                  <label class="padding item item-input item-stacked-label" for="telefono">
                       <span class="input-label">Telefono</span>
                       <input type="tel" name="telefono" id="telefono" maxlength="9" placeholder="Telefono" required ng-model="register.telefono">
                   </label>
-                  <label class="padding item item-input item-floating-label" for="email">
+                  <label class="padding item item-input item-stacked-label" for="email">
                       <span class="input-label">Email</span>
                       <input type="email" name="email" id="email" placeholder="Email" required ng-model="register.email">
                       <div class="padding">
                           <p ng-show="registro.email.$error.required">El email es obligatorio</p>
-
                   </div>
                   </label>
-                  <label class="padding item item-input item-floating-label" for="password">
+                  <label class="padding item item-input item-stacked-label" for="password">
                       <span class="input-label">Password</span>
                       <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="register.password">
                       <div class="padding">
                           <p ng-show="registro.password.$error.required">La contraseña es obligatoria</p>
-
-                  </div>
+                      </div>
                   </label>
                   <label class="item item-input item-select" for="localidad">
                     <div class="input-label">
                         Localidad
                       </div>
-                      <ion-select id="localidad" required ng-model="register.idLocalidad">
-                          <ion-option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
+                      <select id="localidad" required ng-model="register.idLocalidad">
+                          <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
                       </select>
                   </label>
-                  <button ng-disabled="registro.$invalid" class="button button-block button-positive" ng-click="registro()">
+                  <button  class="button button-block button-positive" ng-click="doRegistro()">
                     Entrar
                   </button>
-
+                </div>
           </form>
       </ion-content>
-    </ion-modal-view>
+    </ion-view>
