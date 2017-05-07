@@ -53,7 +53,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/micarrito',
         views: {
             'menuContent': {
-                templateUrl: 'templates/micarrito.html'
+                templateUrl: 'templates/micarrito.html',
+                controller: 'misCarrosCtrl'
             }
         }
     })
@@ -92,14 +93,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                   request: function (config) {
 
 
+
                       // console.log(config); // Contains the data about the request before it is sent.
                       if (($location.path() === "/login" || $location.path() === "/registro") && localStorage.getItem("access_token")) {
-                          console.log($q);
+
                           $location.path("/app/micarrito");
 
                       } else if (!localStorage.getItem("access_token") && $location.path() != "/registro") {
 
-                          $location.path("/login");
+                          //$location.path("/login");
+
+                      }else if(localStorage.getItem("access_token")){
 
                       }
 

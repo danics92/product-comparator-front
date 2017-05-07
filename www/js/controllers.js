@@ -1,12 +1,42 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout,$location) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,$location,$http) {
 
   $scope.closeSession = function () {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         $location.path('/login');
     };
+
+    var token ={}
+    token.accesToken = localStorage.getItem("access_token");
+    token.refreshToken = localStorage.getItem("refresh_token")
+
+    var ajax;
+
+    $scope.verificarToken = function(){
+      ajax = $http.post('http://localhost:3005/token/validarToken', token );
+      ajax.success(function (data, status, headers, config) {
+          if(data === 500){
+            $scope.closeSession();
+          }else if(data === 502){
+            $scope.refrescarToken();
+          }
+      });
+    }
+
+    $scope.refrescarToken = function(){
+      ajax = $http.post('http://localhost:3005/token/refrescarToken', token );
+      ajax.success(function (data, status, headers, config) {
+          if(data){
+            localStorage.setItem("access_token", data.accesToken);
+            localStorage.setItem("refresh_token", data.refreshToken);
+          }else{
+            $scope.closeSession();
+          }
+      });
+    }
+
     /*
     $scope.dataVerify = {
         access_token: localStorage.getItem("access_token")
@@ -50,19 +80,17 @@ angular.module('starter.controllers', [])
 
   $scope.register = {};
 
-  var obtenerLocalidadesRegistro = function(){
-    $http.get("http://localhost:3005/ObtenerTodasLocalidades")
-      .then(function(response){
-          $scope.localidades = response.data;
-        });
+    var obtenerLocalidadesRegistro = function(){
+    var ajax =  $http.get("http://localhost:3005/ObtenerTodasLocalidades");
+    ajax.success(function(data, status, headers, config){
+      $scope.localidades = data;
+    });
 };
     obtenerLocalidadesRegistro();
 
   $scope.doRegistro = function(){
-    console.log($scope.register);
-    $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register)
-    .then(function(response){
-
+    var ajax =  $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register);
+    ajax.success(function(data, status, headers, config){
         $location.path("/login");
     });
   };
@@ -79,7 +107,7 @@ angular.module('starter.controllers', [])
               var res = $http.post('http://localhost:3005/token/crearToken', $scope.loginData);
               res.success(function (data, status, headers, config) {
                 console.log(data);
-                if(data.status == null){
+                if(data.accesToken && data.refreshToken){
                   localStorage.setItem("access_token", data.accesToken);
                   localStorage.setItem("refresh_token", data.refreshToken);
                   $location.path("/app/micarrito")
@@ -90,6 +118,6 @@ angular.module('starter.controllers', [])
         $scope.login = function(){
               createToken();
           }
-
-
+}).controller("misCarrosCtrl", function($http, $scope,$ionicModal,$location){
+    $scope.verificarToken();
 });
