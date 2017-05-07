@@ -100,8 +100,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                           $location.path("/app/micarrito");
 
                       } else if (!localStorage.getItem("access_token") && $location.path() != "/registro") {
-
-                          //$location.path("/login");
+                          $location.path("/login");
 
                       }else if(localStorage.getItem("access_token")){
 
