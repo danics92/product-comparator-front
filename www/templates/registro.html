@@ -1,42 +1,52 @@
-<ion-view view-title="registro">
-    <ion-content>
-        <h1>Registro</h1>
-        <!--@RequestParam(required=false) String apellidos,-->
-        <!--@RequestParam(required=false)  Long telefono,-->
-        <!--@RequestParam String email,-->
-        <!--@RequestParam String password,-->
-        <!--@RequestParam int id_localidad){-->
 
-        <form ng-submit="registro()">
-            <div class="list">
-                <label class="item item-input" for="nombre">
-                    <span class="input-label">nombre</span>
-                    <input type="text" name="nombre" id="nombre" required ng-model="register.nombre">
-                </label>
-                <label class="item item-input" for="apellidos">
-                    <span class="input-label">apellidos</span>
-                    <input type="text" name="apellidos" id="apellidos" required ng-model="register.apellidos">
-                </label>
-                <label class="item item-input" for="telefono">
-                    <span class="input-label">telefono</span>
-                    <input type="tel" name="telefono" id="telefono" maxlength="9" required ng-model="register.telefono">
-                </label>
-                <label class="item item-input" for="email">
-                    <span class="input-label">email</span>
-                    <input type="email" name="email" id="email" required ng-model="register.email">
-                </label>
-                <label class="item item-input" for="pass">
-                    <span class="input-label">password</span>
-                    <input type="password" name="password" id="pass" required ng-model="register.pass">
-                </label>
-                <label class="item item-input" for="localidad">
-                    <span class="input-label">localidad</span>
-                    <select id="localidad" required ng-model="register.localidad">
-                        <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
-                    </select>
-                </label>
-                <input type="submit" value="Registrate">
-            </div>
-        </form>
-    </ion-content>
-</ion-view>
+<ion-modal-view>
+      <ion-header-bar class="bar bar-header bar-positive">
+        <h1 class="title">Registro</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Salir</button>
+      </ion-header-bar>
+      <ion-content class="padding">
+          <form name="registro">
+
+                  <label class="padding item item-input item-floating-label" for="nombre">
+                      <span class="input-label">Nombre</span>
+                      <input type="text" name="nombre" id="nombre" placeholder="Nombre" required ng-model="register.nombre">
+                  </label>
+                  <label class="padding item item-input item-floating-label" for="apellidos">
+                      <span class="input-label">Apellidos</span>
+                      <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" required ng-model="register.apellidos">
+                  </label>
+                  <label class="padding item item-input item-floating-label" for="telefono">
+                      <span class="input-label">Telefono</span>
+                      <input type="tel" name="telefono" id="telefono" maxlength="9" placeholder="Telefono" required ng-model="register.telefono">
+                  </label>
+                  <label class="padding item item-input item-floating-label" for="email">
+                      <span class="input-label">Email</span>
+                      <input type="email" name="email" id="email" placeholder="Email" required ng-model="register.email">
+                      <div class="padding">
+                          <p ng-show="registro.email.$error.required">El email es obligatorio</p>
+
+                  </div>
+                  </label>
+                  <label class="padding item item-input item-floating-label" for="password">
+                      <span class="input-label">Password</span>
+                      <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="register.password">
+                      <div class="padding">
+                          <p ng-show="registro.password.$error.required">La contraseña es obligatoria</p>
+
+                  </div>
+                  </label>
+                  <label class="item item-input item-select" for="localidad">
+                    <div class="input-label">
+                        Localidad
+                      </div>
+                      <ion-select id="localidad" required ng-model="register.idLocalidad">
+                          <ion-option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
+                      </select>
+                  </label>
+                  <button ng-disabled="registro.$invalid" class="button button-block button-positive" ng-click="registro()">
+                    Entrar
+                  </button>
+
+          </form>
+      </ion-content>
+    </ion-modal-view>

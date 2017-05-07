@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
   //});
 
   // Form data for the login modal
-  $scope.loginData = {};
+
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -25,9 +25,7 @@ angular.module('starter.controllers', [])
   };
 
   // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
+
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
@@ -40,33 +38,45 @@ angular.module('starter.controllers', [])
     }, 1000);
   };
 })
-.controller("registroCtrl", function($http, $scope){
-    $scope.register = {};
+.controller("loginCtrl", function($http, $scope,$ionicModal){
+    $scope.loginData = {};
 
-    $http.get("http://192.168.1.44:3005/ObtenerTodasLocalidades")
-    .then(function(response){
-        $scope.localidades =  response.data;
-    });
+  $scope.login = function(){
+    console.log("dentro funcion");
+    $http.post("http://localhost:3005/token/crearToken",$scope.loginData)
+        .then(function(resp){
+            console.log(resp.data);
 
-    $scope.registro = function(){
-        console.log($scope.register);
-        $http.post("http://192.168.1.44:3005/usuario/insertarUsuario",$scope.register)
-            .then(function(resp){
-                console.log(resp.data);
-            });
-    }
+        });
+  }
 
-    // function peticion(method, url, data){
-    //     $http({
-    //         method: method,
-    //         url: url,
-    //         data: data
-    //     }).then(function(resp){
-    //         // console.log(resp.data);
-    //         return resp.data;
-    //     }, function(err){
-    //         console.log(err.statusText);
-    //     });
-    // };
+  $ionicModal.fromTemplateUrl('templates/registro.html', {
+    scope: $scope,
+     animation: 'slide-in-up'
+  }).then(function(modal) {
+    console.log(modal);
+    $scope.modal = modal;
+  });
+
+  $scope.register = {};
+
+  $http.get("http://localhost:3005/ObtenerTodasLocalidades")
+  .then(function(response){
+      $scope.localidades =  response.data;
+  });
+
+  $scope.registro = function(){
+    $scope.error.nombreObligatorio = true;
+      /*console.log($scope.register);
+      $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register)
+          .then(function(resp){
+              console.log(resp.data);
+          });
+          */
+  };
+
+  $scope.error = {
+    nombreObligatorio: false
+  };
+
 });
-
