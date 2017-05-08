@@ -125,26 +125,28 @@ angular.module('starter.controllers', [])
 
 
   var dinero = 0;
-    var indexCarro = 0;
+  var indexCarro = 0;
   $scope.obtenerPrecioCarros = function(){
     for(var i = 0; i < $scope.carros.length;i++){
       if($scope.carros[i].productos.length === 0){
         $scope.carros[i].precioCarro = 0;
       }else{
+        $scope.carros[indexCarro].precioCarro = 0;
       for(var j = 0; j < $scope.carros[i].productos.length;j++){
         var res = $http.get($scope.dominio + '/productoTienda/obtenerProductoTiendaPorId?id='+$scope.carros[i].productos[j].idProductoTienda);
         res.success(function (data, status, headers, config) {
           if(data.historialPrecio.length > 0){
-            dinero = dinero + data.historialPrecio[data.historialPrecio.length-1].precio;
-
+            console.log("index:" +data.historialPrecio[data.historialPrecio.length-1].precio);
+            $scope.carros[indexCarro].precioCarro = $scope.carros[indexCarro].precioCarro + data.historialPrecio[data.historialPrecio.length-1].precio;
+            console.log(  $scope.carros[indexCarro].precioCarro);
           }
         });
       }
-      misCarrosService.setData(dinero);
+
     }
-    $scope.carros[indexCarro].precioCarro = misCarrosService.getData();
+
     }
-    indexCarro++;
+
   }
 
 
