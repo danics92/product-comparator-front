@@ -87,6 +87,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             }
         }
     })
+    .state('app.productos',{
+        url: '/productos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/productos.html',
+                controller: 'productosCtrl'
+            }
+        }
+    })
     .state('login', {
         url: '/login',
         controller: 'loginCtrl',
