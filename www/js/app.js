@@ -23,13 +23,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
+
+    $ionicConfigProvider.views.maxCache(0);
+
+
   $stateProvider
 
     .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
   })
 
   .state('app.contact', {
@@ -71,6 +75,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         views: {
             'menuContent': {
                 templateUrl: 'templates/scanner.html'
+            }
+        }
+    })
+    .state('app.productosCarro', {
+        url: '/productosCarro',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/productosCarro.html',
+                controller: 'productosCarroCtrl'
             }
         }
     })
@@ -123,7 +136,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
           $httpProvider.interceptors.push('AuthInterceptor');
 
-          if (localStorage.getItem("acces_token")) {
+          if (localStorage.getItem("access_token")) {
               $urlRouterProvider.otherwise('/app/micarrito');
           } else {
               $urlRouterProvider.otherwise('/login');

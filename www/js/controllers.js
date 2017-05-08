@@ -2,31 +2,43 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,$location,$http) {
 
+  console.log("appCargado");
+
+
+
+  $scope.dominio = "http://localhost:3005";
+
+  $scope.usuario = {};
+
   $scope.closeSession = function () {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
+        $scope.usuario = {};
         $location.path('/login');
     };
 
-    var token ={}
-    token.accesToken = localStorage.getItem("access_token");
-    token.refreshToken = localStorage.getItem("refresh_token")
+    $scope.token ={}
+    $scope.token.accesToken = localStorage.getItem("access_token");
+    $scope.token.refreshToken = localStorage.getItem("refresh_token")
 
     var ajax;
 
     $scope.verificarToken = function(){
-      ajax = $http.post('http://localhost:3005/token/validarToken', token );
+    console.log("verificando");
+      ajax = $http.post($scope.dominio + '/token/validarToken', $scope.token );
       ajax.success(function (data, status, headers, config) {
           if(data === 500){
             $scope.closeSession();
           }else if(data === 502){
             $scope.refrescarToken();
+          }else{
+            $scope.obtenerUsuario();
           }
       });
     }
 
     $scope.refrescarToken = function(){
-      ajax = $http.post('http://localhost:3005/token/refrescarToken', token );
+      ajax = $http.post($scope.dominio + '/token/refrescarToken', $scope.token );
       ajax.success(function (data, status, headers, config) {
           if(data){
             localStorage.setItem("access_token", data.accesToken);
@@ -37,51 +49,27 @@ angular.module('starter.controllers', [])
       });
     }
 
-    /*
-    $scope.dataVerify = {
-        access_token: localStorage.getItem("access_token")
-    };
+    $scope.obtenerUsuario = function(){
+      console.log("obtenerUsuario");
+      ajax = $http.post($scope.dominio + '/usuario/obtenerUsuario', $scope.token );
+      ajax.success(function (data, status, headers, config) {
+        console.log(data);
+        $scope.usuario = data;
+      });
+    }
 
-    $scope.verifyToken = function () {
-        var res = $http.post('http://localhost:3000/verify-token', $scope.dataVerify);
-        res.success(function (data, status, headers, config) {
-            localStorage.setItem("username", data.user.username);
-        });
-        res.error(function (data, status, headers, config) {
-            if (status === 400) {
-                $scope.message = "el usuario o la contraseña no son validos";
-                $scope.closeSession();
-            } else if (status === 402) {
-                console.log("refresh_token");
-                $scope.refreshToken();
-            }
-        });
-    };
+    $scope.verificarToken();
 
-    $scope.dataRefresh = {
-        access_token: localStorage.getItem("access_token"),
-        refresh_token: localStorage.getItem("refresh_token")
-    };
 
-    $scope.refreshToken = function () {
-        var res = $http.post('http://localhost:3000/refresh-token', $scope.dataRefresh);
-        res.success(function (data, status, headers, config) {
-            localStorage.setItem("access_token", data.access_token);
-            localStorage.setItem("refresh_token", data.refresh_token);
-
-        });
-        res.error(function (data, status, headers, config) {
-            $scope.message = "el usuario o la contraseña no son validos";
-            $location.path('/login');
-        });
-    };
-    */
 }).controller("registroCtrl", function($http, $scope,$location){
 
   $scope.register = {};
 
+  $scope.dominio = "http://localhost:3005";
+
     var obtenerLocalidadesRegistro = function(){
-    var ajax =  $http.get("http://localhost:3005/ObtenerTodasLocalidades");
+      console.log($scope.dominio);
+    var ajax =  $http.get($scope.dominio + "/ObtenerTodasLocalidades");
     ajax.success(function(data, status, headers, config){
       $scope.localidades = data;
     });
@@ -89,7 +77,7 @@ angular.module('starter.controllers', [])
     obtenerLocalidadesRegistro();
 
   $scope.doRegistro = function(){
-    var ajax =  $http.post("http://localhost:3005/usuario/insertarUsuario",$scope.register);
+    var ajax =  $http.post($scope.dominio + "/usuario/insertarUsuario",$scope.register);
     ajax.success(function(data, status, headers, config){
         $location.path("/login");
     });
@@ -100,17 +88,18 @@ angular.module('starter.controllers', [])
 })
 .controller("loginCtrl", function($http, $scope,$ionicModal,$location){
 
+  $scope.dominio = "http://localhost:3005";
 
     $scope.loginData = {};
 
     var createToken = function () {
-              var res = $http.post('http://localhost:3005/token/crearToken', $scope.loginData);
+              var res = $http.post($scope.dominio + '/token/crearToken', $scope.loginData);
               res.success(function (data, status, headers, config) {
                 console.log(data);
                 if(data.accesToken && data.refreshToken){
                   localStorage.setItem("access_token", data.accesToken);
                   localStorage.setItem("refresh_token", data.refreshToken);
-                  $location.path("/app/micarrito")
+                  $location.path("/app/micarrito");
                 }
               });
           };
@@ -118,6 +107,42 @@ angular.module('starter.controllers', [])
         $scope.login = function(){
               createToken();
           }
-}).controller("misCarrosCtrl", function($http, $scope,$ionicModal,$location){
+}).factory('misCarrosService',function(){
+
+  var id_carro = 1;
+
+  return{
+    id_carro:id_carro
+  }
+
+}).controller("misCarrosCtrl", function($http, $scope,$ionicModal,$location,misCarrosService){
     $scope.verificarToken();
+    $scope.click = function(id_carro){
+      misCarrosService.id_carro = id_carro;
+      $location.path("/app/productosCarro");
+    }
+
+}).controller("productosCarroCtrl", function($http, $scope,$ionicModal,$location,misCarrosService){
+  $scope.verificarToken();
+
+  $scope.productosCarro = {};
+
+  var dataProductosCarro = {
+    "accesToken":  localStorage.getItem("access_token"),
+    "id_carro": misCarrosService.id_carro
+  }
+
+  $scope.obtenerProductosCarro = function(){
+      $scope.verificarToken();
+    var res = $http.post($scope.dominio + '/carro/obtenerProductosCarro', dataProductosCarro);
+    res.success(function (data, status, headers, config) {
+      $scope.productosCarro = data;
+      console.log($scope.productosCarro);
+      //$scope.productosCarro.precio
+    });
+  }
+
+  $scope.obtenerProductosCarro();
+  console.log($scope.productosCarro);
+
 });

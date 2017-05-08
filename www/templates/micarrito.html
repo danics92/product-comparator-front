@@ -1,5 +1,10 @@
-<ion-view view-title="micarrito">
+
+<ion-view view-title="Mis carros">
     <ion-content>
-        <h1>Mi Carrito</h1>
+      <ion-list>
+        <ion-item ng-repeat="carro in usuario.carros" ng-click="click(carro.id)">
+            {{carro.nombre}}
+        </ion-item>
+      </ion-list>
     </ion-content>
 </ion-view>
