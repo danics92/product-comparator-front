@@ -2,8 +2,10 @@
 <ion-view view-title="Mis carros">
     <ion-content>
       <ion-list>
-        <ion-item ng-repeat="carro in usuario.carros" ng-click="click(carro.id)">
-            {{carro.nombre}}
+        <ion-item ng-repeat="carro in carros" ng-click="click(carro.id)">
+            <p>{{carro.nombre}}</p>
+            <p>precio: {{carro.precioCarro}}</p>
+
         </ion-item>
       </ion-list>
     </ion-content>

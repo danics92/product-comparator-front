@@ -66,7 +66,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/seguimientos',
         views: {
             'menuContent': {
-                templateUrl: 'templates/seguimientos.html'
+                templateUrl: 'templates/seguimientos.html',
+                controller: 'seguimientoCtrl'
             }
         }
     })

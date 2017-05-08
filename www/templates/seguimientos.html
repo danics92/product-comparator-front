@@ -1,5 +1,12 @@
-<ion-view view-title="seguimientos">
+<ion-view view-title="Mis seguimientos">
     <ion-content>
-        <h1>Mis Seguimientos</h1>
+      <ion-list>
+        <ion-item ng-repeat="producto in seguimientos">
+            <p> {{producto.nombre}}</p>
+            <p>Marca:{{producto.idMarca.nombre}}</p>
+            <p>Valoracion: {{producto.productoValoracion}}</p>
+
+        </ion-item>
+      </ion-list>
     </ion-content>
 </ion-view>
