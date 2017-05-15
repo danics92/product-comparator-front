@@ -1,11 +1,13 @@
 
 <ion-view view-title="Mis carros">
     <ion-content>
+        <button class="button button-balanced" ng-click="delete(carro.id)">Añadir</button>
       <ion-list>
-        <ion-item ng-repeat="carro in carros" ng-click="click(carro.id)">
-            <p>{{carro.nombre}}</p>
+        <ion-item ng-repeat="carro in carros">
+            <p ng-click="click(carro.id)">{{carro.nombre}}</p>
             <p>precio: {{carro.precioCarro}}</p>
-
+            <button class="button button-energized" ng-click="edit(carro.id)">Editar</button>
+            <button class="button button-assertive" ng-click="delete(carro.id)">Borrar</button>
         </ion-item>
       </ion-list>
     </ion-content>

@@ -6,7 +6,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location){
     console.log("dentro de productosCtrl");
     $scope.productos = {};
 
-    $scope.dominio = "http://localhost:3005";
+    $scope.dominio = "http://192.168.1.36:3005";
 
     $scope.obtenerProductosCarro = function(){
         $scope.verificarToken();

@@ -56,7 +56,24 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
 
     };
 
+    $scope.delete = function(id_carro){
+        $scope.verificarToken();
+        var dataCarro = {
+            "accesToken": localStorage.getItem("access_token"),
+            "id_carro": 45
+        };
+        console.log(dataCarro);
+        var res = $http.post($scope.dominio + '/carro/eliminarCarroUsuario', dataCarro);
+        res.success(function (data, status, headers, config) {
+            for(var i = 0; i< $scope.carros.length; i++){
+                if($scope.carros[i].id === id_carro ){
+                    $scope.carros.slice(1,i);
+                }
+            }
+            console.log("Borrado cone exito");
 
+        });
+    };
     $scope.click = function (id_carro) {
         misCarrosService.id_carro = id_carro;
         $location.path("/app/productosCarro");
