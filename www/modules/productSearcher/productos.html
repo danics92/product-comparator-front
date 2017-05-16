@@ -21,8 +21,8 @@
                                 <md-button class="md-icon-button" style="fill: #EEE" aria-label="Settings">
                                     <ng-md-icon icon="menu"></ng-md-icon>
                                 </md-button>
-                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite">
-                                    <ng-md-icon icon="favorite_border"></ng-md-icon>
+                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite" ng-click="favoriteManager(producto.id)">
+                                    <ng-md-icon icon={{favoriteImg}}></ng-md-icon>
                                 </md-button>
                                 <md-button class="md-icon-button" style="fill: green" aria-label="Share">
                                     <ng-md-icon icon="add_shopping_cart"></ng-md-icon>
