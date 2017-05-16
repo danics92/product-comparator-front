@@ -1,31 +1,76 @@
-
 <ion-view view-title="Mis carros">
     <ion-content>
-        <button class="button button-balanced" ng-click="add()">Añadir</button>
-      <div class="list">
-        <ion-item ng-repeat="carro in carros">
-            <div flex-xs flex-gt-xs="50" layout="column">
-                <md-card md-theme='dark-purple' class="background-cart-card" md-theme-watch>
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline" ng-click="click(carro.id)">{{carro.nombre}}</span>
-                            <span class="md-subhead">precio: {{carro.precioCarro}}</span>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-sm card-media">
+        <button class="button button-balanced" ng-click="addCart()">Añadir</button>
+        <div class="list">
+            <ion-item ng-repeat="carro in carros">
+                <div flex-xs flex-gt-xs="25" layout="column">
+                    <md-card md-theme='dark-purple' class="background-cart-card" md-theme-watch>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline" >{{carro.nombre}}</span>
+                                <span class="md-subhead">precio: {{carro.precioCarro}}</span>
+                            </md-card-title-text>
+                            <md-button class="md-icon-button"  style="fill: #EEE" aria-label="Settings" layout-align="end center">
+                                <ng-md-icon icon="menu" ng-click="click(carro.id)"></ng-md-icon>
+                            </md-button>
+                        </md-card-title>
+
+                        <md-card-content layout="row" layout-align="space-between">
+                            <div class="md-media-xl card-media">
                                 <img src="../../img/carrito.svg">
                             </div>
-                        </md-card-title-media>
-                    </md-card-title>
-                    <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="button button-energized" ng-click="editCart(carro.id)">Editar</md-button>
-                        <md-button class="button button-assertive" ng-click="delete(carro.id)">Borrar</md-button>
-                    </md-card-actions>
-                </md-card>
-            </div>
-            <p></p>
-        </ion-item>
-      </div>
+
+                            <!--<md-card-actions layout="column" layout-align="start end">-->
+                                <!--<md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite">-->
+                                    <!--<ng-md-icon icon="favorite_border"></ng-md-icon>-->
+                                <!--</md-button>-->
+                                <!--<md-button class="md-icon-button" style="fill: green" aria-label="Share">-->
+                                    <!--<ng-md-icon icon="add_shopping_cart"></ng-md-icon>-->
+                                <!--</md-button>-->
+                            <!--</md-card-actions>-->
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="button button-energized" ng-click="editCart(carro.id)">Editar
+                        </md-button>
+                        <md-button class="button button-assertive" ng-click="delete(carro.id)">Borrar
+                        </md-button>
+                        </md-card-actions>
+                    </md-card>
+                    <!--<md-card md-theme='dark-purple' class="background-cart-card" md-theme-watch>-->
+                        <!--<md-card-title>-->
+                            <!--<md-card-title-text>-->
+                                <!--<span class="md-headline" ng-click="click(carro.id)">{{carro.nombre}}</span>-->
+                                <!--<span class="md-subhead">precio: {{carro.precioCarro}}</span>-->
+                            <!--</md-card-title-text>-->
+                            <!--<md-card-title-media>-->
+                                <!--<div class="md-media-sm card-media">-->
+                                    <!--<img src="../../img/carrito.svg">-->
+                                <!--</div>-->
+                            <!--</md-card-title-media>-->
+                        <!--</md-card-title>-->
+                        <!--<md-card-actions layout="column" class="layout-column" layout-align="center end">-->
+                            <!--<md-button class="md-icon-button" style="fill: #EEE" aria-label="Settings">-->
+                                <!--<ng-md-icon icon="menu"></ng-md-icon>-->
+                            <!--</md-button>-->
+                            <!--<md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite">-->
+                                <!--<ng-md-icon icon="favorite_border"></ng-md-icon>-->
+                            <!--</md-button>-->
+                            <!--<md-button class="md-icon-button" style="fill: green" aria-label="Share">-->
+                                <!--<ng-md-icon icon="add_shopping_cart"></ng-md-icon>-->
+                            <!--</md-button>-->
+
+                        <!--</md-card-actions>-->
+                            <!--<md-card-actions layout="row" layout-align="end center">-->
+                                <!--<md-button class="button button-energized" ng-click="editCart(carro.id)">Editar-->
+                                <!--</md-button>-->
+                                <!--<md-button class="button button-assertive" ng-click="delete(carro.id)">Borrar-->
+                                <!--</md-button>-->
+                            <!--</md-card-actions>-->
+                    <!--</md-card>-->
+                </div>
+                <p></p>
+            </ion-item>
+        </div>
     </ion-content>
 </ion-view>
 

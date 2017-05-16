@@ -1,10 +1,39 @@
 <ion-view view-title="Productos">
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="producto in productos">
-          {{producto.nombre}}
-          {{producto.marca}}
-      </ion-item>
-    </ion-list>
-  </ion-content>
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="producto in productos">
+                <div flex-xs flex-gt-xs="25" layout="column">
+                    <md-card md-theme='dark-purple' md-theme-watch class="background-product-card">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{producto.nombre}}</span>
+                                <span class="md-subhead">{{producto.marca}}</span>
+                            </md-card-title-text>
+
+                        </md-card-title>
+                        <md-card-content layout="row" layout-align="space-between">
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media">
+                                    <img src="../../img/food.svg">
+                                </div>
+                            </md-card-title-media>
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button class="md-icon-button" style="fill: #EEE" aria-label="Settings">
+                                    <ng-md-icon icon="menu"></ng-md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite">
+                                    <ng-md-icon icon="favorite_border"></ng-md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" style="fill: green" aria-label="Share">
+                                    <ng-md-icon icon="add_shopping_cart"></ng-md-icon>
+                                </md-button>
+                            </md-card-actions>
+                        </md-card-content>
+                    </md-card>
+                </div>
+
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
