@@ -21,7 +21,8 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location){
 
     $scope.addFavorite = function(id_producto){
         $scope.verificarToken();
-        $scope.favoriteImg = "favorite_border";
+        $scope.favoriteImg = "favorite";
+
         var data = {
             access_token: localStorage.getItem("access_token"),
             idProducto: id_producto
@@ -34,7 +35,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location){
 
     $scope.removeFavorite = function(id_producto){
         $scope.verificarToken();
-        $scope.favoriteImg = "favorite";
+        $scope.favoriteImg = "favorite_border";
         var data = {
             access_token: localStorage.getItem("access_token"),
             idProducto: id_producto
