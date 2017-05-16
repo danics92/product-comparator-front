@@ -1,0 +1,32 @@
+
+<ion-view view-title="Mis carros">
+    <ion-content>
+        <button class="button button-balanced" ng-click="add()">Añadir</button>
+      <div class="list">
+        <ion-item ng-repeat="carro in carros">
+            <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card md-theme='dark-purple' class="background-cart-card" md-theme-watch>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline" ng-click="click(carro.id)">{{carro.nombre}}</span>
+                            <span class="md-subhead">precio: {{carro.precioCarro}}</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="../../img/carrito.svg">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="button button-energized" ng-click="editCart(carro.id)">Editar</md-button>
+                        <md-button class="button button-assertive" ng-click="delete(carro.id)">Borrar</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+            <p></p>
+        </ion-item>
+      </div>
+    </ion-content>
+</ion-view>
+
+<!--background-cart-card-->

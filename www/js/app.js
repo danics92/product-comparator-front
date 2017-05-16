@@ -21,7 +21,12 @@ var app = angular.module('starter', ['ionic', 'ionic-material', 'starter.control
             }
         });
     })
-
+    .config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+        $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+        $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+    })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
 
         $ionicConfigProvider.views.maxCache(0);
@@ -59,7 +64,7 @@ var app = angular.module('starter', ['ionic', 'ionic-material', 'starter.control
                 url: '/micarrito',
                 views: {
                     'menuContent': {
-                        templateUrl: 'modules/myChart/micarrito.html',
+                        templateUrl: 'modules/myCart/micarrito.html',
                         controller: 'misCarrosCtrl'
                     }
                 }

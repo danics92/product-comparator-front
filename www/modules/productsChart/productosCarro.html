@@ -3,8 +3,25 @@
     <ion-content>
       <ion-list>
         <ion-item ng-repeat="producto in productosCarro">
-            {{producto.idProducto}}
-
+            <div flex-xs flex-gt-xs="25" layout="column">
+                <md-card md-theme='dark-purple' md-theme-watch class="background-product-card">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{producto.idProducto}}</span>
+                            <span class="md-subhead">Small</span>
+                        </md-card-title-text>
+                        <md-card-title-media>
+                            <div class="md-media-sm card-media">
+                                <img src="../../img/food.svg">
+                            </div>
+                        </md-card-title-media>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="button button-assertive" ng-click="delete(producto.idProducto)">Borrar</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+            <!--<button class="button button-assertive" ng-click="delete(producto.idProducto)">Borrar</button>-->
         </ion-item>
       </ion-list>
     </ion-content>

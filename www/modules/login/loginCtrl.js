@@ -5,7 +5,7 @@
     'use strict';
     app.controller("loginCtrl", function ($http, $scope, $ionicModal, $location) {
 
-        $scope.dominio = "http://192.168.1.36:3005";
+        $scope.dominio = "http://localhost:3005";
 
         $scope.loginData = {};
 

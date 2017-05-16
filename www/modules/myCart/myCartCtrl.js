@@ -18,7 +18,7 @@ app.factory('misCarrosService', function () {
 
 });
 
-app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location, misCarrosService) {
+app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location, misCarrosService, $ionicPopup) {
     $scope.verificarToken();
     $scope.carros = {};
 
@@ -56,52 +56,66 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
 
     };
 
-    $scope.delete = function(id_carro){
+    $scope.delete = function (id_carro) {
         $scope.verificarToken();
         var dataCarro = {
             "accesToken": localStorage.getItem("access_token"),
-            "id_carro": 45
+            "id_carro": id_carro
         };
         console.log(dataCarro);
         var res = $http.post($scope.dominio + '/carro/eliminarCarroUsuario', dataCarro);
         res.success(function (data, status, headers, config) {
-            for(var i = 0; i< $scope.carros.length; i++){
-                if($scope.carros[i].id === id_carro ){
-                    $scope.carros.slice(1,i);
+            for (var i = 0; i < $scope.carros.length; i++) {
+                if ($scope.carros[i].id === id_carro) {
+                    $scope.carros.slice(1, i);
                 }
             }
             console.log("Borrado cone exito");
 
         });
     };
+    $scope.addCart = function () {
+        $scope.verificarToken();
+        $ionicPopup.prompt({
+            title: 'Introduzca el nombre del carro',
+            inputType: 'text',
+            inputPlaceholder: 'Nuevo nombre'
+        }).then(function (res) {
+            var dataCarro = {
+                "accesToken": localStorage.getItem("access_token"),
+                "name": res
+            };
+            var res = $http.post($scope.dominio + '/carro/newCarro', dataCarro);
+            res.success(function (data, status, headers, config) {
+                //PONER MENSAJE
+            });
+        });
+
+    };
+
+    $scope.editCart = function (id_carro) {
+        $scope.verificarToken();
+        console.log("Entra");
+        $ionicPopup.prompt({
+            title: 'Introduzca el nuevo nombre',
+            inputType: 'text',
+            inputPlaceholder: 'Nuevo nombre'
+        }).then(function (res) {
+            var dataCarro = {
+                "accesToken": localStorage.getItem("access_token"),
+                "name": res,
+                "id_carro": id_carro
+            };
+            var res = $http.post($scope.dominio + '/carro/editarCarro', dataCarro);
+            res.success(function (data, status, headers, config) {
+                //PONER MENSAJE
+            });
+        });
+    };
+
     $scope.click = function (id_carro) {
         misCarrosService.id_carro = id_carro;
         $location.path("/app/productosCarro");
     }
-
-});
-
-app.controller("productosCarroCtrl", function ($http, $scope, $ionicModal, $location, misCarrosService) {
-    $scope.verificarToken();
-
-    $scope.productosCarro = {};
-
-    var dataProductosCarro = {
-        "accesToken": localStorage.getItem("access_token"),
-        "id_carro": misCarrosService.id_carro
-    };
-
-    $scope.obtenerProductosCarro = function () {
-        $scope.verificarToken();
-        var res = $http.post($scope.dominio + '/carro/obtenerProductosCarro', dataProductosCarro);
-        res.success(function (data, status, headers, config) {
-            $scope.productosCarro = data;
-            console.log($scope.productosCarro);
-            //$scope.productosCarro.precio
-        });
-    };
-
-    $scope.obtenerProductosCarro();
-    console.log($scope.productosCarro);
 
 });
