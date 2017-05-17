@@ -1,9 +1,9 @@
 <ion-view view-title="Mis carros">
     <ion-content>
-        <button class="button button-balanced" ng-click="addCart()">Añadir</button>
+        <button class="button button-balanced" ng-click="popupNuevoCarro()">Añadir</button>
         <div class="list">
             <ion-item ng-repeat="carro in carros">
-                <div flex-xs flex-gt-xs="25" layout="column">
+                <div layout="column">
                     <md-card md-theme='dark-purple' class="background-cart-card" md-theme-watch>
                         <md-card-title>
                             <md-card-title-text>
@@ -30,9 +30,9 @@
                             <!--</md-card-actions>-->
                         </md-card-content>
                         <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="button button-energized" ng-click="editCart(carro.id)">Editar
+                        <md-button class="button button-energized" ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">Editar
                         </md-button>
-                        <md-button class="button button-assertive" ng-click="delete(carro.id)">Borrar
+                        <md-button class="button button-assertive" ng-click="deleteCarro(carro.id,$index)">Borrar
                         </md-button>
                         </md-card-actions>
                     </md-card>

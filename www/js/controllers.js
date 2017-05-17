@@ -1,14 +1,13 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup) {
 
 
         $scope.dominio = "http://localhost:3005";
 
         $scope.closeSession = function () {
             localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-            $scope.usuario = {};
+            localStorage.removeItem("refresh_token")
             $location.path('/login');
         };
 
@@ -16,15 +15,26 @@ angular.module('starter.controllers', [])
         $scope.token.accesToken = localStorage.getItem("access_token");
         $scope.token.refreshToken = localStorage.getItem("refresh_token")
 
+        $scope.showFeedback = function(title,mensaje){
+          var popupFeedback = $ionicPopup.alert({
+            title: title,
+            template: mensaje
+          });
+        };
+
+
+
+
+
         var ajax;
 
         $scope.verificarToken = function () {
             console.log("verificando");
             ajax = $http.post($scope.dominio + '/token/validarToken', $scope.token);
             ajax.success(function (data, status, headers, config) {
-                if (data === 500) {
+                if (data === 300) {
                     $scope.closeSession();
-                } else if (data === 502) {
+                } else if (data === 302) {
                     $scope.refrescarToken();
                 }
             });
