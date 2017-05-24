@@ -1,7 +1,6 @@
 <ion-view view-title="Productos">
-  <ion-button>Hola</ion-button>
     <ion-content>
-        <ion-list>
+        <div class="list">
             <ion-item ng-repeat="producto in productos">
                 <div layout="column">
                     <md-card md-theme='dark-purple' md-theme-watch class="background-product-card">
@@ -24,11 +23,11 @@
                             </md-card-title-media>
 
                             <md-card-actions layout="column" layout-align="end center">
-                                <md-button class="md-icon-button" style="fill: #EEE" aria-label="Settings">
+                                <md-button class="md-icon-button" style="fill: #EEE" ng-click="openModal($index)" aria-label="Settings">
                                     <ng-md-icon icon="menu"></ng-md-icon>
                                 </md-button>
-                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite" ng-click="favoriteManager(producto.id)">
-                                    <ng-md-icon icon={{favoriteImg}}></ng-md-icon>
+                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite" ng-click="seguimientoManager(producto.id,$index)">
+                                    <ng-md-icon icon={{producto.seguimientoImg}}></ng-md-icon>
                                 </md-button>
                                 <md-button class="md-icon-button" style="fill: green" aria-label="Share">
                                     <ng-md-icon icon="add_shopping_cart"></ng-md-icon>
@@ -37,9 +36,7 @@
                         </md-card-content>
                     </md-card>
                 </div>
-
-
             </ion-item>
-        </ion-list>
+        </div>
     </ion-content>
 </ion-view>

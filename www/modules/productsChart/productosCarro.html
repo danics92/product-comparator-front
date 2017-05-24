@@ -1,7 +1,7 @@
 
 <ion-view view-title="Productos en el carro">
     <ion-content>
-      <ion-list>
+      <div class="list">
         <ion-item ng-repeat="producto in productosCarro">
             <div flex-xs flex-gt-xs="25" layout="column">
                 <md-card md-theme='dark-purple' md-theme-watch class="background-product-card">
@@ -23,6 +23,6 @@
             </div>
             <!--<button class="button button-assertive" ng-click="delete(producto.idProducto)">Borrar</button>-->
         </ion-item>
-      </ion-list>
+      </div>
     </ion-content>
 </ion-view>
