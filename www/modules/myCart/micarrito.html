@@ -2,9 +2,9 @@
     <ion-content>
         <button class="button button-balanced" ng-click="popupNuevoCarro()">Añadir</button>
         <ion-list>
-            <ion-item ng-repeat="carro in carros" class="item">
+            <ion-item ng-repeat="carro in carros" class="item" ng-click="click(carro.id)">
       <h2>{{carro.nombre}}</h2>
-      <p> {{carro.precioCarro}}</p>
+      <p> {{carro.precioTotal}}</p>
       <ion-option-button class="button-calm"
                                   ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
                  Edit
@@ -19,4 +19,3 @@
 </ion-view>
 
 <!--background-cart-card-->
-  

@@ -6,6 +6,7 @@ app.controller("registroCtrl", function($http, $scope,$location){
     $scope.register = {};
 
     $scope.dominio = "http://localhost:3005";
+    //$scope.dominio = "http://192.168.38.40:3005";
 
     var obtenerLocalidadesRegistro = function(){
         console.log($scope.dominio);

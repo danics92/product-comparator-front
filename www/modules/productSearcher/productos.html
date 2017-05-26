@@ -1,42 +1,15 @@
 <ion-view view-title="Productos">
     <ion-content>
-        <div class="list">
-            <ion-item ng-repeat="producto in productos">
-                <div layout="column">
-                    <md-card md-theme='dark-purple' md-theme-watch class="background-product-card">
-                        <md-card-title>
-                            <md-card-title-text>
-                                <span class="md-headline">{{producto.nombre}}</span>
-                                <span class="md-subhead">
-                                  <p style="color:white">Marca: {{producto.marca.nombre}}</p>
-                                  <p style="color:white">Precio mas barato: {{producto.mejorPrecio}} €</p>
-                                  <p style="color:white">N de tiendas: {{producto.productoTiendas.length}}</p>
-                                  <p style="color:white">Valoracion Total:  {{producto.valoracionTotal}} </p>
-                                </span>
-                            </md-card-title-text>
-                        </md-card-title>
-                        <md-card-content layout="row" layout-align="space-between">
-                            <md-card-title-media>
-                                <div class="md-media-sm card-media">
-                                    <img src="../../img/food.svg">
-                                </div>
-                            </md-card-title-media>
-
-                            <md-card-actions layout="column" layout-align="end center">
-                                <md-button class="md-icon-button" style="fill: #EEE" ng-click="openModal($index)" aria-label="Settings">
-                                    <ng-md-icon icon="menu"></ng-md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" style="fill: #F4511E" aria-label="Favorite" ng-click="seguimientoManager(producto.id,$index)">
-                                    <ng-md-icon icon={{producto.seguimientoImg}}></ng-md-icon>
-                                </md-button>
-                                <md-button class="md-icon-button" style="fill: green" aria-label="Share">
-                                    <ng-md-icon icon="add_shopping_cart"></ng-md-icon>
-                                </md-button>
-                            </md-card-actions>
-                        </md-card-content>
-                    </md-card>
-                </div>
-            </ion-item>
-        </div>
+        <ion-list>
+            <ion-item ng-repeat="producto in productos" class="item">
+              <p>nombr: {{producto.nombre}}</p>
+              <p>Marca: {{producto.marca.nombre}}</p>
+              <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
+              <p>N de tiendas: {{producto.productoTiendas.length}}</p>
+              <p>Valoracion Total:  {{producto.valoracionTotal}} </p>
+              <button  ng-click=openModal($index)>ver</button>
+              <button ng-click="seguimientoManager(producto.id,$index)">seguir</button>
+              <button></button>
+        </ion-list>
     </ion-content>
 </ion-view>

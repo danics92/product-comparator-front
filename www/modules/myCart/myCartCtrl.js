@@ -20,7 +20,46 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
     var dinero = 0;
     var indexCarro = 0
 
-    console.log($scope.carros);
+    $scope.obtenerCarrosUsuario = function(){
+          $scope.verificarToken();
+          var carros = $http.post($scope.dominio + '/usario/carros/obtenerCarrosUsuario', $scope.token);
+          carros.success(function (data, status, headers, config) {
+              $scope.carros = data;
+              $scope.obtenerPrecioCarros();
+          });
+          carros.error(function (data, status, headers, config) {
+            $scope.showFeedback("error","ha surguido un error en la consulta");
+          });
+    };
+
+    $scope.obtenerPrecioCarros = function () {
+
+      var id_carros = [];
+
+      for(var i = 0; i < $scope.carros.length; i++){
+        id_carros.push($scope.carros[i].id)
+      }
+
+      var dataCarros = {
+        accesToken: $scope.token.accesToken,
+        carros: id_carros
+      }
+
+      var precios = $http.post($scope.dominio + '/carro/obtenerPreciosCarro',dataCarros);
+      precios.success(function (data, status, headers, config) {
+        for(var i = 0; i < $scope.carros.length; i++){
+          $scope.carros[i].precioTotal = data[i];
+        }
+        $scope.carros.reverse();
+      });
+      precios.error(function (data, status, headers, config) {
+        $scope.showFeedback("error","ha surguido un error en la consulta");
+      });
+
+    }
+
+
+
 
     $scope.popupNuevoCarro = function(){
       $ionicPopup.prompt({
@@ -104,6 +143,8 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
         misCarrosService.id_carro = id_carro;
         $location.path("/app/productosCarro");
     }
+
+    $scope.obtenerCarrosUsuario();
 
 
 });

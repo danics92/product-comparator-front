@@ -13,6 +13,8 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
 
     $scope.carrosCompra = [];
 
+    var indexCarro = 0;
+
   var obtenerPrecioMasBarato = function(productoTiendas){
       var mejorPrecio = 0;
       var precioActual = 0;
@@ -60,7 +62,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         });
     };
 
-    $scope.obtenerProductosCarro = function(){
+    $scope.obtenerProductos = function(){
         $scope.verificarToken();
         var ajaxProductos = $http.post($scope.dominio + '/producto/obtenerProductosPorLocalidad',$scope.token);
 
@@ -88,7 +90,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
     };
 
     if(!$scope.filtro){
-        $scope.obtenerProductosCarro();
+        $scope.obtenerProductos();
     }
 
 
@@ -131,6 +133,11 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
       $scope.verificarToken();
         var id_tiendas = [];
         for(var i = 0; i < $scope.productos[index].productoTiendas.length; i++){
+          if($scope.productos[index].productoTiendas[i].historialPrecio == undefined || $scope.productos[index].productoTiendas[i].historialPrecio.length <=0 ){
+          $scope.productos[index].productoTiendas[i].historialPrecio.precio = 0;
+        }else {
+            $scope.productos[index].productoTiendas[i].historialPrecio.precio =   $scope.productos[index].productoTiendas[i].historialPrecio[  $scope.productos[index].productoTiendas[i].historialPrecio.length-1].precio;
+        }
           id_tiendas.push($scope.productos[index].productoTiendas[i].idTienda);
         }
         var tiendas = $http.get($scope.dominio + '/productoTienda/obtenerTiendasPorProductos?id_tiendas='+id_tiendas);
@@ -150,7 +157,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         }
     };
 
-    $scope.anadirProductoACarro = function(id_carro){
+    $scope.anadirProductoACarro = function(id_carro,index){
 
       $scope.verificarToken();
 
@@ -163,17 +170,15 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         var productoAnadido = $http.post($scope.dominio + '/usuario/carro/anadirProductoACarro',dataAnadirProducto);
         productoAnadido.success(function (data, status, headers, config) {
           console.log(data);
+          $scope.carros[index].precioTotal += data;
         });
         productoAnadido.error(function (data, status, headers, config) {
           $scope.showFeedback("error","ha surguido un error en la consulta");
         });
     }
 
-    var obtenerCarrosCompra = function(){
-    };
-
   $scope.openModal = function(index) {
-
+    $scope.indexProducto = index;
     obtenerTiendasDeProducto(index);
 
     $ionicModal.fromTemplateUrl('modules/productSearcher/productModal.html', {
@@ -185,14 +190,52 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
       });
   };
 
+  $scope.obtenerCarrosUsuario = function(){
+        $scope.verificarToken();
+        var carros = $http.post($scope.dominio + '/usario/carros/obtenerCarrosUsuario', $scope.token);
+        carros.success(function (data, status, headers, config) {
+            $scope.carros = data;
+            $scope.obtenerPrecioCarros();
+        });
+        carros.error(function (data, status, headers, config) {
+          $scope.showFeedback("error","ha surguido un error en la consulta");
+        });
+  };
 
+  $scope.obtenerPrecioCarros = function () {
+
+    var id_carros = [];
+
+    for(var i = 0; i < $scope.carros.length; i++){
+      id_carros.push($scope.carros[i].id)
+    }
+
+    var dataCarros = {
+      accesToken: $scope.token.accesToken,
+      carros: id_carros
+    }
+
+    var precios = $http.post($scope.dominio + '/carro/obtenerPreciosCarro',dataCarros);
+    precios.success(function (data, status, headers, config) {
+      for(var i = 0; i < $scope.carros.length; i++){
+        $scope.carros[i].precioTotal = data[i];
+      }
+      $scope.carros.reverse();
+    });
+    precios.error(function (data, status, headers, config) {
+      $scope.showFeedback("error","ha surguido un error en la consulta");
+    });
+
+  }
 
   $scope.closeModal = function() {
     $scope.modal.hide();
+    $scope.modal.remove();
 
   };
 
   $scope.openCarroModal = function(idProductoTienda) {
+    $scope.obtenerCarrosUsuario();
     $scope.idProductoTienda = idProductoTienda;
     $ionicModal.fromTemplateUrl('modules/productSearcher/carrosModal.html', {
         scope: $scope,
@@ -205,7 +248,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
 
   $scope.closeCarroModal = function() {
     $scope.modalCarro.hide();
-
+    $scope.modalCarro.remove();
   };
 
 

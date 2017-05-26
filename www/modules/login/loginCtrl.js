@@ -7,6 +7,8 @@
 
         $scope.dominio = "http://localhost:3005";
 
+      //  $scope.dominio = "http://192.168.38.40:3005";
+
         $scope.loginData = {};
 
         var createToken = function () {

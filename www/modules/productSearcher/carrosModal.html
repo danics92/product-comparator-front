@@ -7,9 +7,9 @@
    </ion-header-bar>
   <ion-content>
     <ion-list>
-      <ion-item class="item"  ng-repeat="carro in carros" ng-click="anadirProductoACarro(carro.id)">
-        <p>{{carro.nombre}}</p>
-        <p>{{carro.precio}}</p>
+      <ion-item class="item"  ng-repeat="carro in carros" ng-click="anadirProductoACarro(carro.id,$index)">
+        <p>nombre: {{carro.nombre}}</p>
+        <p>precio: {{carro.precioTotal}}</p>
  </ion-item>
     </ion-list>
 

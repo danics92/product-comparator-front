@@ -23,7 +23,7 @@
       <ion-item class="item"  ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
         <p>{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</p>
         <p>{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</p>
-        <p>precio: {{productoTienda.historialPrecio[productoTienda.historialPrecio.length-1].precio}}</p>
+        <p>precio:{{productoTienda.historialPrecio.precio}}</p>
           <button ng-click="openCarroModal(productoTienda.id)">Añadir a carro</button>
         <ion-option-button class="button-assertive"
                                     ng-click="edit(item)">

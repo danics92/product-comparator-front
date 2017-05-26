@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'ngMaterial', 'ngMdIcons'])
+var app = angular.module('starter', ['ionic', 'starter.controllers'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -20,12 +20,6 @@ var app = angular.module('starter', ['ionic', 'ionic-material', 'starter.control
                 StatusBar.styleDefault();
             }
         });
-    })
-    .config(function($mdThemingProvider) {
-        $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-        $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-        $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-        $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
 
