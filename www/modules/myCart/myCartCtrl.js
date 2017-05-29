@@ -1,24 +1,13 @@
 /**
  * Created by danilig on 15/05/17.
  */
-app.factory('misCarrosService', function () {
-
-    var id_carro = 1;
-
-    return {
-        id_carro: id_carro
-    }
-
-});
-
-app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location, misCarrosService, $ionicPopup) {
+app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location, $ionicPopup) {
     $scope.verificarToken();
 
     var dataNuevoCarro = {};
     var dataEliminarCarro = {};
     var dataEditarCarro = {};
     var dinero = 0;
-    var indexCarro = 0
 
     $scope.obtenerCarrosUsuario = function(){
           $scope.verificarToken();
@@ -84,13 +73,13 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
                 console.log(data);
                 $scope.carros.push(data);
                 $scope.obtenerPrecioCarros();
-                $scope.carros.reverse();
                 $scope.showFeedback("correcto","se ha introducido un nuevo carro");
 
             });
             nuevoCarro.error(function (data, status, headers, config) {
               $scope.showFeedback("error","ha surguido un error en la consulta");
             });
+            $scope.carros.reverse();
     };
 
     $scope.popupEditarCarro = function(oldName,id_carro,index){
@@ -137,14 +126,63 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
             });
         };
 
-
-
-    $scope.click = function (id_carro) {
-        misCarrosService.id_carro = id_carro;
-        $location.path("/app/productosCarro");
-    }
-
     $scope.obtenerCarrosUsuario();
 
+
+    //////////Modal Productos carro ////////
+    $scope.productosCarro = [];
+
+    var obtenerProductosCarro = function (id_carro) {
+        $scope.verificarToken();
+        var dataProductosCarro = {
+            "accesToken": $scope.token.accesToken,
+            "id_carro":id_carro
+        };
+        var productosCarro = $http.post($scope.dominio + '/usuario/carro/obtenerProductosCarro', dataProductosCarro);
+        productosCarro.success(function (data, status, headers, config) {
+            $scope.productosCarro = data;
+            console.log(data);
+        });
+        productosCarro.error(function (data, status, headers, config) {
+          $scope.showFeedback("error","ha surguido un error en la consulta");
+        });
+    };
+
+    $scope.eliminarProducto = function (index_producto,id_producto) {
+        $scope.verificarToken();
+                dataProductoEliminar = {
+                    "accesToken": $scope.token.accesToken,
+                    "id_carro": $scope.id_carro_modal,
+                    "id_producto_carro": id_producto
+                };
+                var eliminarProducto = $http.post($scope.dominio + '/usuario/carro/eliminarProductoCarro', dataProductoEliminar);
+                eliminarProducto.success(function (data, status, headers, config) {
+                  console.log(data);
+                  $scope.productosCarro.splice(index_producto,1);
+                });
+                eliminarProducto.error(function (data, status, headers, config) {
+                  $scope.showFeedback("error","ha surguido un error en la consulta");
+                });
+    };
+
+
+
+    $scope.openModal = function(id_carro,index_carro) {
+      $scope.id_carro_modal = id_carro;
+      $scope.index_carro = index_carro;
+      obtenerProductosCarro(id_carro);
+      $ionicModal.fromTemplateUrl('modules/myCart/productosCarroModal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+          $scope.modal.show();
+        });
+    };
+
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+      $scope.modal.remove();
+    };
 
 });

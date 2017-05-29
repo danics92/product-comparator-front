@@ -7,9 +7,9 @@
               <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
               <p>N de tiendas: {{producto.productoTiendas.length}}</p>
               <p>Valoracion Total:  {{producto.valoracionTotal}} </p>
-              <button  ng-click=openModal($index)>ver</button>
+              <button ng-click=openModal($index)>ver</button>
               <button ng-click="seguimientoManager(producto.id,$index)">seguir</button>
-              <button></button>
+              <button ng-click=openModalMap(producto.id)>Ver Mapa</button>
         </ion-list>
     </ion-content>
 </ion-view>

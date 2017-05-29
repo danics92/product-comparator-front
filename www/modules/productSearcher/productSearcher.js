@@ -1,7 +1,7 @@
 /**
  * Created by danilig on 15/05/17.
 */
-app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout){
+app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope){
 
     $scope.verificarToken();
 
@@ -250,6 +250,9 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
     $scope.modalCarro.hide();
     $scope.modalCarro.remove();
   };
+
+  $scope.googleMapsUrl= "https://maps.google.com/maps/api/js?key=AIzaSyAWCcHwYV6V49ov4V750wsUXu-UK6t1GuA";
+
 
 
 

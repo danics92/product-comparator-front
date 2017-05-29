@@ -81,15 +81,6 @@ var app = angular.module('starter', ['ionic', 'starter.controllers'])
                     }
                 }
             })
-            .state('app.productosCarro', {
-                url: '/productosCarro',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'modules/productsChart/productosCarro.html',
-                        controller: 'productosCarroCtrl'
-                    }
-                }
-            })
             .state('app.productos', {
                 url: '/productos',
                 views: {

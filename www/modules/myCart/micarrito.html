@@ -2,7 +2,7 @@
     <ion-content>
         <button class="button button-balanced" ng-click="popupNuevoCarro()">Añadir</button>
         <ion-list>
-            <ion-item ng-repeat="carro in carros" class="item" ng-click="click(carro.id)">
+            <ion-item ng-repeat="carro in carros" class="item" ng-click="openModal(carro.id,$index)">
       <h2>{{carro.nombre}}</h2>
       <p> {{carro.precioTotal}}</p>
       <ion-option-button class="button-calm"

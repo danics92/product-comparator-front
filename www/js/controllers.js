@@ -3,9 +3,9 @@ angular.module('starter.controllers', [])
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup) {
 
 
-        $scope.dominio = "http://localhost:3005";
+      $scope.dominio = "http://localhost:3005";
 
-        //$scope.dominio = "http://192.168.38.40:3005";
+      //  $scope.dominio = "http://192.168.38.51:3005";
 
         $scope.closeSession = function () {
             localStorage.removeItem("access_token");
