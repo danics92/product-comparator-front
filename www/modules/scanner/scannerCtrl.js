@@ -1,9 +1,9 @@
 /**
  * Created by danilig on 15/05/17.
  */
-app.controller("scannerCtrl", function($scope,$cordovaBarcodeScanner){
+app.controller("scannerCtrl", function($scope, $cordovaBarcodeScanner){
     $scope.scanBarcode = function() {
-        console.log("entra");
+        // alert("entra");
         $cordovaBarcodeScanner.scan().then(function(imageData) {
             alert(imageData.text);
             console.log("Barcode Format -> " + imageData.format);
