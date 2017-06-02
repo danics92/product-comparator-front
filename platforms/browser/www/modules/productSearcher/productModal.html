@@ -1,0 +1,40 @@
+<ion-modal-view >
+   <ion-header-bar align-title="center" class="bar-positive">
+      <h1 class="title">Informacion</h1>
+     <div class="buttons">
+        <button class="button" ng-click="closeModal()">Salir</button>
+      </div>
+   </ion-header-bar>
+  <ion-content>
+    <h2>{{productos[indexProducto].nombre}}</h1>
+    <h3>{{productos[indexProducto].marca.nombre}}</h2>
+    <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>
+    <div class="item item-divider">
+    Informacion nutricional
+    </div>
+    <p>valor calorico: {{productos[indexProducto].valorEnergetico}}</p>
+    <p>hidratos de carbono: {{productos[indexProducto].carbohidratos}}</p>
+    <p>proteinas: {{productos[indexProducto].proteinas}}</p>
+    <p>grasas: {{productos[indexProducto].grasas}}</p>
+    <div class="item item-divider">
+    Tiendas
+  </div>
+    <ion-list>
+      <ion-item class="item"  ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
+        <p>{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</p>
+        <p>{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</p>
+        <p>precio:{{productoTienda.historialPrecio.precio}}</p>
+          <button ng-click="openCarroModal(productoTienda.id)">Añadir a carro</button>
+        <ion-option-button class="button-assertive"
+                                    ng-click="edit(item)">
+                   Edit
+                 </ion-option-button>
+                 <ion-option-button class="button-calm"
+                                    ng-click="share(item)">
+                   Share
+                 </ion-option-button>
+ </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-modal-view>

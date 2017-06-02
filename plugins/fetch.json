@@ -46,5 +46,29 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-camera": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-camera"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-barcodescanner": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-barcodescanner"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "phonegap-plugin-barcodescanner": {
+        "source": {
+            "type": "registry",
+            "id": "https://github.com/jrontend/phonegap-plugin-barcodescanner"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

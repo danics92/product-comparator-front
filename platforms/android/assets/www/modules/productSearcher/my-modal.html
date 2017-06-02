@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <title>Ionic Swipe Down</title>
+
+    <link href="http://www.loringdodge.com/files/ionic.min.css" rel="stylesheet">
+    <link href="http://www.loringdodge.com/files/nifty.modal.css" rel="stylesheet">
+
+
+    <script src="http://code.ionicframework.com/collide/0.0.4/collide.js"></script>
+
+    <script src="http://www.loringdodge.com/files/ionic.bundle.min.js"></script>
+    <script src="http://www.loringdodge.com/files/ionic.tdcards.js"></script>
+
+    <script id="my-modal.html" type="text/ng-template">
+        <ion-modal-view class="ion-nifty-modal">
+            <div class="ion-modal-content-custom">
+                <ion-content class="padding">
+                    <button class="button button-full button-positive" ng-click="closeModal()">Close Modal</button>
+                </ion-content>
+            </div>
+        </ion-modal-view>
+    </script>
+</head>
+
+<body ng-app="starter">
+
+<ion-pane>
+    <ion-header-bar class="bar-stable">
+        <h1 class="title">Ionic Nifty Modal</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div ng-controller="MyController">
+
+            <button ng-repeat="class in modalClasses" class="button button-full button-assertive" ng-click="openModal(class)">{{ class }}</button>
+
+        </div>
+    </ion-content>
+</ion-pane>
+</body>
+</html>
