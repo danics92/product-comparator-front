@@ -32,3 +32,18 @@
 .star-rating.readonly .star.filled {
   color: #666;
 }
+.demo-layout-transparent {
+  background-image: url(../img/transparent.jpg);
+}
+.demo-layout-transparent .mdl-layout__header,
+.demo-layout-transparent .mdl-layout__drawer-button {
+  /* This background is dark, so we set text to white. Use 87% black instead if
+     your background is light. */
+  color: white;
+}
+
+.button-add {
+    float: right;
+    right: 20px;
+    top: 20px;
+}

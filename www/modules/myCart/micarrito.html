@@ -1,6 +1,5 @@
 <ion-view view-title="Mis carros">
     <ion-content>
-        <button class="button button-balanced" ng-click="popupNuevoCarro()">Añadir</button>
         <ion-list>
             <ion-item ng-repeat="carro in carros" class="item" ng-click="openModal(carro.id,$index)">
       <h2>{{carro.nombre}}</h2>
@@ -15,6 +14,9 @@
                </ion-option-button>
             </ion-item>
         </ion-list>
+        <button class="button-add mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="popupNuevoCarro()">
+          <i class="material-icons">add</i>
+        </button>
     </ion-content>
 </ion-view>
 

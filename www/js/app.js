@@ -17,7 +17,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleDefault();
+                StatusBar.styleLightContent();
             }
 
             $rootScope.dominio = "http://localhost:3005";
