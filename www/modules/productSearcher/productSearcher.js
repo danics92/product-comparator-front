@@ -1,7 +1,7 @@
 /**
  * Created by danilig on 15/05/17.
 */
-app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope){
+app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope,filtradoService){
 
     $scope.verificarToken();
 
@@ -62,11 +62,29 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         });
     };
 
+
+
     $scope.obtenerProductos = function(){
-        $scope.verificarToken();
-        var ajaxProductos = $http.post($scope.dominio + '/producto/obtenerProductosPorLocalidad',$scope.token);
+      var data = {
+        accesToken:$scope.token.accesToken,
+        categoriaGeneral:filtradoService.filtros.categoriaGeneral,
+        subcategoria:filtradoService.filtros.subcategoria,
+        categoriaProductos:filtradoService.filtros.categoriaProductos,
+        calorias:filtradoService.filtros.calorias,
+        hidratos:filtradoService.filtros.hidratos,
+        grasas:filtradoService.filtros.grasas,
+        proteinas:filtradoService.filtros.proteinas,
+        localidad:filtradoService.filtros.localidad
+
+      }
+
+      $scope.verificarToken();
+        var ajaxProductos = $http.post($scope.dominio + '/producto/obtenerProductosPorLocalidad',data);
 
         ajaxProductos.success(function (data, status, headers, config) {
+          console.log("productos");
+
+          console.log(data);
           for(var i = 0; i < data.length; i++){
             var mejorPrecio = 0;
             var valoracion = 0;
@@ -88,12 +106,6 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
             $scope.showFeedback("error","ha surguido un error en la consulta");
         });
     };
-
-    if(!$scope.filtro){
-        $scope.obtenerProductos();
-    }
-
-
 
     var hacerSeguimiento = function(id_producto,index){
         $scope.verificarToken();
@@ -136,7 +148,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
           if($scope.productos[index].productoTiendas[i].historialPrecio == undefined || $scope.productos[index].productoTiendas[i].historialPrecio.length <=0 ){
           $scope.productos[index].productoTiendas[i].historialPrecio.precio = 0;
         }else {
-            $scope.productos[index].productoTiendas[i].historialPrecio.precio =   $scope.productos[index].productoTiendas[i].historialPrecio[  $scope.productos[index].productoTiendas[i].historialPrecio.length-1].precio;
+            $scope.productos[index].productoTiendas[i].historialPrecio.precio =   $scope.productos[index].productoTiendas[i].historialPrecio[0].precio;
         }
           id_tiendas.push($scope.productos[index].productoTiendas[i].idTienda);
         }
@@ -253,6 +265,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
 
   $scope.googleMapsUrl= "https://maps.google.com/maps/api/js?key=AIzaSyAWCcHwYV6V49ov4V750wsUXu-UK6t1GuA";
 
+  $scope.obtenerProductos();
 
 
 

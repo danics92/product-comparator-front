@@ -1,8 +1,7 @@
 /**
  * Created by danilig on 15/05/17.
  */
-(function () {
-    'use strict';
+
     app.controller("loginCtrl", function ($http, $scope, $ionicModal, $location) {
 
         $scope.dominio = "http://localhost:3005";
@@ -21,10 +20,13 @@
                     $location.path("/app/micarrito");
                 }
             });
-        };
+            res.error(function (data, status, headers, config) {
+
+            });
+        }
 
         $scope.login = function () {
             createToken();
         }
+
     });
-})();

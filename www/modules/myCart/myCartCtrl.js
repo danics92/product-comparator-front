@@ -19,6 +19,7 @@ app.controller("misCarrosCtrl", function ($http, $scope, $ionicModal, $location,
               $scope.obtenerPrecioCarros();
           });
           carros.error(function (data, status, headers, config) {
+            console.log("aqui2");
             $scope.showFeedback("error","ha surguido un error en la consulta");
           });
     };
