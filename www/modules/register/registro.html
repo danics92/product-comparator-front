@@ -8,37 +8,24 @@
       <ion-content class="padding">
         <div class = "list">
           <form name="registro">
-                  <label class="padding item item-input item-stacked-label" for="nombre">
-                      <span class="input-label">Nombre</span>
+                  <label class="padding item item-input" for="nombre">
                       <input type="text" name="nombre" id="nombre" placeholder="Nombre" required ng-model="register.nombre">
                   </label>
-                  <label class="padding item item-input item-stacked-label" for="apellidos">
-                      <span class="input-label">Apellidos</span>
+                  <label class="padding item item-input" for="apellidos">
                       <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" required ng-model="register.apellidos">
                   </label>
-                  <label class="padding item item-input item-stacked-label" for="telefono">
-                      <span class="input-label">Telefono</span>
+                  <label class="padding item item-input" for="telefono">
                       <input type="tel" name="telefono" id="telefono" maxlength="9" placeholder="Telefono" required ng-model="register.telefono">
                   </label>
-                  <label class="padding item item-input item-stacked-label" for="email">
-                      <span class="input-label">Email</span>
+                  <label class="padding item item-input" for="email">
                       <input type="email" name="email" id="email" placeholder="Email" required ng-model="register.email">
-                      <div class="padding">
-                          <p ng-show="registro.email.$error.required">El email es obligatorio</p>
-                  </div>
                   </label>
-                  <label class="padding item item-input item-stacked-label" for="password">
-                      <span class="input-label">Password</span>
+                  <label class="padding item item-input" for="password">
                       <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="register.password">
-                      <div class="padding">
-                          <p ng-show="registro.password.$error.required">La contraseña es obligatoria</p>
-                      </div>
                   </label>
-                  <label class="item item-input item-select" for="localidad">
-                    <div class="input-label">
-                        Localidad
-                      </div>
-                      <select id="localidad" required ng-model="register.idLocalidad">
+                  <label class="item item-input item-select" >
+                    <div class="input-label" for="localidad">Localidad</div>
+                        <select id="localidad" required ng-model="register.idLocalidad">
                           <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
                       </select>
                   </label>

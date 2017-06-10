@@ -3,7 +3,7 @@
     <form ng-submit="login()">
       <div class="list list-inset ">
   <label class="padding item item-input" for="email">
-    <input type="email" name="email" id="email" placeholder="Email" required ng-model="loginData.email">
+    <input type="email" name="email" id="email" class="mdl-textfield__input" placeholder="Email" required ng-model="loginData.email">
   </label>
   <label class="padding item item-input">
     <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="loginData.password">
@@ -11,7 +11,7 @@
   <button class="button button-block button-positive" ng-click="login()">
     Entrar
   </button>
-<p class="text-center">No tienes cuenta? <a  href="#/registro" class="button-balanced">registrate</a></p>
+<p class="text-center">No tienes cuenta? <a  href="#/registro" class="button-balanced">Registrate</a></p>
 </div>
     </form>
 

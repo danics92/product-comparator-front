@@ -20,7 +20,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
                 StatusBar.styleLightContent();
             }
 
-            $rootScope.dominio = "http://localhost:3005";
+            $rootScope.dominio = "http://192.168.1.44:3005";
         });
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {

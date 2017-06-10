@@ -12,7 +12,7 @@
                     <input type="email" name="email" id="email" placeholder="Email" required ng-model="loginData.email">
                 </label>
                 <label class="padding item item-input">
-                    <textarea ng-model="comentario" placeholder="Comenta aquí"></textarea>
+                    <textarea class="textarea" ng-model="comentario" placeholder="Comenta aquí" ng-model="loginData.comment"></textarea>
                 </label>
                 <button class="button button-block button-positive" ng-click="mailTo()">
                     Enviar

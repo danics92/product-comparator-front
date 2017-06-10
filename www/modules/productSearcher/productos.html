@@ -3,15 +3,30 @@
         <button ng-click="goTo('/app/filtrar')">Filtrar</button>
         <ion-list>
             <ion-item ng-repeat="producto in productos" class="item">
-
-              <p>nombr: {{producto.nombre}}</p>
+              <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">{{producto.nombre}}</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <p>Marca: {{producto.marca.nombre}}</p>
+                  <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
+                  <p>N de tiendas: {{producto.productoTiendas.length}}</p>
+                  <p>Valoracion Total:  {{producto.valoracionTotal}} </p>
+                </div>
+                <div class="mdl-card__menu">
+                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click=openModal($index)><i class="material-icons">search</i></button>
+                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click="seguimientoManager(producto.id,$index)"><i class="material-icons">forward</i></button>
+                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click=openModalMap(producto.id)><i class="material-icons">place</i></button>
+                </div>
+              </div>
+              <!-- <p>nombre: {{producto.nombre}}</p>
               <p>Marca: {{producto.marca.nombre}}</p>
               <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
               <p>N de tiendas: {{producto.productoTiendas.length}}</p>
               <p>Valoracion Total:  {{producto.valoracionTotal}} </p>
               <button ng-click=openModal($index)>ver</button>
               <button ng-click="seguimientoManager(producto.id,$index)">seguir</button>
-              <button ng-click=openModalMap(producto.id)>Ver Mapa</button>
+              <button ng-click=openModalMap(producto.id)>Ver Mapa</button> -->
         </ion-list>
     </ion-content>
 </ion-view>
