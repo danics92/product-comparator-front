@@ -120,3 +120,7 @@ select {
           color: #fff;
           opacity: inherit;
         }
+.spinner svg {
+  height: 200px;
+  width: 100%;
+}

@@ -1,15 +1,24 @@
 /**
  * Created by danilig on 15/05/17.
  */
-app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal, $location, $ionicPopup) {
-    // $scope.verificarToken();
+app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal, $location, $ionicPopup,$ionicLoading) {
+    $scope.verificarToken();
 
     var dataNuevoCarro = {};
     var dataEliminarCarro = {};
     var dataEditarCarro = {};
     var dinero = 0;
+    $scope.show = function() {
+      $ionicLoading.show({
+        template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+      });
+    };
 
+    $scope.hide = function(){
+          $ionicLoading.hide();
+    };
       $scope.index_carro = 0;
+      $scope.show();
 
     $scope.obtenerCarrosUsuario = function(){
           $scope.verificarToken();
@@ -17,6 +26,11 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
           carros.success(function (data, status, headers, config) {
               $scope.carros = data;
               $scope.obtenerPrecioCarros();
+              //Tiempo de spinner
+              setTimeout(function(){
+                $scope.hide();
+              },1500);
+
           });
           carros.error(function (data, status, headers, config) {
             console.log("aqui2");
