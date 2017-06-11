@@ -32,16 +32,27 @@
 .star-rating.readonly .star.filled {
   color: #666;
 }
-.demo-layout-transparent {
-  background-image: url(../img/transparent.jpg);
+/*.demo-card-wide.mdl-card {
+  width: 512px;
+}*/
+.demo-card-wide > .mdl-card__title {
+  color: black;
+  height: 176px;
+  background: url('../img/transparent.jpg');
 }
-.demo-layout-transparent .mdl-layout__header,
-.demo-layout-transparent .mdl-layout__drawer-button {
-  /* This background is dark, so we set text to white. Use 87% black instead if
-     your background is light. */
-  color: white;
+table tr, td, th {
+  border: 1px solid #999;
 }
-
+td,th{
+  padding: 20px;
+}
+th{
+  font-size:18px;
+  font-weight: bold;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: black;
+}
 .textarea {
   height: 95px;
 }
@@ -50,4 +61,30 @@
     float: right;
     right: 20px;
     top: 20px;
+}
+
+.input-label{
+  top:0px!important;
+}
+
+.item-divider{
+  font-size:18px!important;
+  margin-bottom: 5px!important;
+  font-weight: bold!important;
+  background-color: lightBlue!important;
+}
+
+select {
+  background: #EEE!important
+  margin: 5px;
+}
+
+.button-normal {
+    float: right;
+    right: 20px;
+}
+
+#filtrarBtn {
+  margin: 10px;
+  float: right;
 }

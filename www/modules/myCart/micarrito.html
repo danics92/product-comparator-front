@@ -1,19 +1,18 @@
 <ion-view view-title="Mis carros">
     <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="carro in carros" class="item" ng-click="openModal(carro.id,$index)">
-      <h2>{{carro.nombre}}</h2>
-      <p> {{carro.precioTotal}}</p>
-      <ion-option-button class="button-calm"
-                                  ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
-                 Edit
-               </ion-option-button>
-               <ion-option-button class="button-assertive"
-                                  ng-click="deleteCarro(carro.id,$index)">
-                 Delete
-               </ion-option-button>
-            </ion-item>
-        </ion-list>
+        <!-- <ion-list> -->
+          <ion-item ng-repeat="carro in carros" ng-click="openModal(carro.id,$index)" class="item-avatar">
+              <img src="img/carrito.svg" width="20px" height="20px">
+              <h2>{{carro.nombre}}</h2>
+              <p> {{carro.precioTotal}}</p>
+              <button class="button-normal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="deleteCarro(carro.id,$index)">
+                          <i class="material-icons">delete</i>
+              </button>
+              <button class="button-normal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
+                        <i class="material-icons">mode_edit</i>
+              </button>
+          </ion-item>
+        <!-- </ion-list> -->
         <button class="button-add mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="popupNuevoCarro()">
           <i class="material-icons">add</i>
         </button>

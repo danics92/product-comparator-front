@@ -1,9 +1,9 @@
-<ion-view view-title="Productos">
+<ion-view view-title="Productos" class="bar-asserive">
     <ion-content>
-        <button ng-click="goTo('/app/filtrar')">Filtrar</button>
-        <ion-list>
-            <ion-item ng-repeat="producto in productos" class="item">
-              <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <button class="button button-assertive" ng-click="goTo('/app/filtrar')"><i class="material-icons ">filter_list</i>Busqueda</button>
+        <ion-list class="mdl-grid">
+            <div ng-repeat="producto in productos" class="item mdl-cell--2-col">
+              <div class="demo-card-wide">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">{{producto.nombre}}</h2>
                 </div>
@@ -19,6 +19,7 @@
                   <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click=openModalMap(producto.id)><i class="material-icons">place</i></button>
                 </div>
               </div>
+            </div>
               <!-- <p>nombre: {{producto.nombre}}</p>
               <p>Marca: {{producto.marca.nombre}}</p>
               <p>Precio mas barato: {{producto.mejorPrecio}} €</p>

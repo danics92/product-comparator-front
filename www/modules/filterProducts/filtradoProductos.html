@@ -36,7 +36,6 @@ productos
  Informacion del producto
 </div>
 
-
 <label class="item ">
 <div class="item-content">Valor calorico</div>
 <div class="range range-positive">
@@ -82,7 +81,7 @@ productos
     <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
 </select>
 </label>
-<button ng-click="realizarFiltrado()" class="button button-clear button-positive">
+<button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive">
   Filtrar
 </button>
 
