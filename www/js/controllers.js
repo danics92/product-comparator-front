@@ -1,12 +1,6 @@
 angular.module('starter.controllers', [])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope) {
-
-
-        $scope.dominio = "http://localhost:3005";
-      // $scope.dominio = "http://192.168.1.7:3005";
-      //  $scope.dominio = "http://192.168.38.51:3005";
-
         $scope.closeSession = function () {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token")
@@ -20,7 +14,7 @@ angular.module('starter.controllers', [])
         $scope.carros = [];
 
         var obtenerLocalidadUsuario = function(){
-          var localidad = $http.post($scope.dominio + '/usuario/obtenerLocalidadUsuario', $scope.token);
+          var localidad = $http.post($rootScope.dominio + '/usuario/obtenerLocalidadUsuario', $scope.token);
           localidad.success(function (data, status, headers, config) {
             console.log("obteniendo localidad usuario");
               $rootScope.localidadUsuario = data;
@@ -49,7 +43,7 @@ angular.module('starter.controllers', [])
 
         $scope.verificarToken = function () {
             console.log("verificando");
-            ajax = $http.post($scope.dominio + '/token/validarToken', $scope.token);
+            ajax = $http.post($rootScope.dominio + '/token/validarToken', $scope.token);
             ajax.success(function (data, status, headers, config) {
                 if (data === 300) {
                     $scope.closeSession();
@@ -64,7 +58,7 @@ angular.module('starter.controllers', [])
         };
 
         $scope.refrescarToken = function () {
-            ajax = $http.post($scope.dominio + '/token/refrescarToken', $scope.token);
+            ajax = $http.post($rootScope.dominio + '/token/refrescarToken', $scope.token);
             ajax.success(function (data, status, headers, config) {
                 if (data) {
                     localStorage.setItem("access_token", data.accesToken);

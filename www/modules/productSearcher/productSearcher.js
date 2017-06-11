@@ -18,7 +18,7 @@ app.service('filtradoService', function() {
    this.verFiltro = true;
    this.verEliminarFiltro = false;
 });
-app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope,filtradoService){
+app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope,filtradoService){
 
     $scope.verificarToken();
 
@@ -29,7 +29,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
     $scope.indexProducto = 0;
 
     $scope.carrosCompra = [];
- 
+
     console.log($scope.verFiltro);
 
     var indexCarro = 0;
@@ -61,7 +61,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
     };
 
     var comprobarSeguimientoProducto = function(){
-        var seguimientos = $http.post($scope.dominio + '/usuario/seguimiento/obtenerTodosLosSeguimientos',$scope.token);
+        var seguimientos = $http.post($rootScope.dominio + '/usuario/seguimiento/obtenerTodosLosSeguimientos',$scope.token);
         seguimientos.success(function (data, status, headers, config) {
           for(var i = 0; i < $scope.productos.length; i++){
               for(var j = 0; j < data.length; j++){
@@ -99,7 +99,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         maxResult:filtradoService.filtros.size
       }
       $scope.verificarToken();
-        var ajaxProductos = $http.post($scope.dominio + '/producto/obtenerProductosPorLocalidad',data);
+        var ajaxProductos = $http.post($rootScope.dominio + '/producto/obtenerProductosPorLocalidad',data);
 
         ajaxProductos.success(function (data, status, headers, config) {
           console.log("productos");
@@ -135,7 +135,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
             id_producto: id_producto
         };
 
-        var ajaxSeguimiento = $http.post($scope.dominio + '/usuario/seguimiento/realizarSeguimiento',dataSeguimiento);
+        var ajaxSeguimiento = $http.post($rootScope.dominio + '/usuario/seguimiento/realizarSeguimiento',dataSeguimiento);
         ajaxSeguimiento.success(function (data, status, headers, config) {
             $scope.productos[index].seguimiento = true;
             $scope.productos[index].seguimientoImg = "favorite";
@@ -151,7 +151,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
             accesToken: $scope.token.accesToken,
             id_producto: id_producto
         };
-        var ajaxEliminarSeguimiento = $http.post($scope.dominio + '/usuario/seguimiento/eliminarSeguimiento', dataElimarSeguimiento);
+        var ajaxEliminarSeguimiento = $http.post($rootScope.dominio + '/usuario/seguimiento/eliminarSeguimiento', dataElimarSeguimiento);
         ajaxEliminarSeguimiento.success(function (data, status, headers, config) {
           $scope.productos[index].seguimiento = false;
           $scope.productos[index].seguimientoImg = "favorite_border";
@@ -172,7 +172,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         }
           id_tiendas.push($scope.productos[index].productoTiendas[i].idTienda);
         }
-        var tiendas = $http.get($scope.dominio + '/productoTienda/obtenerTiendasPorProductos?id_tiendas='+id_tiendas);
+        var tiendas = $http.get($rootScope.dominio + '/productoTienda/obtenerTiendasPorProductos?id_tiendas='+id_tiendas);
         tiendas.success(function (data, status, headers, config) {
           console.log(data);
             $scope.productos[index].productoTiendas.tiendas = [];
@@ -227,7 +227,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
         idProductoTienda: $scope.idProductoTienda
       }
 
-        var productoAnadido = $http.post($scope.dominio + '/usuario/carro/anadirProductoACarro',dataAnadirProducto);
+        var productoAnadido = $http.post($rootScope.dominio + '/usuario/carro/anadirProductoACarro',dataAnadirProducto);
         productoAnadido.success(function (data, status, headers, config) {
           console.log(data);
           $scope.carros[index].precioTotal += data;
@@ -252,7 +252,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
 
   $scope.obtenerCarrosUsuario = function(){
         $scope.verificarToken();
-        var carros = $http.post($scope.dominio + '/usario/carros/obtenerCarrosUsuario', $scope.token);
+        var carros = $http.post($rootScope.dominio + '/usario/carros/obtenerCarrosUsuario', $scope.token);
         carros.success(function (data, status, headers, config) {
             $scope.carros = data;
             $scope.obtenerPrecioCarros();
@@ -275,7 +275,7 @@ app.controller("productosCtrl", function($http, $scope,$ionicModal,$location,$io
       carros: id_carros
     }
 
-    var precios = $http.post($scope.dominio + '/carro/obtenerPreciosCarro',dataCarros);
+    var precios = $http.post($rootScope.dominio + '/carro/obtenerPreciosCarro',dataCarros);
     precios.success(function (data, status, headers, config) {
       for(var i = 0; i < $scope.carros.length; i++){
         $scope.carros[i].precioTotal = data[i];

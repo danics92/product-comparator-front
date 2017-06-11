@@ -2,18 +2,13 @@
  * Created by danilig on 15/05/17.
  */
 
-    app.controller("loginCtrl", function ($http, $scope, $ionicModal, $location) {
-
-        $scope.dominio = "http://localhost:3005";
-      //  $scope.dominio = "http://192.168.1.7:3005";
-       //$scope.dominio = "http://192.168.38.51:3005";
+    app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $location) {
 
         $scope.loginData = {};
-
+        console.log($rootScope.dominio);
         var createToken = function () {
-            var res = $http.post($scope.dominio + '/token/crearToken', $scope.loginData);
+            var res = $http.post($rootScope.dominio + '/token/crearToken', $scope.loginData);
             res.success(function (data, status, headers, config) {
-                console.log(data);
                 if (data.accesToken && data.refreshToken) {
                     localStorage.setItem("access_token", data.accesToken);
                     localStorage.setItem("refresh_token", data.refreshToken);

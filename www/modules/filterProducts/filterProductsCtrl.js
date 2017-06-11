@@ -3,7 +3,7 @@
  */
 
 
-app.controller("filterProductsCtrl", function ($http, $scope, $location,$window,filtradoService) {
+app.controller("filterProductsCtrl", function ($rootScope,$http, $scope, $location,$window,filtradoService) {
 $scope.categoriaGeneral= {};
 $scope.subcategorias = {};
 $scope.productos = [];
@@ -33,7 +33,7 @@ $scope.proteinas = {
 $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
 
   var obtenerCategoriasTop = function(){
-    var categoriasTop =  $http.get($scope.dominio + "/categoria/obtenerCategoriasTop");
+    var categoriasTop =  $http.get($rootScope.dominio + "/categoria/obtenerCategoriasTop");
     categoriasTop.success(function(data, status, headers, config){
       console.log(data);
         $scope.categoriaGeneral = data;
@@ -44,9 +44,9 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
   $scope.obtenerSubcategorias = function(id_padre){
     var subcategorias = 0;
     if(id_padre === "0"){
-      subcategorias = $http.get($scope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+true);
+      subcategorias = $http.get($rootScope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+true);
     }else{
-      subcategorias = $http.get($scope.dominio + "/categoria/ObtenerHijosDeCategoriaPadre?id_padre="+id_padre);
+      subcategorias = $http.get($rootScope.dominio + "/categoria/ObtenerHijosDeCategoriaPadre?id_padre="+id_padre);
     }
     subcategorias.success(function(data, status, headers, config){
       console.log(data);
@@ -60,9 +60,9 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
    $scope.obtenerProductos = function(id_padre){
      var productoCategoria = 0;
      if(id_padre == "0"){
-       productoCategoria =  $http.get($scope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+false);
+       productoCategoria =  $http.get($rootScope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+false);
      }else{
-       productoCategoria =  $http.get($scope.dominio + "/categoria/ObtenerHijosDeCategoriaPadre?id_padre="+id_padre);
+       productoCategoria =  $http.get($rootScope.dominio + "/categoria/ObtenerHijosDeCategoriaPadre?id_padre="+id_padre);
      }
     productoCategoria.success(function(data, status, headers, config){
       console.log(data);
@@ -75,8 +75,8 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
 
 
   var obtenerLocalidadesRegistro = function(){
-      console.log($scope.dominio);
-      var ajax =  $http.get($scope.dominio + "/localidad/obtenerTodasLocalidades");
+      console.log($rootScope.dominio);
+      var ajax =  $http.get($rootScope.dominio + "/localidad/obtenerTodasLocalidades");
       ajax.success(function(data, status, headers, config){
           $scope.localidades = data;
       });
