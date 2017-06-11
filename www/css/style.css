@@ -64,7 +64,7 @@ th{
 }
 
 .input-label{
-  top:0px!important;
+  top:2px!important;
 }
 
 .item-divider{
@@ -75,10 +75,11 @@ th{
 }
 
 select {
-  background: #EEE!important
+  background: #EEE!important;
+}
+#filterProducts label.item-select{
   margin: 5px;
 }
-
 .button-normal {
     float: right;
     right: 20px;

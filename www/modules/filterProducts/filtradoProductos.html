@@ -1,11 +1,11 @@
 
 <ion-view view-title="Filtro de productos">
-  <ion-content>
+  <ion-content id="filterProducts">
       <ion-list>
     <div class="item item-divider">
      Categoria
     </div>
-    <label class="item item-input item-select">
+    <label class="item item-select">
     <div class="input-label">
       Categoria padre
     </div>
@@ -14,7 +14,7 @@
         <option ng-repeat="categoria in categoriaGeneral" value={{categoria.id}}>{{categoria.nombre}}</option>
     </select>
   </label>
-  <label class="item item-input item-select">
+  <label class="item item-select">
   <div class="input-label">
   Subcategoria
   </div>
@@ -23,7 +23,7 @@
       <option ng-repeat="subcategoria in subcategorias" value={{subcategoria.id}}>{{subcategoria.nombre}}</option>
   </select>
 </label>
-<label class="item item-input item-select">
+<label class="item item-select">
 <div class="input-label">
 productos
 </div>
@@ -72,7 +72,7 @@ productos
 <div class="item item-divider">
  Localidad
 </div>
-<label class="item item-input item-select">
+<label class="item item-select">
 <div class="input-label">
   Localidad
 </div>
