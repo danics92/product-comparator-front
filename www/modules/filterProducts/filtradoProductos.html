@@ -1,6 +1,8 @@
 
 <ion-view view-title="Filtro de productos">
+
   <ion-content id="filterProducts">
+        <button ng-show="verEliminarFiltro"  ng-click="eliminarFiltro()">Eliminar Filtrado</button>
       <ion-list>
     <div class="item item-divider">
      Categoria
@@ -9,8 +11,8 @@
     <div class="input-label">
       Categoria padre
     </div>
-    <select ng-change="obtenerSubcategorias(filtrado.categoriaGeneral)" id="top" required ng-model="filtrado.categoriaGeneral">
-        <option value="0" selected>Todas</option>
+    <select ng-change="obtenerSubcategorias(filtrado.categoriaGeneral)" id="top" required="required" ng-model="filtrado.categoriaGeneral">
+        <option value="0" selected="selected">Todas</option>
         <option ng-repeat="categoria in categoriaGeneral" value={{categoria.id}}>{{categoria.nombre}}</option>
     </select>
   </label>
@@ -84,6 +86,5 @@ productos
 <button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive">
   Filtrar
 </button>
-
   </ion-content>
 </ion-view>

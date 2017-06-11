@@ -20,7 +20,17 @@
                 </div>
               </div>
             </div>
+            <!--
               <!-- <p>nombre: {{producto.nombre}}</p>
+=======
+        <button ng-click="goTo('/app/filtrar')">Filtrar</button>
+        <button ng-click="goTo('/app/filtrar')" > Ordenar Precio</button>
+        <button ng-click="goTo('/app/filtrar')"> Ordenar Precio</button>
+        <ion-list>
+            <ion-item ng-repeat="producto in productos" class="item">
+
+              <p>nombr: {{producto.nombre}}</p>
+>>>>>>> Stashed changes
               <p>Marca: {{producto.marca.nombre}}</p>
               <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
               <p>N de tiendas: {{producto.productoTiendas.length}}</p>

@@ -1,10 +1,10 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope) {
 
 
-      // $scope.dominio = "http://localhost:3005";
-        $scope.dominio = "http://192.168.1.99:3005";
+      //  $scope.dominio = "http://localhost:3005";
+      $scope.dominio = "http://192.168.1.7:3005";
       //  $scope.dominio = "http://192.168.38.51:3005";
 
         $scope.closeSession = function () {

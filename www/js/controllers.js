@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope) {
 
 
-        $scope.dominio = "http://192.168.1.44:3005";
+        $scope.dominio = "http://localhost:3005";
       // $scope.dominio = "http://192.168.1.7:3005";
       //  $scope.dominio = "http://192.168.38.51:3005";
 
@@ -18,6 +18,23 @@ angular.module('starter.controllers', [])
         $scope.token.refreshToken = localStorage.getItem("refresh_token");
 
         $scope.carros = [];
+
+        var obtenerLocalidadUsuario = function(){
+          var localidad = $http.post($scope.dominio + '/usuario/obtenerLocalidadUsuario', $scope.token);
+          localidad.success(function (data, status, headers, config) {
+            console.log("obteniendo localidad usuario");
+              $rootScope.localidadUsuario = data;
+          });
+          localidad.error(function (data, status, headers, config) {
+            $scope.showFeedback("error","ha surguido un error en la consulta");
+          });
+        }
+
+        if( $rootScope.localidadUsuario == 0){
+          obtenerLocalidadUsuario();
+        }
+
+
 
         $scope.showFeedback = function(title,mensaje){
           var popupFeedback = $ionicPopup.alert({
