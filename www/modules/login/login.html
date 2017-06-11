@@ -1,19 +1,27 @@
-<ion-view view-title="login">
-  <ion-content>
-    <form ng-submit="login()">
-      <div class="list list-inset ">
-        <label class="padding item item-input" for="email">
-  <input type="email" name="email" id="email" placeholder="Email" required ng-model="loginData.email">
-</label>
-        <label class="padding item item-input">
-    <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="loginData.password">
-  </label>
-        <button class="button button-block button-positive" ng-click="login()">
-    Entrar
-  </button>
-        <p class="text-center">No tienes cuenta? <a href="#/registro" class="button-balanced">Registrate</a></p>
-      </div>
-    </form>
+<ion-view id="login" hide-nav-bar="true">
+    <ion-content padding="true" scroll="false">
+        <form ng-submit="login()">
+            <div class="row responsive-md">
+                <div class="col col-50 col-offset-25">
 
-  </ion-content>
+                    <div class="header padding text-center">
+                        <img src="../img/iconico.png" alt="icon"/>
+                    </div>
+
+                    <div class="list">
+                        <label class="item item-input">
+                            <input type="email" placeholder="Email" ng-model="loginData.email" required="required">
+                        </label>
+                        <label class="item item-input">
+                            <input type="password" placeholder="Password" ng-model="loginData.password" required="required">
+                        </label>
+                    </div>
+
+                    <button type="submit" class="button button-block button-positive">
+                        Log In
+                    </button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
 </ion-view>
