@@ -13,10 +13,9 @@ angular.module('starter.controllers', [])
 
         $scope.carros = [];
 
-        var obtenerLocalidadUsuario = function(){
+         $scope.obtenerLocalidadUsuario = function(){
           var localidad = $http.post($rootScope.dominio + '/usuario/obtenerLocalidadUsuario', $scope.token);
           localidad.success(function (data, status, headers, config) {
-            console.log("obteniendo localidad usuario");
               $rootScope.localidadUsuario = data;
           });
           localidad.error(function (data, status, headers, config) {
@@ -25,7 +24,7 @@ angular.module('starter.controllers', [])
         }
 
         if( $rootScope.localidadUsuario == 0){
-          obtenerLocalidadUsuario();
+          $scope.obtenerLocalidadUsuario();
         }
 
 
@@ -76,6 +75,8 @@ angular.module('starter.controllers', [])
         $scope.goTo = function(url){
           $location.path(url);
         }
+
+    
 
 
         $scope.verificarToken();

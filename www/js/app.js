@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
 
-    .run(function ($ionicPlatform,$rootScope) {
+    .run(function ($ionicPlatform,$rootScope,$ionicLoading) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -20,8 +20,17 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
                 StatusBar.styleLightContent();
             }
 
-            $rootScope.dominio = "http://192.168.1.39:3005";
+            $rootScope.dominio = "http://localhost:3005";
             $rootScope.localidadUsuario = 0;
+            $rootScope.showLoading = function() {
+              $ionicLoading.show({
+                template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+              });
+            };
+
+            $rootScope.hideLoading = function(){
+                  $ionicLoading.hide();
+            };
         });
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {

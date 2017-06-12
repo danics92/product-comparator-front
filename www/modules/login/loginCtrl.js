@@ -2,7 +2,7 @@
  * Created by danilig on 15/05/17.
  */
 
-    app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $location) {
+    app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $location,$ionicLoading) {
 
         $scope.loginData = {};
         console.log($rootScope.dominio);
@@ -16,12 +16,14 @@
                 }
             });
             res.error(function (data, status, headers, config) {
-
+              $scope.showFeedback("error","ha surguido un error en la consulta");
             });
         }
 
         $scope.login = function () {
+            $rootScope.showLoading();
             createToken();
+            $rootScope.hideLoading();
         }
 
     });

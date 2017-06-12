@@ -30,9 +30,15 @@ app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$
 
     $scope.carrosCompra = [];
 
-    console.log($scope.verFiltro);
+    $scope.ordenarPrecioAscActivado = true;
 
-    var indexCarro = 0;
+    $scope.ordenarPrecioDescActivado = false;
+
+    $scope.ordenarValoracionAscActivado = true;
+
+    $scope.ordenarValoracionDescActivado = false;
+
+      var indexCarro = 0;
 
   var obtenerPrecioMasBarato = function(productoTiendas){
       var mejorPrecio = 0;
@@ -84,6 +90,7 @@ app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$
 
 
     $scope.obtenerProductos = function(){
+        $scope.verificarToken();
       var data = {
         accesToken:$scope.token.accesToken,
         categoriaGeneral:filtradoService.filtros.categoriaGeneral,
@@ -98,7 +105,6 @@ app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$
         page:filtradoService.filtros.page,
         maxResult:filtradoService.filtros.size
       }
-      $scope.verificarToken();
         var ajaxProductos = $http.post($rootScope.dominio + '/producto/obtenerProductosPorLocalidad',data);
 
         ajaxProductos.success(function (data, status, headers, config) {
@@ -315,13 +321,48 @@ app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$
 
   $scope.googleMapsUrl= "https://maps.google.com/maps/api/js?key=AIzaSyAWCcHwYV6V49ov4V750wsUXu-UK6t1GuA";
 
-  $scope.obtenerProductos();
-
-  $scope.ordenarProductos = function(contenedor,valor,orden){
-
-
+  $scope.ordenarProductosEvento = function(contender,valor,orden){
+    $scope.ordenarProductos(contender,valor,orden);
   }
 
+  $scope.ordenarProductos = function(contenedor,valor,orden){
+        gestionarBotones(valor,orden);
+        if(orden === "asc"){
+          contenedor.sort(function(a,b){
+            if(valor === 'precio'){
+              console.log(contenedor);
+              return parseFloat(a.mejorPrecio) - parseFloat(b.mejorPrecio);
+            }else if(valor === 'valoracion'){
+              return parseFloat(a.valoracionTotal) - parseFloat(b.valoracionTotal);
+            }
+          });
+        }else if(orden === "desc"){
+          contenedor.sort(function(a,b){
+            if(valor === 'precio'){
+              return parseFloat(b.mejorPrecio) - parseFloat(a.mejorPrecio);
+            }else if(valor === 'valoracion'){
+                return parseFloat(b.valoracionTotal) - parseFloat(a.valoracionTotal);
+            }
+          });
+        }
+  }
 
+    $scope.obtenerProductos();
+
+    var gestionarBotones = function(valor,orden){
+      if(valor === 'precio' && orden === 'asc'){
+        $scope.ordenarPrecioAscActivado = false;
+          $scope.ordenarPrecioDescActivado = true;
+      }else if(valor === 'precio' && orden === 'desc'){
+        $scope.ordenarPrecioAscActivado = true;
+          $scope.ordenarPrecioDescActivado = false;
+      }else if(valor === 'valoracion' && orden === 'asc'){
+        $scope.ordenarValoracionAscActivado = false;
+        $scope.ordenarValoracionDescActivado = true;
+      }else if (valor === 'valoracion' && orden === 'desc') {
+        $scope.ordenarValoracionAscActivado = true;
+        $scope.ordenarValoracionDescActivado = false;
+      }
+    }
 
 });

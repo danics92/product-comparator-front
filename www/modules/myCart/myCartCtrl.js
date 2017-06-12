@@ -8,17 +8,11 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
     var dataEliminarCarro = {};
     var dataEditarCarro = {};
     var dinero = 0;
-    $scope.show = function() {
-      $ionicLoading.show({
-        template: '<p>Loading...</p><ion-spinner></ion-spinner>'
-      });
-    };
 
-    $scope.hide = function(){
-          $ionicLoading.hide();
-    };
+
       $scope.index_carro = 0;
-      $scope.show();
+
+      $rootScope.showLoading();
 
     $scope.obtenerCarrosUsuario = function(){
           $scope.verificarToken();
@@ -26,10 +20,6 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
           carros.success(function (data, status, headers, config) {
               $scope.carros = data;
               $scope.obtenerPrecioCarros();
-              //Tiempo de spinner
-              setTimeout(function(){
-                $scope.hide();
-              },1500);
 
           });
           carros.error(function (data, status, headers, config) {
@@ -57,6 +47,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
           $scope.carros[i].precioTotal = data[i];
         }
         $scope.carros.reverse();
+        $rootScope.hideLoading();
       });
       precios.error(function (data, status, headers, config) {
         $scope.showFeedback("error","error en carros");
@@ -73,10 +64,12 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
           inputType: 'text',
           inputPlaceholder: 'Nuevo nombre'
       }).then(function (nombre) {
-          if(nombre != undefined){
+          if(nombre != undefined && nombre != ""){
             dataNuevoCarro.accesToken = $scope.token.accesToken;
             dataNuevoCarro.nombre = nombre;
             $scope.addCart();
+          }else{
+              $scope.showFeedback("error","El nombre no puede estar vacio");
           }
       });
     }
@@ -105,11 +98,13 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
           inputType: 'text',
           inputPlaceholder: oldName
       }).then(function (nombre) {
-          if(nombre != undefined){
+          if(nombre != undefined && nombre != ""){
             dataEditarCarro.accesToken = $scope.token.accesToken;
             dataEditarCarro.nombre = nombre;
             dataEditarCarro.id_carro = id_carro;
             $scope.editCart(index,nombre);
+          }else{
+            $scope.showFeedback("error","El campo no puede estar vacio");
           }
       });
     }
@@ -136,7 +131,6 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
             var deleteCarro = $http.post($rootScope.dominio + '/usuario/carro/eliminarCarroUsuario', dataEliminarCarro);
             deleteCarro.success(function (data, status, headers, config) {
               $scope.carros.splice(index,1);
-              $scope.showFeedback("correcto","carro eliminado con exito");
             });
             deleteCarro.error(function (data, status, headers, config) {
               $scope.showFeedback("error","ha surguido un error en la consulta");
@@ -185,6 +179,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
 
 
     $scope.openModal = function(id_carro,index_carro) {
+      $rootScope.showLoading();
       $scope.id_carro_modal = id_carro;
       $scope.index_carro = index_carro;
       obtenerProductosCarro(id_carro);
@@ -194,6 +189,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
         }).then(function(modal) {
           $scope.modal = modal;
           $scope.modal.show();
+          $rootScope.hideLoading();
         });
     };
 

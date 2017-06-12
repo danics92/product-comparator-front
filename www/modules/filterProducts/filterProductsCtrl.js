@@ -108,10 +108,10 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
   }
 
   $scope.eliminarFiltro = function(){
-    filtradoService.filtrado.filtroActivado = false;
+    filtradoService.filtros.filtroActivado = false;
     filtradoService.filtros.categoriaGeneral = 0;
     filtradoService.filtros.subcategoria = 0;
-    filtradoService.filtrado.categoriaProductos = 0;
+    filtradoService.filtros.categoriaProductos = 0;
     filtradoService.filtros.calorias = 1000;
     filtradoService.filtros.hidratos = 500;
     filtradoService.filtros.proteinas = 500;
@@ -119,7 +119,7 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
     filtradoService.filtros.localidad = 0;
     filtradoService.verFiltro = true;
     filtradoService.verEliminarFiltro = false;
-    $scope.obtenerProductos();
+    $window.history.back();
   }
 
 
