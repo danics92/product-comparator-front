@@ -352,16 +352,20 @@ app.controller("productosCtrl", function($rootScope, $http, $scope,$ionicModal,$
     var gestionarBotones = function(valor,orden){
       if(valor === 'precio' && orden === 'asc'){
         $scope.ordenarPrecioAscActivado = false;
-          $scope.ordenarPrecioDescActivado = true;
+        $scope.ordenarPrecioDescActivado = true;
+        return;
       }else if(valor === 'precio' && orden === 'desc'){
         $scope.ordenarPrecioAscActivado = true;
-          $scope.ordenarPrecioDescActivado = false;
+        $scope.ordenarPrecioDescActivado = false;
+        return;
       }else if(valor === 'valoracion' && orden === 'asc'){
         $scope.ordenarValoracionAscActivado = false;
         $scope.ordenarValoracionDescActivado = true;
+        return;
       }else if (valor === 'valoracion' && orden === 'desc') {
         $scope.ordenarValoracionAscActivado = true;
         $scope.ordenarValoracionDescActivado = false;
+        return;
       }
     }
 
