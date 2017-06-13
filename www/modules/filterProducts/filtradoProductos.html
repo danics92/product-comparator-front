@@ -1,90 +1,100 @@
-
 <ion-view view-title="Filtro de productos">
 
-  <ion-content id="filterProducts">
-        <button ng-show="verEliminarFiltro"  ng-click="eliminarFiltro()">Eliminar Filtrado</button>
-      <ion-list>
-    <div class="item item-divider">
-     Categoria
-    </div>
-    <label class="item item-select">
-    <div class="input-label">
-      Categoria padre
-    </div>
-    <select ng-change="obtenerSubcategorias(filtrado.categoriaGeneral)" id="top" required="required" ng-model="filtrado.categoriaGeneral">
-        <option value="0" selected="selected">Todas</option>
-        <option ng-repeat="categoria in categoriaGeneral" value={{categoria.id}}>{{categoria.nombre}}</option>
-    </select>
-  </label>
-  <label class="item item-select">
-  <div class="input-label">
-  Subcategoria
-  </div>
-  <select ng-change="obtenerProductos(filtrado.subcategoria)" id="subcategoria" required ng-model="filtrado.subcategoria">
-    <option value="0" selected>Todas</option>
-      <option ng-repeat="subcategoria in subcategorias" value={{subcategoria.id}}>{{subcategoria.nombre}}</option>
-  </select>
-</label>
-<label class="item item-select">
-<div class="input-label">
-productos
-</div>
-<select id="categoriaProductos" required ng-model="filtrado.categoriaProductos">
-    <option value="0">Todas</option>
-    <option ng-repeat="categoriaProducto in productos" value={{categoriaProducto.id}}>{{categoriaProducto.nombre}}</option>
-</select>
-</label>
-<div class="item item-divider">
- Informacion del producto
-</div>
+    <ion-content id="filterProducts">
+        <button ng-show="verEliminarFiltro" ng-click="eliminarFiltro()">Eliminar Filtrado</button>
+        <ion-list>
+            <div class="item item-divider">
+                Categoria
+            </div>
+            <label class="item item-select">
+                <div class="input-label">
+                    Categoria padre
+                </div>
+                <select ng-change="obtenerSubcategorias(filtrado.categoriaGeneral)" id="top" required="required"
+                        ng-model="filtrado.categoriaGeneral">
+                    <option value="0" selected="selected">Todas</option>
+                    <option ng-repeat="categoria in categoriaGeneral" value={{categoria.id}}>{{categoria.nombre}}
+                    </option>
+                </select>
+            </label>
+            <label class="item item-select">
+                <div class="input-label">
+                    Subcategoria
+                </div>
+                <select ng-change="obtenerProductos(filtrado.subcategoria)" id="subcategoria" required
+                        ng-model="filtrado.subcategoria">
+                    <option value="0" selected>Todas</option>
+                    <option ng-repeat="subcategoria in subcategorias" value={{subcategoria.id}}>
+                        {{subcategoria.nombre}}
+                    </option>
+                </select>
+            </label>
+            <label class="item item-select">
+                <div class="input-label">
+                    productos
+                </div>
+                <select id="categoriaProductos" required ng-model="filtrado.categoriaProductos">
+                    <option value="0">Todas</option>
+                    <option ng-repeat="categoriaProducto in productos" value={{categoriaProducto.id}}>
+                        {{categoriaProducto.nombre}}
+                    </option>
+                </select>
+            </label>
+            <div class="item item-divider">
+                Informacion del producto
+            </div>
 
-<label class="item ">
-<div class="item-content">Valor calorico</div>
-<div class="range range-positive">
-<p>0</p>
-<input ng-model="calorias.value" type="range" min="{{calorias.min}}" max="{{calorias.max}}" value="{{calorias.value}}"  >
-<p>{{calorias.value}}</p>
-</div>
-</label>
+            <label class="item ">
+                <div class="item-content">Valor calorico</div>
+                <div class="range range-positive">
+                    <p>0</p>
+                    <input ng-model="calorias.value" type="range" min="{{calorias.min}}" max="{{calorias.max}}"
+                           value="{{calorias.value}}">
+                    <p>{{calorias.value}}</p>
+                </div>
+            </label>
 
-<label class="item ">
-<div class="item-content">hidratos de carbono</div>
-<div class="range range-positive">
-<p>0</p>
-<input  ng-model="hidratos.value" type="range" name="volume" min="hidratos.min" max="hidratos.max" value="hidratos.value"  >
-<p>{{hidratos.value}}</p>
-</div>
-</label>
-<label class="item ">
-<div class="item-content">Proteinas</div>
-<div class="range range-positive">
-<p>0</p>
-<input  ng-model="proteinas.value" type="range" name="volume" min="proteinas.min" max="proteinas.max" value="proteinas.value"  >
-<p>{{proteinas.value}}</p>
-</div>
-</label>
-<label class="item ">
-<div class="item-content">Grasas</div>
-<div class="range range-positive">
-<p>0</p>
-<input  ng-model="grasas.value" type="range" name="volume" min="grasas.min" max="grasas.max" value="grasas.value"  >
-<p>{{grasas.value}}</p>
-</div>
-</label>
-<div class="item item-divider">
- Localidad
-</div>
-<label class="item item-select">
-<div class="input-label">
-  Localidad
-</div>
-<select id="top" required ng-model="filtrado.localidad">
-    <option value="0" selected="">Todas</option>
-    <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
-</select>
-</label>
-<button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive">
-  Filtrar
-</button>
-  </ion-content>
+            <label class="item ">
+                <div class="item-content">hidratos de carbono</div>
+                <div class="range range-positive">
+                    <p>0</p>
+                    <input ng-model="hidratos.value" type="range" name="volume" min="hidratos.min" max="hidratos.max"
+                           value="hidratos.value">
+                    <p>{{hidratos.value}}</p>
+                </div>
+            </label>
+            <label class="item ">
+                <div class="item-content">Proteinas</div>
+                <div class="range range-positive">
+                    <p>0</p>
+                    <input ng-model="proteinas.value" type="range" name="volume" min="proteinas.min" max="proteinas.max"
+                           value="proteinas.value">
+                    <p>{{proteinas.value}}</p>
+                </div>
+            </label>
+            <label class="item ">
+                <div class="item-content">Grasas</div>
+                <div class="range range-positive">
+                    <p>0</p>
+                    <input ng-model="grasas.value" type="range" name="volume" min="grasas.min" max="grasas.max"
+                           value="grasas.value">
+                    <p>{{grasas.value}}</p>
+                </div>
+            </label>
+            <div class="item item-divider">
+                Localidad
+            </div>
+            <label class="item item-select">
+                <div class="input-label">
+                    Localidad
+                </div>
+                <select id="top" required ng-model="filtrado.localidad">
+                    <option value="0" selected="">Todas</option>
+                    <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
+                </select>
+            </label>
+            <button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive">
+                Filtrar
+            </button>
+    </ion-content>
 </ion-view>

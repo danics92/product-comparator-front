@@ -1,49 +1,50 @@
-<ion-modal-view >
-   <ion-header-bar align-title="center" class="bar-positive">
-      <h1 class="title">Informacion</h1>
-     <div class="buttons">
-        <button class="button" ng-click="closeModal()">Salir</button>
-      </div>
-   </ion-header-bar>
-  <ion-content>
-    <h2>{{productos[indexProducto].nombre}}</h1>
-    <h3>{{productos[indexProducto].marca.nombre}}</h2>
-    <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>
-    <div class="item item-divider">
-    Informacion nutricional
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Valor calorico</th>
-          <th>Hidratos de carbono</th>
-          <th>Proteinas</th>
-          <th>Grasas</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{productos[indexProducto].valorEnergetico}}</td>
-          <td>{{productos[indexProducto].carbohidratos}}</td>
-          <td>{{productos[indexProducto].proteinas}}</td>
-          <td>{{productos[indexProducto].grasas}}</td>
-        </tr>
-      </tbody>
-</table>
-    <div class="item item-divider">
-    Tiendas
-  </div>
-    <ion-list>
-      <ion-item class="item"  ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
-        <p>{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</p>
-        <p>{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</p>
-        <p>precio:{{productoTienda.historialPrecio.precio}}</p>
-        <p>{{productos[indexProducto].productoTiendas.tiendas[$index].idLocalidad}}
-        <button class="button-normal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored top-0" ng-click="openCarroModal(productoTienda.id)">
-          <i class="material-icons">add</i>
-        </button>
- </ion-item>
-    </ion-list>
+<ion-modal-view>
+    <ion-header-bar align-title="center" class="bar-positive">
+        <h1 class="title">Informacion</h1>
+        <div class="buttons">
+            <button class="button" ng-click="closeModal()">Salir</button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <h2>{{productos[indexProducto].nombre}}</h1>
+            <h3>{{productos[indexProducto].marca.nombre}}</h2>
+        <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>
+        <div class="item item-divider">
+            Informacion nutricional
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Valor calorico</th>
+                <th>Hidratos de carbono</th>
+                <th>Proteinas</th>
+                <th>Grasas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{productos[indexProducto].valorEnergetico}}</td>
+                <td>{{productos[indexProducto].carbohidratos}}</td>
+                <td>{{productos[indexProducto].proteinas}}</td>
+                <td>{{productos[indexProducto].grasas}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="item item-divider">
+            Tiendas
+        </div>
+        <ion-list>
+            <ion-item class="item" ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
+                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</p>
+                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</p>
+                <p>precio:{{productoTienda.historialPrecio.precio}}</p>
+                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].idLocalidad}}
+                    <button class="button-normal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored top-0"
+                            ng-click="openCarroModal(productoTienda.id)">
+                        <i class="material-icons">add</i>
+                    </button>
+            </ion-item>
+        </ion-list>
 
-  </ion-content>
+    </ion-content>
 </ion-modal-view>

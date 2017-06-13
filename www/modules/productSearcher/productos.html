@@ -1,28 +1,46 @@
 <ion-view view-title="Productos" class="bar-asserive">
     <ion-content>
-        <button class="button button-assertive" ng-click="goTo('/app/filtrar')"><i class="material-icons ">filter_list</i>Busqueda</button>
-        <button ng-show="ordenarPrecioAscActivado" class="button button-assertive" ng-click="ordenarProductosEvento(productos,'precio','asc')"><i class="material-icons ">filter_list</i>Ordenar precion asc</button>
-        <button ng-show="ordenarPrecioDescActivado" class="button button-assertive" ng-click="ordenarProductosEvento(productos,'precio','desc')"><i class="material-icons ">filter_list</i>Ordenar precion Desc</button>
-        <button ng-show="ordenarValoracionAscActivado" class="button button-assertive" ng-click="ordenarProductosEvento(productos,'valoracion','asc')"><i class="material-icons ">filter_list</i>Ordenar valoracion asc</button>
-        <button ng-show="ordenarValoracionDescActivado" class="button button-assertive" ng-click="ordenarProductosEvento(productos,'valoracion','desc')"><i class="material-icons ">filter_list</i>Ordenar valoracion Desc</button>
+        <button class="button button-assertive" ng-click="goTo('/app/filtrar')"><i
+                class="material-icons ">filter_list</i>Busqueda
+        </button>
+        <button ng-show="ordenarPrecioAscActivado" class="button button-assertive"
+                ng-click="ordenarProductosEvento(productos,'precio','asc')"><i class="material-icons ">filter_list</i>Ordenar
+            precion asc
+        </button>
+        <button ng-show="ordenarPrecioDescActivado" class="button button-assertive"
+                ng-click="ordenarProductosEvento(productos,'precio','desc')"><i class="material-icons ">filter_list</i>Ordenar
+            precion Desc
+        </button>
+        <button ng-show="ordenarValoracionAscActivado" class="button button-assertive"
+                ng-click="ordenarProductosEvento(productos,'valoracion','asc')"><i
+                class="material-icons ">filter_list</i>Ordenar valoracion asc
+        </button>
+        <button ng-show="ordenarValoracionDescActivado" class="button button-assertive"
+                ng-click="ordenarProductosEvento(productos,'valoracion','desc')"><i
+                class="material-icons ">filter_list</i>Ordenar valoracion Desc
+        </button>
         <ion-list class="mdl-grid">
             <div ng-repeat="producto in productos" class="item mdl-cell--2-col">
-              <div class="demo-card-wide">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">{{producto.nombre}}</h2>
+                <div class="demo-card-wide">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">{{producto.nombre}}</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>Marca: {{producto.marca.nombre}}</p>
+                        <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
+                        <p>N de tiendas: {{producto.productoTiendas.length}}</p>
+                        <p>Valoracion Total: {{producto.valoracionTotal}} </p>
+                    </div>
+                    <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                ng-click=openModal($index)><i class="material-icons">search</i></button>
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                ng-click="seguimientoManager(producto.id,$index)"><i class="material-icons">forward</i>
+                        </button>
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                ng-click=openModalMap(producto.id)><i class="material-icons">place</i></button>
+                    </div>
                 </div>
-                <div class="mdl-card__supporting-text">
-                  <p>Marca: {{producto.marca.nombre}}</p>
-                  <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
-                  <p>N de tiendas: {{producto.productoTiendas.length}}</p>
-                  <p>Valoracion Total:  {{producto.valoracionTotal}} </p>
-                </div>
-                <div class="mdl-card__menu">
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click=openModal($index)><i class="material-icons">search</i></button>
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click="seguimientoManager(producto.id,$index)"><i class="material-icons">forward</i></button>
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click=openModalMap(producto.id)><i class="material-icons">place</i></button>
-                </div>
-              </div>
             </div>
             <!--
               <!-- <p>nombre: {{producto.nombre}}</p>

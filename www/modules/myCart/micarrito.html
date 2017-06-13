@@ -1,22 +1,23 @@
 <ion-view view-title="Mis carros">
     <ion-content>
-         <ion-list>
-           <ion-item ng-repeat="carro in carros" class="item" ng-click="openModal(carro.id,$index)">
-               <img src="img/carrito.svg" width="20px" height="20px">
-           <h2>{{carro.nombre}}</h2>
-           <p> {{carro.precioTotal}}</p>
-              <ion-option-button class="button button-assertive btn-del"
-                                 ng-click="deleteCarro(carro.id,$index)">
-                Delete
-              </ion-option-button>
-              <ion-option-button class="button button-energized btn-edit"
-                                    ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
-                   Edit
-                 </ion-option-button>
-           </iont-item>
+        <ion-list>
+            <ion-item ng-repeat="carro in carros" class="item" ng-click="openModal(carro.id,$index)">
+                <img src="img/carrito.svg" width="20px" height="20px">
+                <h2>{{carro.nombre}}</h2>
+                <p> {{carro.precioTotal}}</p>
+                <ion-option-button class="button button-assertive btn-del"
+                                   ng-click="deleteCarro(carro.id,$index)">
+                    Delete
+                </ion-option-button>
+                <ion-option-button class="button button-energized btn-edit"
+                                   ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
+                    Edit
+                </ion-option-button>
+                </iont-item>
         </ion-list>
-        <button class="button-add mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" ng-click="popupNuevoCarro()">
-          <i class="material-icons">add</i>
+        <button class="button-add mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                ng-click="popupNuevoCarro()">
+            <i class="material-icons">add</i>
         </button>
     </ion-content>
 </ion-view>

@@ -3,16 +3,19 @@
         <for>
             <div class="list list-inset ">
                 <label class="padding item item-input" for="nombre">
-                    <input type="text" name="nombre" id="nombre" placeholder="nombre" required ng-model="loginData.nombre">
+                    <input type="text" name="nombre" id="nombre" placeholder="nombre" required
+                           ng-model="loginData.nombre">
                 </label>
                 <label class="padding item item-input" for="apellidos">
-                    <input type="text" name="apellidos" id="apellidos" placeholder="apellidos" required ng-model="loginData.apellidos">
+                    <input type="text" name="apellidos" id="apellidos" placeholder="apellidos" required
+                           ng-model="loginData.apellidos">
                 </label>
                 <label class="padding item item-input" for="email">
                     <input type="email" name="email" id="email" placeholder="Email" required ng-model="loginData.email">
                 </label>
                 <label class="padding item item-input">
-                    <textarea class="textarea" ng-model="comentario" placeholder="Comenta aquí" ng-model="loginData.comment"></textarea>
+                    <textarea class="textarea" ng-model="comentario" placeholder="Comenta aquí"
+                              ng-model="loginData.comment"></textarea>
                 </label>
                 <button class="button button-block button-positive" ng-click="mailTo()">
                     Enviar
