@@ -1,7 +1,8 @@
 /**
  * Created by danilig on 15/05/17.
  */
-app.controller("registroCtrl", function ($rootScope, $http, $scope, $location, $ionicLoading) {
+app.controller("registroCtrl", function($rootScope,$http, $scope,$location,$ionicLoading,$ionicPopup){
+
 
     $scope.register = {};
 
@@ -12,9 +13,13 @@ app.controller("registroCtrl", function ($rootScope, $http, $scope, $location, $
             $scope.localidades = data;
             $rootScope.hideLoading();
         });
+
         ajax.error(function (data, status, headers, config) {
             $rootScope.hideLoading();
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.popupFeedback = $ionicPopup.alert({
+             title: "Error",
+             template: "ha surguido un error en la consulta"
+           });
         });
     };
     obtenerLocalidadesRegistro();
@@ -24,11 +29,19 @@ app.controller("registroCtrl", function ($rootScope, $http, $scope, $location, $
         var ajax = $http.post($rootScope.dominio + "/usuario/insertarUsuario", $scope.register);
         ajax.success(function (data, status, headers, config) {
             $rootScope.hideLoading();
+            $scope.popupFeedback = $ionicPopup.alert({
+             title: "Correcto",
+             template: "El usuario a sido registrado"
+           });
             $location.path("/login");
         });
-        ajax.error(function (data, status, headers, config) {
-            $rootScope.hideLoading();
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+
+        ajax.error(function(data, status, headers, config){
+          $rootScope.hideLoading();
+          $scope.popupFeedback = $ionicPopup.alert({
+           title: "Error",
+           template: "No se ha podido introducir el usuario, compruebe que los campos son correctos"
+         });
         });
     };
 

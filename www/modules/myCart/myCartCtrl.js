@@ -56,20 +56,21 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
     }
 
 
-    $scope.popupNuevoCarro = function () {
-        $ionicPopup.prompt({
-            title: 'Introduzca el nombre del carro',
-            inputType: 'text',
-            inputPlaceholder: 'Nuevo nombre'
-        }).then(function (nombre) {
-            if (nombre != undefined && nombre != "") {
-                dataNuevoCarro.accesToken = $scope.token.accesToken;
-                dataNuevoCarro.nombre = nombre;
-                $scope.addCart();
-            } else {
-                $scope.showFeedback("error", "El nombre no puede estar vacio");
-            }
-        });
+
+    $scope.popupNuevoCarro = function(){
+      $ionicPopup.prompt({
+          title: 'Introduzca el nombre del carro',
+          inputType: 'text',
+          inputPlaceholder: 'Nuevo nombre'
+      }).then(function (nombre) {
+          if(nombre != undefined && nombre != ""){
+            dataNuevoCarro.accesToken = $scope.token.accesToken;
+            dataNuevoCarro.nombre = nombre;
+            $scope.addCart();
+          }else{
+              $scope.showFeedback("error","El nombre no puede estar vacio","alert");
+          }
+      });
     }
 
 
@@ -90,33 +91,33 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
         $scope.carros.reverse();
     };
 
-    $scope.popupEditarCarro = function (oldName, id_carro, index) {
-        $ionicPopup.prompt({
-            title: 'Modificar carro',
-            inputType: 'text',
-            inputPlaceholder: oldName
-        }).then(function (nombre) {
-            if (nombre != undefined && nombre != "") {
-                dataEditarCarro.accesToken = $scope.token.accesToken;
-                dataEditarCarro.nombre = nombre;
-                dataEditarCarro.id_carro = id_carro;
-                $scope.editCart(index, nombre);
-            } else {
-                $scope.showFeedback("error", "El campo no puede estar vacio");
-            }
-        });
+    $scope.popupEditarCarro = function(oldName,id_carro,index){
+      $ionicPopup.prompt({
+          title: 'Modificar carro',
+          inputType: 'text',
+          inputPlaceholder: oldName
+      }).then(function (nombre) {
+          if(nombre != undefined && nombre != ""){
+            dataEditarCarro.accesToken = $scope.token.accesToken;
+            dataEditarCarro.nombre = nombre;
+            dataEditarCarro.id_carro = id_carro;
+            $scope.editCart(index,nombre);
+          }else{
+            $scope.showFeedback("error","El campo no puede estar vacio","alert");
+          }
+      });
     }
 
     $scope.editCart = function (index, nombre) {
         $scope.verificarToken();
-        var editarCarro = $http.post($rootScope.dominio + '/usuario/carro/editarCarroUsuario', dataEditarCarro);
-        editarCarro.success(function (data, status, headers, config) {
-            $scope.carros[index].nombre = nombre;
-            $scope.showFeedback("correcto", "carro editado con exito");
-        });
-        editarCarro.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
-        });
+            var editarCarro = $http.post($rootScope.dominio + '/usuario/carro/editarCarroUsuario', dataEditarCarro);
+            editarCarro.success(function (data, status, headers, config) {
+                $scope.carros[index].nombre = nombre;
+                $scope.showFeedback("correcto","carro editado con exito");
+            });
+            editarCarro.error(function (data, status, headers, config) {
+              $scope.showFeedback("error","ha surguido un error en la consulta",305);
+            });
     };
 
 

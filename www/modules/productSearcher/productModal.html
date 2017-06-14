@@ -1,3 +1,4 @@
+
 <ion-modal-view>
     <ion-header-bar align-title="center" class="bar-positive">
         <h1 class="title">Informacion</h1>
@@ -6,8 +7,9 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <h2>{{productos[indexProducto].nombre}}</h1>
-            <h3>{{productos[indexProducto].marca.nombre}}</h2>
+        <button ng-click="popupValoracion(indexProducto)">Valorar producto</button>
+        <h2>{{productos[indexProducto].nombre}}</h2>
+            <h3>{{productos[indexProducto].marca.nombre}}</h3>
         <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>
         <div class="item item-divider">
             Informacion nutricional
@@ -45,6 +47,5 @@
                     </button>
             </ion-item>
         </ion-list>
-
     </ion-content>
 </ion-modal-view>

@@ -7,6 +7,18 @@
 var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'])
 
     .run(function ($ionicPlatform,$rootScope,$ionicLoading) {
+
+                  $rootScope.dominio = "http://localhost:3005";
+                  $rootScope.localidadUsuario = 0;
+                  $rootScope.showLoading = function() {
+                    $ionicLoading.show({
+                      template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+                    });
+                  };
+
+                  $rootScope.hideLoading = function(){
+                        $ionicLoading.hide();
+                  };
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -20,17 +32,6 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
                 StatusBar.styleLightContent();
             }
 
-            $rootScope.dominio = "http://192.168.1.39:3005";
-            $rootScope.localidadUsuario = 0;
-            $rootScope.showLoading = function() {
-              $ionicLoading.show({
-                template: '<p>Loading...</p><ion-spinner></ion-spinner>'
-              });
-            };
-
-            $rootScope.hideLoading = function(){
-                  $ionicLoading.hide();
-            };
         });
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $provide, $ionicConfigProvider) {
@@ -134,7 +135,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
                     // console.log(config); // Contains the data about the request before it is sent.
                     if (($location.path() === "/login" || $location.path() === "/registro") && localStorage.getItem("access_token")) {
 
-                        $location.path("/app/micarrito");
+                        $location.path("/app/productos");
 
                     } else if (!localStorage.getItem("access_token") && $location.path() != "/registro") {
                         $location.path("/login");
@@ -161,7 +162,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
         $httpProvider.interceptors.push('AuthInterceptor');
 
         if (localStorage.getItem("access_token")) {
-            $urlRouterProvider.otherwise('/app/micarrito');
+            $urlRouterProvider.otherwise('/app/productos');
         } else {
             $urlRouterProvider.otherwise('/login');
         }

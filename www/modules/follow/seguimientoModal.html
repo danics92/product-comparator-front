@@ -1,0 +1,19 @@
+<ion-modal-view >
+   <ion-header-bar align-title="center" class="bar-positive">
+      <h1 class="title">Historial de precios</h1>
+     <div class="buttons">
+        <button class="button" ng-click="closeModal()">Salir</button>
+      </div>
+   </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item" ng-repeat="producto in productos[indexProducto].productoTiendas">
+        <p>marca: {{producto.tienda.empresa.nombre}}
+        <p>direccion: {{producto.tienda.direccion}}</p>
+        <p>precio: {{producto.precio}}</p>
+        <p>localidad: {{producto.tienda.idLocalidad}}</p>
+ </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-modal-view>
