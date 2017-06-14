@@ -100,9 +100,12 @@ select {
     right: 20px !important;
 }
 
-#filtrarBtn {
-    margin: 10px;
-    float: right;
+.button-positive{
+    background-color: #185E99!important;
+}
+
+#filtrarBtn:hover {
+    background-color: #185E88!important;
 }
 
 #login {
@@ -146,4 +149,34 @@ select {
 
 ion-item.item {
     padding: 14px !important;
+}
+
+#map{
+    width: 100%;
+    height: 100%;
+}
+
+.bar{
+    background-color: #5faba5!important;
+}
+.bar .bar-stable .title{
+    color: #A7FFF8!important;
+}
+
+.button-assertive {
+    background-color: #CC615D!important;
+    margin: 2px;
+}
+
+.item-options {
+    top:32px;
+    height: auto!important;
+}
+
+.mdl-button--fab {
+    background-color: #5faba5!important;
+}
+
+.mdl-button--icon{
+    color: white;
 }

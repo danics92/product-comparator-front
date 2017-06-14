@@ -8,7 +8,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
 
     .run(function ($ionicPlatform,$rootScope,$ionicLoading) {
 
-                  $rootScope.dominio = "http://localhost:3005";
+                  $rootScope.dominio = "http://192.168.1.39:3005";
                   $rootScope.localidadUsuario = 0;
                   $rootScope.showLoading = function() {
                     $ionicLoading.show({

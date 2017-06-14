@@ -1,7 +1,7 @@
 <ion-view view-title="Filtro de productos">
 
 <ion-content id="filterProducts">
-      <button ng-show="verEliminarFiltro"  ng-click="eliminarFiltro()">Eliminar Filtrado</button>
+      <button ng-show="verEliminarFiltro"  ng-click="eliminarFiltro()" class="button button-assertive button-block">Eliminar Filtrado</button>
     <ion-list>
   <div class="item item-divider">
    Categoria
@@ -82,7 +82,7 @@ Localidad
   <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
 </select>
 </label>
-<button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive button-full">
+<button id="filtrarBtn" ng-click="realizarFiltrado()" class="button button-positive button-block">
 Filtrar
 </button>
 </ion-content>

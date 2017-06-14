@@ -5,11 +5,11 @@
                 <img src="img/carrito.svg" width="20px" height="20px">
                 <h2>{{carro.nombre}}</h2>
                 <p> {{carro.precioTotal}}</p>
-                <ion-option-button class="button button-assertive btn-del"
+                <ion-option-button class="button button-assertive"
                                    ng-click="deleteCarro(carro.id,$index)">
                     Delete
                 </ion-option-button>
-                <ion-option-button class="button button-energized btn-edit"
+                <ion-option-button class="button button-energized"
                                    ng-click="popupEditarCarro(carro.nombre,carro.id,$index)">
                     Edit
                 </ion-option-button>
