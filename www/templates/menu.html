@@ -10,32 +10,31 @@
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
-
-    <ion-side-menu side="left">
-        <ion-header-bar class="bar-stable">
-            <h1 class="title">Menu</h1>
-        </ion-header-bar>
-        <ion-content>
-            <ion-list>
-                <ion-item menu-close href="#/app/productos">
-                    <i class="material-icons">search</i> Productos
-                </ion-item>
-                <ion-item menu-close href="#/app/contact">
-                    <i class="material-icons">contacts</i> Contacto
-                </ion-item>
-                <ion-item menu-close href="#/app/carros">
-                    <i class="material-icons">shopping_cart</i> Mis Carros
-                </ion-item>
-                <ion-item menu-close href="#/app/seguimientos">
-                    <i class="material-icons">thumbs_up_down</i> Mis Seguimientos
-                </ion-item>
-                <ion-item menu-close href="#/app/scanner">
-                    <i class="material-icons">party_mode</i> Escaner
-                </ion-item>
-                <ion-item menu-close href="#" ng-click="closeSession()">
-                    <i class="material-icons">power_settings_new</i> Cerrar Session
-                </ion-item>
-            </ion-list>
-        </ion-content>
-    </ion-side-menu>
+<ion-side-menu side="left">
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Menu</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item menu-close href="#/app/productos">
+        <i class="material-icons">search</i> Productos
+      </ion-item>
+      <ion-item menu-close href="#/app/contact">
+        <i class="material-icons">contacts</i> Contacto
+      </ion-item>
+      <ion-item menu-close href="#/app/micarrito">
+        <i class="material-icons">shopping_cart</i> Mis Carros
+      </ion-item>
+      <ion-item menu-close href="#/app/seguimientos">
+        <i class="material-icons">thumbs_up_down</i> Mis Seguimientos
+      </ion-item>
+      <ion-item menu-close href="#/app/scanner">
+        <i class="material-icons">party_mode</i> Escaner
+      </ion-item>
+      <ion-item menu-close href="#" ng-click="closeSession()">
+        <i class="material-icons">power_settings_new</i> Cerrar Session
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-side-menu>
 </ion-side-menus>
