@@ -18,7 +18,9 @@ app.service('filtradoService', function () {
     this.verFiltro = true;
     this.verEliminarFiltro = false;
 });
-app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $ionicModal, $location, $ionicActionSheet, $timeout, $rootScope, $ionicPopup, filtradoService) {
+
+app.controller("productosCtrl", function($rootScope,$http,$state, $scope,$ionicPopover,$ionicModal,$location,$ionicActionSheet,$timeout,$rootScope,$ionicPopup,filtradoService){
+
 
     $scope.verificarToken();
 
@@ -41,6 +43,8 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
     $scope.ordenarValoracionAscActivado = true;
 
     $scope.ordenarValoracionDescActivado = false;
+
+    $scope.verValorarBoton = false;
 
     var indexCarro = 0;
 
@@ -130,7 +134,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
                 obtenerTiendasDeProducto(i);
             }
             comprobarSeguimientoProducto();
-
+              console.log($scope.productos);
         });
         ajaxProductos.error(function (data, status, headers, config) {
             $scope.showFeedback("", "", 305);
@@ -384,6 +388,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         }
     }
 
+
     $scope.openModalMap = function () {
         $ionicModal.fromTemplateUrl('modules/productSearcher/mapaModal.html', {
             scope: $scope,
@@ -407,16 +412,30 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
                         map: map,
                         title: 'Click to zoom'
                     });
-                }, 500);
+                }, 1000);
 
             });
+          });
+
+      }
+/*
+    $scope.openModalMap = function() {
+      iniciarMapa();
+      $ionicModal.fromTemplateUrl('modules/productSearcher/mapaModal.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modalMap = modal;
+          $scope.modalMap.show();
         });
     };
+    */
 
     $scope.closeModalMap = function () {
         $scope.modalMap.hide();
         $scope.modalMap.remove();
     };
+
 
     $scope.valorarProducto = function (id_producto, valoracion) {
         $scope.verificarToken();
@@ -434,9 +453,29 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         valorarAjax.error(function (data, status, headers, config) {
             console.log(data);
             $scope.showFeedback("error", "ha surguido un error en la consulta", 305);
+          });
+        }
+ /*
+    var iniciarMapa = function(){
+
+        google.maps.event.addDomListener(window,'load',function(){
+          var myLatlng = new google.maps.LatLng(37.3000,-120.4833);
+
+          var mapOptions = {
+            center: myLatlng,
+            zoom: 16,
+            mapTypeId: google.maps.mapTypeId.ROADMAP
+          };
+
+          var map = new google.maps.Map(document.getElementById("map"),mapOptions);
+
+          $scope.map = map;
+
+>>>>>>> Stashed changes
         });
 
     }
+    */
 
     $scope.popupValoracion = function (index) {
         $scope.prueba = {};
@@ -453,5 +492,20 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         });
     }
 
+    // .fromTemplateUrl() method
+  $ionicPopover.fromTemplateUrl('templates/popoverOrdenar.html', {
+    scope: $scope
+  }).then(function(popover) {
+    $scope.popover = popover;
+  });
+
+
+$scope.openSubmenu = function(event){
+    $scope.popover.show(event);
+}
+
+$scope.closeSubmenu = function(event){
+    $scope.popover.close(event);
+}
 
 });

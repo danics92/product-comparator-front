@@ -1,11 +1,18 @@
 <ion-popover-view>
     <ion-content>
         <div class="list">
-            <ion-item menu-close ng-click="closeSession()">
-                <i class="material-icons">power_settings_new</i> Por precio
+            <ion-item menu-close ng-click="ordenarProductosEvento(productos,'precio','asc')" ng-show="ordenarPrecioAscActivado">
+                <i class="material-icons">account_balance_wallet</i> Precio<i  class="material-icons">arrow_drop_up</i>
             </ion-item>
-            <ion-item menu-close ng-click="">
-                <i class="material-icons">power_settings_new</i> Por valoracion
+            <ion-item menu-close ng-click="ordenarProductosEvento(productos,'precio','desc')"  ng-show="ordenarPrecioDescActivado" >
+                <i class="material-icons">account_balance_wallet</i> Precio  <i class="material-icons">arrow_drop_down</i>
+            </ion-item>
+            <ion-item menu-close ng-click="ordenarProductosEvento(productos,'valoracion','asc')" ng-show="ordenarValoracionAscActivado">
+                <i class="material-icons">stars</i> Valoracion<i  class="material-icons">arrow_drop_up</i>
+
+            </ion-item>
+            <ion-item menu-close ng-click="ordenarProductosEvento(productos,'valoracion','desc')" ng-show="ordenarValoracionDescActivado">
+                <i class="material-icons">stars</i>  Valoracion <i  class="material-icons">arrow_drop_down</i>
             </ion-item>
         </div>
     </ion-content>

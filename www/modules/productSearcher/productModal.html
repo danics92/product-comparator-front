@@ -7,7 +7,7 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <button ng-click="popupValoracion(indexProducto)">Valorar producto</button>
+        <button ng-show="verValorarBoton" ng-click="popupValoracion(indexProducto)">Valorar producto</button>
         <h2>{{productos[indexProducto].nombre}}</h2>
             <h3>{{productos[indexProducto].marca.nombre}}</h3>
         <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>

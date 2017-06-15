@@ -19,7 +19,7 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
                     if (result.text != "" && result.text != null) {
                         obtenerProductoPorCode(result.text);
                     } else {
-                        alert("no hay ningun producto");
+                        alert("no hay ningun producto, codiog de barras = "+result.text);
                     }
                 },
                 function (error) {

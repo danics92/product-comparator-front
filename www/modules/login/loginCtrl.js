@@ -13,11 +13,15 @@ app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $l
                 if (data.accesToken && data.refreshToken) {
                     localStorage.setItem("access_token", data.accesToken);
                     localStorage.setItem("refresh_token", data.refreshToken);
+                    
                 }
                   $location.path("/app/productos");
             });
             res.error(function (data, status, headers, config) {
-              $scope.showFeedback("error","ha surguido un error en la consulta");
+              $scope.popupFeedback = $ionicPopup.alert({
+               title: "Error",
+               template: "ha surguido un error en la consulta"
+             });
             });
         }
 

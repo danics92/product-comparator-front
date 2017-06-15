@@ -8,7 +8,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
 
     .run(function ($ionicPlatform,$rootScope,$ionicLoading) {
 
-                  $rootScope.dominio = "http://192.168.1.39:3005";
+                  $rootScope.dominio = "http://192.168.1.7:3005";
                   $rootScope.localidadUsuario = 0;
                   $rootScope.showLoading = function() {
                     $ionicLoading.show({
@@ -19,6 +19,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers'
                   $rootScope.hideLoading = function(){
                         $ionicLoading.hide();
                   };
+                  $rootScope.filtadoActivado = false;
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)

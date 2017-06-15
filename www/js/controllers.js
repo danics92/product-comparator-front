@@ -1,9 +1,12 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope,$state, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope) {
+    .controller('AppCtrl', function ($scope,$state, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope,filtradoService) {
         $scope.closeSession = function () {
             localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token")
+            localStorage.removeItem("refresh_token");
+            filtradoService.filtros.filtroActivado = false;
+            filtradoService.verEliminarFiltro = false;
+            $rootScope.hideLoading();
             $location.path('/login');
         };
 
@@ -112,6 +115,7 @@ angular.module('starter.controllers', [])
                     $scope.closeSession();
               }
             });
+
             ajax.error(function (data, status, headers, config) {
               $scope.showFeedback("Error","error en la consulta",305);
               $rootScope.hideLoading();
@@ -120,11 +124,8 @@ angular.module('starter.controllers', [])
         };
 
         $scope.goTo = function(url){
-
               $location.path(url);
-
         }
-
 
         $scope.verificarToken();
     });
