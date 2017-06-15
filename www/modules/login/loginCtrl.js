@@ -2,7 +2,7 @@
  * Created by danilig on 15/05/17.
  */
 
-app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $location, $ionicLoading) {
+app.controller("loginCtrl", function ($rootScope,$ionicPopup, $http, $scope, $ionicModal, $location, $ionicLoading) {
 
 
         $scope.loginData = {};
@@ -13,7 +13,7 @@ app.controller("loginCtrl", function ($rootScope, $http, $scope, $ionicModal, $l
                 if (data.accesToken && data.refreshToken) {
                     localStorage.setItem("access_token", data.accesToken);
                     localStorage.setItem("refresh_token", data.refreshToken);
-                    
+
                 }
                   $location.path("/app/productos");
             });

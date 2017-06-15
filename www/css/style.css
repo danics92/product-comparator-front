@@ -212,3 +212,19 @@ select {
 .bar, .header-item, .ion-navicon{
     color:white!important;
 }
+
+.scroll{
+  height: 100%;
+}
+
+.white{
+  color:white !important;
+}
+
+.back-text{
+  color:white;
+}
+
+.ion-ios-arrow-back{
+  color:white;
+}
