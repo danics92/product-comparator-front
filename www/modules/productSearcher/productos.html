@@ -29,13 +29,12 @@
             <div ng-repeat="producto in productos" class="item mdl-cell--2-col">
                 <div class="demo-card-wide">
                     <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">{{producto.nombre}}</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
-                        <p>Marca: {{producto.marca.nombre}}</p>
-                        <p>Precio mas barato: {{producto.mejorPrecio}} €</p>
-                        <p>N de tiendas: {{producto.productoTiendas.length}}</p>
-                        <p>Valoracion Total: {{producto.valoracionTotal}} </p>
+                        <h2>{{producto.nombre}}</h2>
+                        <p><i class="material-icons">account_balance_wallet</i> Precio mas barato: {{producto.mejorPrecio}} €</p>
+                        <p><i class="material-icons">business</i> Nº de tiendas: {{producto.productoTiendas.length}}</p>
+                        <p><i class="material-icons">attach_money</i> Valoracion Total: {{producto.valoracionTotal}} </p>
                     </div>
                     <div class="mdl-card__menu">
                         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"

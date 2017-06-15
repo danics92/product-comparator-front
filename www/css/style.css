@@ -247,3 +247,7 @@ select {
 .thumb-p {
     top:30px;
 }
+
+.mdl-card__supporting-text {
+    width:100%;
+}
