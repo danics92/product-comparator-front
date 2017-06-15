@@ -1,7 +1,7 @@
 <ion-view view-title="Productos" class="bar-asserive">
     <ion-nav-buttons side="right">
-      <i class="material-icons" ng-click="goTo('/app/filtrar')">build</i>
-    <i class="material-icons" ng-click="openSubmenu($event)">format_list_bulleted</i>
+      <i class="material-icons" ng-click="goTo('/app/filtrar')" id="filtrado">build</i>
+    <i class="material-icons" ng-click="openSubmenu($event)" id="ordenacion">format_list_bulleted</i>
     </ion-nav-buttons>
     <ion-content>
       <!--
@@ -25,7 +25,7 @@
                 class="material-icons ">filter_list</i>Ordenar valoracion Desc
         </button>
 -->
-        <ion-list class="mdl-grid">
+        <ion-list>
             <div ng-repeat="producto in productos" class="item mdl-cell--2-col">
                 <div class="demo-card-wide">
                     <div class="mdl-card__title">

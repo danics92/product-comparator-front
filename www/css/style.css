@@ -29,6 +29,14 @@
     cursor: pointer;
 }
 
+#login p a {
+    color:white;
+}
+
+#login input[type="password"]::-webkit-input-placeholder, input[type="email"]::-webkit-input-placeholder{
+    color: black!important;
+}
+
 .star-rating .star.filled {
     color: #fd0;
 }
@@ -147,10 +155,6 @@ select {
     width: 100%;
 }
 
-ion-item.item {
-    padding: 14px !important;
-}
-
 #map{
     width: 100%;
     height: 100%;
@@ -174,9 +178,37 @@ ion-item.item {
 }
 
 .mdl-button--fab {
-    background-color: #5faba5!important;
+    background-color: #75D2E8!important;
 }
 
 .mdl-button--icon{
     color: white;
+}
+
+#ordenacion {
+    font-size: 20px;
+}
+
+#filtrado {
+    font-size: 16px;
+    margin-right: 6px;
+}
+
+.right-buttons{
+    padding-top: 5px;
+    width: 67px;
+    height: 67px;
+}
+
+#limpiar{
+    width: 64px;
+}
+
+#btn-clean {
+    top: -6px!important;
+    right: 20px!important;
+}
+
+.bar, .header-item, .ion-navicon{
+    color:white!important;
 }
