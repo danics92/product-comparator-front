@@ -78,8 +78,8 @@ th {
 
 .button-add {
     float: right;
-    right: 20px;
-    top: 20px;
+    right: 28px;
+    top: 23px;
 }
 
 .input-label {
@@ -213,18 +213,37 @@ select {
     color:white!important;
 }
 
-.scroll{
-  height: 100%;
+.thumb-img {
+    top: 0px!important;
+    background: transparent!important;
+    border: 1px solid #ddd!important;
+    padding: 5px!important;
 }
 
-.white{
-  color:white !important;
+
+#carros .list{
+    top: 20px;
 }
 
-.back-text{
-  color:white;
+.button-action {
+    position:absolute;
+    top:8px;
+    right:10px;
 }
 
-.ion-ios-arrow-back{
-  color:white;
+.item-thumbnail-left{
+    margin-top: 10px!important;
+}
+
+.thumb-h2, .thumb-p {
+    position: absolute;
+    left: 111px;
+}
+
+.thumb-h2{
+    top:9px;
+}
+
+.thumb-p {
+    top:30px;
 }
