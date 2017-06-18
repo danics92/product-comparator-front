@@ -6,27 +6,41 @@
       <div class = "list">
         <form name="registro" ng-submit="doRegistro()">
                 <label class="padding item item-input" for="nombre">
-                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" required ng-model="register.nombre">
+
+                    <input type="text" name="nombre" id="nombre" placeholder="Nombre"  ng-model="register.nombre">
                 </label>
                 <label class="padding item item-input" for="apellidos">
-                    <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos" required ng-model="register.apellidos">
+
+                    <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos"  ng-model="register.apellidos">
                 </label>
-                <label class="padding item item-input" for="telefono">
-                    <input type="tel" name="telefono" id="telefono" maxlength="9" placeholder="Telefono" required ng-model="register.telefono">
+                <label class="padding item item-input" ng-class="{'inputError':errorTelefonoRegistro}" for="telefono">
+
+                    <input type="tel" name="telefono"  id="telefono" maxLength="9" placeholder="Telefono"  ng-model="register.telefono">
+                      <p ng-show="errorTelefonoRegistro">El telefono no es valido</p>
                 </label>
-                <label class="padding item item-input" for="email">
-                    <input type="email" name="email" id="email" placeholder="Email" required ng-model="register.email">
+                <label class="padding item item-input" ng-class="{'inputError':errorEmailRegistro}" for="email">
+
+                    <input type="email" name="email" id="email" placeholder="Email" required="required" ng-model="register.email">
+                      <p ng-show="errorEmailRegistro">El email ya esta siendo utilizado</p>
                 </label>
                 <label class="padding item item-input" for="password">
-                    <input type="password" name="password" id="password" placeholder="Contraseña" required ng-model="register.password">
+
+                    <input type="password" name="password" id="password" placeholder="Contraseña" required="required" ng-model="register.password">
                 </label>
-                <label class="item item-input item-select" >
-                  <div class="input-label" for="localidad">Localidad</div>
-                      <select id="localidad" required ng-model="register.idLocalidad">
+                <label class="item item-input item-select selectPadding" ng-class="{'inputError':errorLocalidadRegistro}" >
+
+                  Localidad
+                      <select id="localidad" ng-model="register.idLocalidad">
                         <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
                     </select>
+                    <p ng-show="errorLocalidadRegistro">Debe seleccionar una localidad</p>
+
                 </label>
-                <input type="submit" id="submit" class="button button-full button-balanced" value="registrase" />
+
+                <button type="submit" class="button button-block button-positive">
+                    Registrate
+                </button>
+
               </div>
         </form>
     </ion-content>

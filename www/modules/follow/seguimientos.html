@@ -1,15 +1,22 @@
-<ion-view view-title="Mis seguimientos">
+<ion-view view-title="MIS SEGUIMIENTOS">
     <ion-content>
-
+      <h2 ng-show=" productos.length == 0" class="tituloSinResultado">No hay ningun seguimiento</h2>
 <ion-list>
-  <ion-item ng-repeat="producto in productos" ng-click="openModal($index)">
-      <p>nombre:{{producto.nombre}}</p>
-      <p>marca: {{producto.marca.nombre}};</p>
-
-         <ion-option-button class="button-assertive"
-                            ng-click="eliminarSeguimiento(producto.id,$index)">
-           Delete
-         </ion-option-button>
+  <ion-item ng-repeat="producto in productos" class="itemSeguimiento">
+    <div class="infoSeguimiento">
+      <h2>{{producto.nombre}}</h2>
+      <p>{{producto.marca.nombre}}</p>
+    </div>
+    <div class="accionSeguimiento">
+      <button class="button-assertive botonEliminarSeguimiento"
+                         ng-click="eliminarSeguimiento(producto.id,$index)">
+          <i class="material-icons" >delete</i>
+      </button>
+      <button class="button-assertive botonVerHistorial"
+                ng-click="openModal($index)">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
   </ion-item>
 
 </ion-list>

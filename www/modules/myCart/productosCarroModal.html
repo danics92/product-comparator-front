@@ -1,20 +1,24 @@
 
 <ion-modal-view>
     <ion-header-bar align-title="center" class="bar-positive">
-        <h1 class="title">Productos</h1>
+        <h1 class="title">PRODUCTOS</h1>
         <div class="buttons">
             <button class="button" ng-click="closeModal()">Salir</button>
         </div>
     </ion-header-bar>
     <ion-content>
-
+      <h2 class="tituloSinResultado" ng-show="productosCarro.length == 0">No hay ningun producto</h2>
         <ion-list>
-            <ion-item class="item" ng-repeat="producto in productosCarro">
-                <p>id_producto_carro: {{producto.id}}</p>
-                <ion-option-button class="button-assertive"
-                                   ng-click="eliminarProducto($index,producto.id)">
-                    Borrar
-                </ion-option-button>
+            <ion-item class="item itemProductoCarro" ng-repeat="producto in productosCarro">
+              <div class="accionProductoCarro">
+                <button class="button-energized botonEliminarProductoCarro" ng-click="eliminarProducto($index,producto.id)">
+                    <i class="material-icons" >delete</i>
+                </button>
+              </div>
+              <div class="infoProductoCarro">
+                <p class="nombreProductoCarro">{{producto.nombre}}</p>
+                <p class="precioProductoCarro">{{producto.precio}} €</p>
+              </div>
             </ion-item>
         </ion-list>
 

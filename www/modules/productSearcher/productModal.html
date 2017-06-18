@@ -7,10 +7,15 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <button ng-show="verValorarBoton" ng-click="popupValoracion(indexProducto)">Valorar producto</button>
-        <h2>{{productos[indexProducto].nombre}}</h2>
-            <h3>{{productos[indexProducto].marca.nombre}}</h3>
-        <p>valoracion: {{productos[indexProducto].valoracionTotal}}</p>
+      <div class="item item-divider">
+          {{productos[indexProducto].nombre}}
+      </div>
+            <img class="imagenProductoModal" src="../../img/transparent.jpg">
+        <div class="item item-divider">
+            Valoracion
+        </div>
+          <p class="valoracionProductoModal">{{productos[indexProducto].valoracionTotal}}</p>
+          <button ng-show="productos[indexProducto].verBotonValorar" class="botonValorarProducto button button-positive button-small button-outline" ng-click="popupValoracion(indexProducto)">Valorar</button>
         <div class="item item-divider">
             Informacion nutricional
         </div>
@@ -36,14 +41,13 @@
             Tiendas
         </div>
         <ion-list>
-            <ion-item class="item" ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
-                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</p>
-                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</p>
-                <p>precio:{{productoTienda.historialPrecio.precio}}</p>
-                <p>{{productos[indexProducto].productoTiendas.tiendas[$index].idLocalidad}}
-                    <button class="button-normal mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored top-0"
+            <ion-item class="item tiendaProducto" ng-repeat="productoTienda in productos[indexProducto].productoTiendas">
+                <p><i class="material-icons">business</i><span class="texto-icono textoNumTiendas">{{productos[indexProducto].productoTiendas.tiendas[$index].empresa.nombre}}</span></p>
+                <p><i class="material-icons ">room</i> <span class="texto-icono ">{{productos[indexProducto].productoTiendas.tiendas[$index].direccion}}</span></p>
+                <p><i class="material-icons">account_balance_wallet</i> <span class="texto-icono">{{productoTienda.historialPrecio.precio}} €</span></p>
+                    <button class="button-normal botonProductoCarro"
                             ng-click="openCarroModal(productoTienda.id)">
-                        <i class="material-icons">add</i>
+                        <i class="material-icons">add_shopping_cart</i>
                     </button>
             </ion-item>
         </ion-list>

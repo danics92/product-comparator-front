@@ -1,10 +1,10 @@
-<ion-view view-title="Filtro">
+<ion-view view-title="FILTRO">
   <ion-nav-buttons side="right" id="limpiar">
-    <button id="btn-clean" class="button" ng-click="eliminarFiltro()">Limpiar</button>
+    <button id="btn-clean" class="button button-outline button-light" ng-show="verEliminarFiltro" ng-click="eliminarFiltro()">Limpiar</button>
   </ion-nav-buttons>
 <ion-content id="filterProducts">
     <ion-list>
-  <div class="item item-divider">
+  <div class="item item-divider itemFiltro">
    Categoria
   </div>
   <label class="item item-select">
@@ -34,7 +34,7 @@ productos
   <option ng-repeat="categoriaProducto in productos" value={{categoriaProducto.id}}>{{categoriaProducto.nombre}}</option>
 </select>
 </label>
-<div class="item item-divider">
+<div class="item item-divider itemFiltro">
 Informacion del producto
 </div>
 
@@ -71,7 +71,7 @@ Informacion del producto
 <p>{{grasas.value}}</p>
 </div>
 </label>
-<div class="item item-divider">
+<div class="item item-divider itemFiltro">
 Localidad
 </div>
 <label class="item item-select">

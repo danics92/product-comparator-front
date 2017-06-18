@@ -1,0 +1,28 @@
+<ion-modal-view >
+   <ion-header-bar align-title="center" class="bar-positive">
+      <h1 class="title">HISTORIAL</h1>
+     <div class="buttons">
+        <button class="button" ng-click="closeModalHistorial()">Salir</button>
+      </div>
+   </ion-header-bar>
+  <ion-content>
+    <h2 ng-show="productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio == 0" class="tituloSinResultado">No hay ningun precio</h2>
+    <ion-list>
+      <ion-item class="item itemModalHistorial" ng-repeat="historial in productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio">
+        <div class="fechaHistorialProducto">
+          <p>{{historial.fecha}}</p>
+        </div>
+        <div class="precioHistorialProducto">
+            <p>{{historial.precio}} €</p>
+        </div>
+        <div class="progresionHistorialProdcuto">
+          <p ng-show="historial.porcentaje > 0 ">
+            <i class="material-icons" ng-show="historial.esMenor" ng-class="{'flechaAbajo':historial.esMenor}">keyboard_arrow_down</i>
+            <i class="material-icons" ng-show="historial.esMayor" ng-class="{'flechaArriba':historial.esMayor}">keyboard_arrow_up</i>
+            <span class="texto-icono" ng-class="{'flechaAbajo':historial.esMenor,'flechaArriba':historial.esMayor}">{{historial.porcentaje}}%</span></p>
+        </div>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-modal-view>

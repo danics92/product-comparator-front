@@ -3,7 +3,7 @@
  */
 
 
-app.controller("filterProductsCtrl", function ($rootScope,$http, $scope, $location,$window,filtradoService) {  
+app.controller("filterProductsCtrl", function ($rootScope,$http, $scope, $location,$window,filtradoService) {
 $rootScope.showLoading();
 $scope.categoriaGeneral= {};
 $scope.subcategorias = {};
@@ -34,6 +34,7 @@ $scope.proteinas = {
 $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
 
   var obtenerCategoriasTop = function(){
+    $scope.verificarToken();
     var categoriasTop =  $http.get($rootScope.dominio + "/categoria/obtenerCategoriasTop");
     categoriasTop.success(function(data, status, headers, config){
       console.log(data);
@@ -46,6 +47,7 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
   }
 
   $scope.obtenerSubcategorias = function(id_padre){
+    $scope.verificarToken();
     var subcategorias = 0;
     if(id_padre === "0" || id_padre === undefined){
       subcategorias = $http.get($rootScope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+true);
@@ -61,6 +63,7 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
   }
 
    $scope.obtenerProductos = function(id_padre){
+     $scope.verificarToken();
      var productoCategoria = 0;
      if(id_padre === "0" || id_padre === undefined){
        productoCategoria =  $http.get($rootScope.dominio + "/categoria/obtenerTodasCategoriasPorPadre?esSubCategoria="+false);
@@ -78,6 +81,7 @@ $scope.verEliminarFiltro = filtradoService.verEliminarFiltro;
 
 
   var obtenerLocalidadesRegistro = function(){
+    $scope.verificarToken();
       var ajax =  $http.get($rootScope.dominio + "/localidad/obtenerTodasLocalidades");
       ajax.success(function(data, status, headers, config){
           $scope.localidades = data;

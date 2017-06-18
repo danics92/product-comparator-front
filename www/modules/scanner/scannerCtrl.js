@@ -12,57 +12,6 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
     $scope.indexProducto = 0;
 
 
-    $scope.scanBarcode = function () {
-        $ionicPlatform.ready(function () {
-            cordova.plugins.barcodeScanner.scan(
-                function (result) {
-                    if (result.text != "" && result.text != null) {
-                        obtenerProductoPorCode(result.text);
-                    } else {
-                        alert("no hay ningun producto, codiog de barras = "+result.text);
-                    }
-                },
-                function (error) {
-                    alert("Scanning failed: " + error);
-                }
-            );
-        })
-    }
-
-    $scope.openModal = function (code) {
-        $ionicModal.fromTemplateUrl('modules/productSearcher/productModal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-            $scope.modal.show();
-        });
-    };
-
-
-    $scope.closeModal = function () {
-        $scope.modal.hide();
-        $scope.modal.remove();
-        $scope.productos = [];
-        $scope.carros = [];
-    };
-
-    var obtenerProductoPorCode = function (code) {
-        var producto = $http.get($rootScope.dominio + '/producto/obtenerProductoPorCode?code=' + code);
-        producto.success(function (data, status, headers, config) {
-            $scope.productos.push(data);
-            if (data.productoValoracion.length > 0) {
-                $scope.productos[0].valoracionTotal = obtenerValoracionTotal(data.productoValoracion);
-            } else {
-                $scope.productos[0].valoracionTotal = 0;
-            }
-            obtenerTiendasDeProducto();
-        });
-        producto.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
-        });
-    }
-
     var obtenerTiendasDeProducto = function () {
         $scope.verificarToken();
         var id_tiendas = [];
@@ -74,7 +23,7 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
             }
             id_tiendas.push($scope.productos[0].productoTiendas[i].idTienda);
         }
-        var tiendas = $http.get($rootScope.dominio + '/productoTienda/obtenerTiendasPorProductos?id_tiendas=' + id_tiendas);
+        var tiendas = $http.get($rootScope.dominio + '/tienda/obtenerTiendasPorIds?id_tiendas=' + id_tiendas);
         tiendas.success(function (data, status, headers, config) {
             $scope.productos[0].productoTiendas.tiendas = [];
             if ($rootScope.localidadUsuario == 0) {
@@ -85,11 +34,11 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
                     $scope.productos[0].productoTiendas.tiendas.push(data[i]);
                 }
             }
+            $scope.openModal();
 
-            console.log($scope.productos);
         });
         tiendas.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     }
 
@@ -110,7 +59,7 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
             $scope.obtenerPrecioCarros();
         });
         carros.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     };
 
@@ -135,10 +84,63 @@ app.controller("scannerCtrl", function ($scope, $cordovaBarcodeScanner, $ionicPl
             $scope.carros.reverse();
         });
         precios.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
 
     }
+
+
+
+    $scope.scanBarcode = function () {
+      $scope.verificarToken();
+        $ionicPlatform.ready(function () {
+            cordova.plugins.barcodeScanner.scan(
+                function (result) {
+                    if (result.text != "" && result.text != null) {
+                      var producto = $http.get($rootScope.dominio + '/producto/obtenerProductoPorCode?code=' + result.text);
+                      producto.success(function (data, status, headers, config) {
+                        if(data != null && data != undefined && data != ""){
+                          $scope.productos.push(data);
+                          if (data.productoValoracion.length > 0) {
+                              $scope.productos[0].valoracionTotal = obtenerValoracionTotal(data.productoValoracion);
+                          } else {
+                              $scope.productos[0].valoracionTotal = 0;
+                          }
+                          obtenerTiendasDeProducto();
+                        }else{
+                          alert("El producto con codigo de barras "+result.text+" no existe en la base de datos");
+                        }
+                      });
+                      producto.error(function (data, status, headers, config) {
+                          $scope.showFeedback("error", "ha surguido un error en la consulta",305);
+                      });
+                  }
+                  },
+                function (error) {
+                    alert("Scanning failed: " + error);
+                }
+            );
+        });
+    }
+
+    $scope.openModal = function () {
+        $ionicModal.fromTemplateUrl('modules/productSearcher/productModal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+    };
+
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+        $scope.modal.remove();
+        $scope.productos = [];
+        $scope.carros = [];
+    };
+
 
     $scope.openCarroModal = function (idProductoTienda) {
         $scope.obtenerCarrosUsuario();

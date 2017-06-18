@@ -2,7 +2,7 @@
  * Created by danilig on 15/05/17.
  */
 app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicModal, $location) {
-    $scope.verificarToken();
+
 
     $scope.seguimientos = [];
 
@@ -13,6 +13,8 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
     $scope.tiendas = [];
 
     $scope.indexProducto = 0;
+
+    $scope.indexProductoTienda = 0;
 
     $scope.obtenerSeguimientos = function () {
         $scope.verificarToken();
@@ -44,7 +46,60 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
         });
     }
 
+    var formatearFechas = function (indexProductoTienda) {
+      for(var i = 0; i < $scope.productos[$scope.indexProducto].productoTiendas[indexProductoTienda].historialPrecio.length;i++){
+      var fecha = new Date($scope.productos[$scope.indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].fecha);
+      var formatFecha = pad(fecha.getDate(),2,'0') +'/'+pad(fecha.getMonth() + 1,2,'0') + '/'+ fecha.getFullYear();
+      $scope.productos[$scope.indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].fecha = formatFecha;
+
+      }
+    }
+
+    var pad = function(s,width,character){
+      return new Array(width - s.toString().length +1).join(character) + s;
+    }
+
+    var isReverse = function(indexProducto,indexProductoTienda){
+        if($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio.length == 0){
+          return true;
+        }
+        if($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio.length == 1){
+          return true;
+        }else{
+          for (var i = 0; i < $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio.length == 1; i++) {
+            if($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].fecha < $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i+1].fecha ){
+              return true;
+            }else{
+              return false;
+            }
+          }
+        }
+    }
+
+    var calcularDiferencia = function(indexProducto,indexProductoTienda){
+      var old  =0;
+      for(var i = 0; i < $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio.length; i++){
+        if(i == 0){
+          old = $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio;
+        }else{
+            if($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio < old){
+              $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].esMenor = true;
+              var porcentaje = (100-($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio * 100)/old);
+              $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].porcentaje = porcentaje.toFixed(2);
+              old = $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio;
+            }else{
+              $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].esMayor = true;
+              var porcentaje = (($scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio-old)/old)*100;
+              $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].porcentaje = porcentaje.toFixed(2);
+              old = $scope.productos[indexProducto].productoTiendas[indexProductoTienda].historialPrecio[i].precio;
+            }
+        }
+
+      }
+    }
+
     var obtenerTiendasPorIds = function(index){
+      $scope.verificarToken();
       var old = 0;
       var parameters = "";
       for(var i = 0; i < $scope.productos[index].productoTiendas.length; i++){
@@ -63,7 +118,6 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
       var tiendasPorId = $http.get($rootScope.dominio + '/tienda/obtenerTiendasPorIds?id_tiendas='+parameters);
 
       tiendasPorId.success(function (data, status, headers, config) {
-        console.log(data);
         for(var j = 0; j < data.length; j++){
           $scope.productos[index].productoTiendas[j].tienda = data[j];
           if(  $scope.productos[index].productoTiendas[j].historialPrecio.length == 0){
@@ -71,7 +125,14 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
           }else{
               $scope.productos[index].productoTiendas[j].precio =   $scope.productos[index].productoTiendas[j].historialPrecio[0].precio;
           }
+          formatearFechas(j);
+          if(!isReverse(index,j)){
+            $scope.productos[$scope.indexProducto].productoTiendas[j].historialPrecio.reverse();
+          }
+          calcularDiferencia(index,j);
         }
+
+
         $rootScope.hideLoading();
       });
       tiendasPorId.error(function (data, status, headers, config) {
@@ -100,6 +161,7 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
       };
 
       var obtenerProductosPorId = function(){
+        $scope.verificarToken();
         var parameters = "?id_producto=";
         var oldProducto = 0;
         var numProductos = 0;
@@ -132,7 +194,11 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
       $rootScope.hideLoading();
       }
 
+
+
+
       $scope.openModal = function(index){
+        $rootScope.showLoading();
         $scope.indexProducto = index;
         obtenerTiendasPorIds(index);
         $ionicModal.fromTemplateUrl('modules/follow/seguimientoModal.html', {
@@ -151,6 +217,23 @@ app.controller("seguimientoCtrl", function ($rootScope, $http, $scope, $ionicMod
 
         };
 
+        $scope.openModalHistorial = function(index){
+
+          $scope.indexProductoTienda = index;
+          $ionicModal.fromTemplateUrl('modules/follow/historialPreciosModal.html', {
+              scope: $scope,
+              animation: 'slide-in-up'
+            }).then(function(modal) {
+              $scope.modalHistorial = modal;
+              $scope.modalHistorial.show();
+            });
+        }
+
+        $scope.closeModalHistorial = function() {
+          $scope.modalHistorial.hide();
+          $scope.modalHistorial.remove();
+
+        };
 
 
 });

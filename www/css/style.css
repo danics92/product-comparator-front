@@ -49,6 +49,7 @@
     color: black;
     height: 176px;
     background: url('../img/transparent.jpg');
+    background-size: cover;
 }
 
 table tr, td, th {
@@ -78,8 +79,8 @@ th {
 
 .button-add {
     float: right;
-    right: 28px;
-    top: 23px;
+    right: 20px;
+    top: 20px;
 }
 
 .input-label {
@@ -90,11 +91,19 @@ th {
     font-size: 18px !important;
     margin-bottom: 5px !important;
     font-weight: bold !important;
-    background-color: lightBlue !important;
+    background-color: #112c35 !important;
+    color:white !important;
+    text-transform: uppercase !important;
+    clear: both;
 }
 
 select {
-    background: #EEE !important;
+    background-color: white !important;
+}
+
+.item-select{
+  border-bottom: 1px solid !important;
+  padding: 5px !important;
 }
 
 #filterProducts label.item-select {
@@ -109,11 +118,15 @@ select {
 }
 
 .button-positive{
-    background-color: #185E99!important;
+  background-color: #112c35 !important;
 }
 
 #filtrarBtn:hover {
-    background-color: #185E88!important;
+    background-color: #112c35!important;
+}
+
+#filtrarBtn{
+    background-color: #112c35!important;
 }
 
 #login {
@@ -177,10 +190,6 @@ select {
     height: auto!important;
 }
 
-.mdl-button--fab {
-    background-color: #75D2E8!important;
-}
-
 .mdl-button--icon{
     color: white;
 }
@@ -193,61 +202,502 @@ select {
     font-size: 16px;
     margin-right: 6px;
 }
-
+/*
 .right-buttons{
     padding-top: 5px;
     width: 67px;
     height: 67px;
 }
+*/
+
+
 
 #limpiar{
     width: 64px;
 }
 
-#btn-clean {
-    top: -6px!important;
-    right: 20px!important;
+
+.scroll{
+  height: 100%;
 }
+
+.white{
+  color:white !important;
+}
+
+.back-text{
+  color:white;
+}
+
+.ion-ios-arrow-back{
+  color:white;
+}
+
+#btn-clean{
+margin-right: 5px;
+border: 1px solid;
+color: white !important;
+}
+
+#ng-pristine{
+  background-color: white !important;
+}
+
+
+.inputError{
+  background-color:rgba(255,0,0,0.3) !important;
+}
+
+
+h1.title{
+  color:white !important;
+  text-align: center;
+}
+
+
+
+.material-icons{
+  color:black !important;
+  margin-top:5px !important;
+}
+
+.texto-icono{
+  position: relative  !important;
+  bottom: 5px !important;
+
+}
+
+.opciones-popOver{
+  background-color: white !important;
+  border-bottom: 2px solid black !important;
+  padding:  5px !important;
+  border-top: 0px  !important;
+}
+
+.lista-menu > .list > .item{
+  background-color: white !important;
+  border-bottom: 2px solid black;
+}
+
+.noMarginTop{
+  margin-top: 0px !important;
+}
+
+.botonRegistro{
+    background-color: #112c35 !important;
+}
+
+.mdl-card__supporting-text{
+  width: 80% !important;
+  float:left;
+}
+
+
+.cajaAccionProductos{
+    width: 20% !important;
+    float: left;
+    min-height: 150px;
+    padding-top: 10px !important;
+
+
+}
+
+.cajaAccionProductos > .botonAccionProductos{
+  width: 100% !important;
+  float: left !important;
+  margin-bottom: 20px !important;
+    height: 30px !important;
+}
+
+.cajaAccionProductos > .botonAccionProductos > i{
+  font-size: 27px !important;
+  color:black !important;
+  margin-right: 5px  !important;
+}
+
+.cajaAccionProductos > .botonAccionProductos:hover{
+  background-color: transparent !important;
+}
+
 
 .bar, .header-item, .ion-navicon{
     color:white!important;
 }
 
-.thumb-img {
-    top: 0px!important;
-    background: transparent!important;
-    border: 1px solid #ddd!important;
-    padding: 5px!important;
+.icono-menu-opciones{
+  font-size: 25px !important;
+  margin-left: 5px !important;
+    color:white!important;
+    margin-top: 0px !important;
+}
+
+.tituloProducto{
+  margin-top: 10px !important;
+  margin-left: 16px !important;
+
+}
+
+.mdl-card__supporting-text > h2{
+  font-size: 20px !important;
+}
+
+.mdl-card__supporting-text > p > i{
+  font-size: 25px !important;
+  margin-right: 5px !important;
+}
+
+.infoProducto{
+  margin-top: 5px !important;
+  color: black !important;
+  font-size:20px !important;
+}
+
+.itemProducto{
+  border-bottom-color: black !important;
+  border-bottom: 2px solid black !important;
+}
+
+.textoNumTiendas{
+  margin-left: 5px !important;
+}
+
+.botonesDerechaMenu{
+  padding-top:10px !important;
+  padding-right: 10px !important;
+}
+.selectPadding{
+  padding: 15px !important;
+}
+
+.imagenProductoModal{
+  height: 200px !important;
+  width: 100% !important;
 }
 
 
-#carros .list{
-    top: 20px;
+.valoracionProductoModal{
+  padding: 10px !important;
+  width: 50% !important;
+  float: left  !important;
+  font-size: 20px  !important;
 }
 
-.button-action {
-    position:absolute;
-    top:8px;
-    right:10px;
+.botonValorarProducto{
+width: 50%  !important;
+float: left  !important;
+margin-top: 2px  !important;
+font-weight: bold  !important;
+
 }
 
-.item-thumbnail-left{
-    margin-top: 10px!important;
+.tiendaProducto{
+    padding: 15px !important;
+    border-bottom: 2px solid black !important;
+    border-top: 0px !important;
 }
 
-.thumb-h2, .thumb-p {
-    position: absolute;
-    left: 111px;
+.tiendaProducto > p {
+  color:black !important;
+  padding: 5px !important;
 }
 
-.thumb-h2{
-    top:9px;
+.tiendaProducto > p > span{
+  font-size: 18px !important;
 }
 
-.thumb-p {
-    top:30px;
+.botonProductoCarro{
+  background-color: transparent  !important;
+  border:none  !important;
+  margin-top: 20px  !important;
 }
 
-.mdl-card__supporting-text {
-    width:100%;
+.botonProductoCarro > i{
+  font-size: 40px  !important;
+}
+
+.nombreEmpresaTienda{
+  font-size: 25px  !important;
+}
+
+.popup-buttons{
+  background-color: #112c35 !important;
+  color:white !important;
+}
+
+.popup-buttons > a{
+  color:white !important;
+}
+
+.itemCarro{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  border-bottom: 2px solid black !important;
+}
+
+.itemCarro > .nombreCarro{
+  width: 60% !important;
+  float: left !important;
+  font-size: 18px !important;
+  margin-top: 15px !important;
+  color:black !important;
+}
+
+.itemCarro > .precioCarro{
+  width: 20% !important;
+  float: left !important;
+  font-size: 18px !important;
+  text-align: right !important;
+  margin-top: 15px !important ;
+  color:black !important;
+  padding-right: 10px !important;
+}
+
+.itemCarro > img{
+  height: 45px !important;
+  width: 20% !important;
+  float: left !important;
+}
+
+.itemMisCarros{
+  padding-top:20px !important;
+  padding-bottom: 20px !important;
+  padding-right: 10px !important;
+    border-bottom: 2px solid black !important;
+}
+
+
+
+.itemMisCarros > img{
+  width: 20% !important;
+  height: 40px !important;
+  float: left !important ;
+
+}
+
+
+.infoCarro{
+  width: 30%!important;
+  float: left !important;
+
+}
+
+.accionCarro{
+  width: 50% !important;
+  float: left !important;
+  text-align: right !important;
+}
+
+
+.itemMisCarros > p{
+  color:black !important;
+}
+
+.botonCarroAccion{
+  background-color: white !important;
+  border-radius: 400px !important;
+  border: 1px solid black;
+}
+
+
+.editarCarro{
+  border-color: #FF9800 !important;
+
+}
+
+.editarCarro > i{
+    color: #FF9800 !important;
+}
+
+.borrarCarro{
+  border-color: #F44336 !important;
+
+}
+
+.borrarCarro > i{
+color: #F44336 !important;
+}
+
+.verCarro{
+  border-color:  #03A9F4 !important;
+
+}
+
+.verCarro > i {
+  color:  #03A9F4 !important;
+}
+
+.tituloSinResultado{
+  text-align: center !important;
+  margin-top: 30px !important;
+  color:gray !important;
+  font-weight: bold !important;
+
+}
+
+.itemProductoCarro{
+  padding: 15px !important;
+  border-bottom: 2px solid black !important;
+
+}
+
+.infoProductoCarro{
+  width: 80% !important;
+  float:left !important;
+  margin-top: 10px !important;
+}
+
+.nombreProductoCarro{
+  width: 70% !important;
+  float: left !important;
+  color:black !important;
+  font-size: 16px !important;
+  overflow: inherit!important;
+}
+
+.precioProductoCarro{
+  width: 30% !important;
+  float: left !important;
+  text-align: right !important;
+  color:black !important;
+  font-size: 16px !important;
+}
+
+.accionProductoCarro{
+  width: 20% !important;
+  float:left !important;
+
+}
+
+.botonEliminarProductoCarro{
+  border-radius: 400px !important;
+  border: 1px solid #F44336;
+  background-color: white !important;
+}
+
+.botonEliminarProductoCarro > i{
+  color: #F44336 !important;
+}
+
+.popover{
+  background-color: white !important;
+}
+
+.itemSeguimiento{
+  padding: 15px !important;
+  border-bottom: 2px solid black !important;
+}
+
+.infoSeguimiento{
+  width: 70% !important;
+  float: left !important;
+}
+
+.accionSeguimiento{
+  width: 30% !important;
+  float: left !important;
+}
+
+
+.botonEliminarSeguimiento{
+  border-radius: 400px !important;
+  background-color: white !important;
+  border: 1px solid #F44336;
+}
+
+.botonEliminarSeguimiento > i{
+  color: #F44336 !important;;
+}
+
+.itemModalSeguimiento{
+  padding: 15px !important;
+  border-bottom: 2px solid black !important;
+}
+
+.infoPrecioModalSeguimiento{
+  width: 30% !important;
+  float: left !important;
+  text-align: right !important;
+}
+
+.infoModalSeguimiento{
+  width: 50% !important;
+  float: left !important;
+}
+
+
+
+.precioModalSeguimiento{
+  width: 20% !important;
+  float: left !important;
+}
+
+
+.precioModalSeguimiento > p{
+  margin-top: 12px !important;
+  font-size: 20px !important;
+  color:black !important;
+}
+
+.botonVerHistorial{
+  background-color: white !important;
+  border-radius: 400px !important;
+  border: 1px solid #03A9F4;
+}
+
+.botonVerHistorial > i{
+  color: #03A9F4 !important;
+}
+
+.itemModalHistorial{
+  padding: 15px !important;
+  border-bottom: 2px solid black !important;
+  padding-top: 20px !important;
+  padding-bottom: 15px !important;
+  padding-top: 15px !important;
+}
+
+.fechaHistorialProducto{
+  width: 30% !important;
+  float: left !important;
+  margin-top: 5px !important;
+}
+
+.fechaHistorialProducto > p{
+  font-size: 18px !important;
+  color:black !important;
+}
+
+.precioHistorialProducto{
+  width: 30% !important;
+  float: left !important;
+  margin-top: 5px !important;
+}
+
+.precioHistorialProducto > p{
+  font-size: 20px !important;
+  color:black !important;
+  text-align: right !important;
+}
+
+.progresionHistorialProducto{
+  width: 40% !important;
+  float: left !important;
+}
+
+.progresionHistorialProdcuto > p{
+  width: 40% !important;
+  float: left !important;
+  text-align: right !important;
+  font-size: 20px !important;
+  color:black !important;
+}
+
+.flechaArriba{
+  color:red !important;
+}
+
+.flechaAbajo{
+  color:green !important;
 }

@@ -19,8 +19,7 @@ app.service('filtradoService', function () {
     this.verEliminarFiltro = false;
 });
 app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $ionicModal,$ionicPopover, $location, $ionicActionSheet, $timeout, $rootScope, $ionicPopup, filtradoService) {
-
-    $scope.verificarToken();
+;
 
     $scope.productos = [];
 
@@ -41,6 +40,10 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
     $scope.ordenarValoracionAscActivado = true;
 
     $scope.ordenarValoracionDescActivado = false;
+
+    $scope.productoValorado = false;
+
+    $scope.iconoSeguimiento = "gps_off";
 
     var indexCarro = 0;
 
@@ -67,30 +70,66 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         for (var i = 0; i < valoraciones.length; i++) {
             valoracionesUser += valoraciones[i].valoracion;
         }
+
         return (valoracionesUser / valoraciones.length);
     };
 
+     var comprobarValoracionUsuario = function(){
+       $scope.verificarToken();
+      var valoracionUsuario = $http.post($rootScope.dominio + '/producto/comprobarValoracionUsuario', $scope.token);
+      valoracionUsuario.success(function (data, status, headers, config) {
+          if(data.length > 0){
+            for(var i = 0; i < data.length; i++){
+              for(var j = 0; j < $scope.productos.length; j++){
+                if(data[i].idProducto == $scope.productos[j].id){
+                  $scope.productos[j].verBotonValorar = false;
+                  break;
+                }
+              }
+            }
+          }else{
+            for(var j = 0; j < $scope.productos.length; j++){
+                  $scope.productos[j].verBotonValorar = true;
+            }
+        }
+        $rootScope.hideLoading();
+      });
+      valoracionUsuario.error(function (data, status, headers, config) {
+          $scope.showFeedback("", "", 305);
+      });
+    }
+
     var comprobarSeguimientoProducto = function () {
+      $scope.verificarToken();
         var seguimientos = $http.post($rootScope.dominio + '/usuario/seguimiento/obtenerTodosLosSeguimientos', $scope.token);
         seguimientos.success(function (data, status, headers, config) {
+          if(data.length > 0){
             for (var i = 0; i < $scope.productos.length; i++) {
                 for (var j = 0; j < data.length; j++) {
                     if (data[j].idProducto == $scope.productos[i].id) {
-                        $scope.productos[i].seguimientoImg = "favorite";
+                        $scope.productos[i].seguimientoImg = "gps_fixed";
                         $scope.productos[i].seguimiento = true;
                         break;
                     } else {
-                        $scope.productos[i].seguimientoImg = "favorite_border";
+                        $scope.productos[i].seguimientoImg = "gps_off";
                         $scope.productos[i].seguimiento = false;
                     }
                 }
             }
+          }else{
+              for (var i = 0; i < $scope.productos.length; i++) {
+                $scope.productos[i].seguimientoImg = "gps_off";
+                $scope.productos[i].seguimiento = false;
+              }
+          }
             $rootScope.hideLoading();
         });
         seguimientos.error(function (data, status, headers, config) {
             $scope.showFeedback("error", "ha surguido un error en la consulta", 305);
         });
     };
+
+
 
 
     $scope.obtenerProductos = function () {
@@ -119,13 +158,17 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
                 if (data[i].productoValoracion.length > 0) {
                     valoracion = obtenerValoracionTotal(data[i].productoValoracion);
                 }
+
                 $scope.productos.push(data[i]);
                 $scope.productos[i].valoracionTotal = valoracion.toFixed(2);
+                $scope.productos[i].verBotonValorar = false;
                 mejorPrecio = 0;
                 valoracion = 0;
                 obtenerTiendasDeProducto(i);
             }
+
             comprobarSeguimientoProducto();
+            comprobarValoracionUsuario();
 
         });
         ajaxProductos.error(function (data, status, headers, config) {
@@ -144,7 +187,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         var ajaxSeguimiento = $http.post($rootScope.dominio + '/usuario/seguimiento/realizarSeguimiento', dataSeguimiento);
         ajaxSeguimiento.success(function (data, status, headers, config) {
             $scope.productos[index].seguimiento = true;
-            $scope.productos[index].seguimientoImg = "favorite";
+            $scope.productos[index].seguimientoImg = "gps_fixed";
         });
         ajaxSeguimiento.error(function (data, status, headers, config) {
             $scope.showFeedback("Error", "ha habido un error en la consulta", 305);
@@ -160,10 +203,10 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         var ajaxEliminarSeguimiento = $http.post($rootScope.dominio + '/usuario/seguimiento/eliminarSeguimiento', dataElimarSeguimiento);
         ajaxEliminarSeguimiento.success(function (data, status, headers, config) {
             $scope.productos[index].seguimiento = false;
-            $scope.productos[index].seguimientoImg = "favorite_border";
+            $scope.productos[index].seguimientoImg = "gps_off";
         });
         ajaxEliminarSeguimiento.error(function (data, status, headers, config) {
-            $scope.showFeedback("Error", "ha habido un error en la consulta");
+            $scope.showFeedback("Error", "ha habido un error en la consulta",305);
         });
     }
 
@@ -181,7 +224,6 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
 
         var tiendas = $http.get($rootScope.dominio + '/tienda/obtenerTiendasPorIds?id_tiendas=' + id_tiendas);
         tiendas.success(function (data, status, headers, config) {
-            console.log(data);
             $scope.tiendasBuenas = [];
             $scope.productoTiendasBueno = [];
             var indexProductoTienda = 0;
@@ -287,13 +329,14 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
             $scope.obtenerPrecioCarros();
         });
         carros.error(function (data, status, headers, config) {
+            $scope.closeCarroModal();
             $scope.showFeedback("error", "ha surguido un error en la consulta", 305);
 
         });
     };
 
     $scope.obtenerPrecioCarros = function () {
-
+      $scope.verificarToken();
         var id_carros = [];
 
         for (var i = 0; i < $scope.carros.length; i++) {
@@ -314,6 +357,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
             $rootScope.hideLoading();
         });
         precios.error(function (data, status, headers, config) {
+          $scope.closeCarroModal();
             $scope.showFeedback("error", "ha surguido un error en la consulta", 305);
         });
 
@@ -349,7 +393,6 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         if (orden === "asc") {
             contenedor.sort(function (a, b) {
                 if (valor === 'precio') {
-                    console.log(contenedor);
                     return parseFloat(a.mejorPrecio) - parseFloat(b.mejorPrecio);
                 } else if (valor === 'valoracion') {
                     return parseFloat(a.valoracionTotal) - parseFloat(b.valoracionTotal);
@@ -366,9 +409,6 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         }
         $rootScope.hideLoading();
     }
-
-
-    $scope.obtenerProductos();
 
     var gestionarBotones = function (valor, orden) {
         if (valor === 'precio' && orden === 'asc') {
@@ -446,12 +486,10 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         }
         var valorarAjax = $http.post($rootScope.dominio + "/producto/valorarProducto", dataValoracion);
         valorarAjax.success(function (data, status, headers, config) {
-            console.log(data);
             $scope.productos[$scope.indexProducto].productoValoracion.push(data);
             $scope.productos[$scope.indexProducto].valoracionTotal = obtenerValoracionTotal($scope.productos[$scope.indexProducto].productoValoracion);
         });
         valorarAjax.error(function (data, status, headers, config) {
-            console.log(data);
             $scope.showFeedback("error", "ha surguido un error en la consulta", 305);
         });
 
@@ -466,6 +504,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
         }).then(function (num) {
             if (num != undefined && num != "" && num >= 0 && num <= 5) {
                 $scope.valorarProducto($scope.productos[$scope.indexProducto].id, num);
+                $scope.productos[$scope.indexProducto].verBotonValorar = false;
             } else {
                 $scope.showFeedback("error", "La valoracion debe ser de 0 a 5", "alert");
             }
@@ -489,5 +528,7 @@ $scope.closeSubmenu = function(event){
 }
 
 
+
+    $scope.obtenerProductos();
 
 });

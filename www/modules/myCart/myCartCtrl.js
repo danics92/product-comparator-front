@@ -2,15 +2,20 @@
  * Created by danilig on 15/05/17.
  */
 app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal, $location, $ionicPopup, $ionicLoading) {
-    $scope.verificarToken();
 
     var dataNuevoCarro = {};
     var dataEliminarCarro = {};
     var dataEditarCarro = {};
     var dinero = 0;
 
+    $scope.productoTiendas = {};
+
+    $scope.productos = {};
+
+    $scope.multiplicador = [];
 
     $scope.index_carro = 0;
+
 
     $rootScope.showLoading();
 
@@ -23,8 +28,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
 
         });
         carros.error(function (data, status, headers, config) {
-            console.log("aqui2");
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     };
 
@@ -50,7 +54,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
             $rootScope.hideLoading();
         });
         precios.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "error en carros");
+            $scope.showFeedback("error", "error en carros",305);
         });
 
     }
@@ -58,19 +62,41 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
 
 
     $scope.popupNuevoCarro = function(){
-      $ionicPopup.prompt({
+      $scope.data = {};
+      $ionicPopup.show({
+        template: '<input type="text" ng-model="data.email">',
+          title: 'Añadir carro',
+          inputType: 'text',
+          scope:$scope,
+          buttons: [
+            {text:'Cancel',onTap: function(e){ return true;}},
+            {
+              text:'<b>Guardar</b>',
+              type:'button-positive',
+              onTap:function(e){
+                if($scope.data.email != undefined && $scope.data.email != ""){
+                  dataNuevoCarro.accesToken = $scope.token.accesToken;
+                  dataNuevoCarro.nombre = $scope.data.email;
+                  $scope.addCart();
+                }else{
+                  $scope.showFeedback("error","El campo no puede estar vacio","alert");
+                }
+              }
+            }
+          ]
+      });
+      /*$ionicPopup.prompt({
           title: 'Introduzca el nombre del carro',
           inputType: 'text',
           inputPlaceholder: 'Nuevo nombre'
       }).then(function (nombre) {
           if(nombre != undefined && nombre != ""){
-            dataNuevoCarro.accesToken = $scope.token.accesToken;
-            dataNuevoCarro.nombre = nombre;
-            $scope.addCart();
+
           }else{
               $scope.showFeedback("error","El nombre no puede estar vacio","alert");
           }
       });
+      */
     }
 
 
@@ -78,33 +104,44 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
         $scope.verificarToken();
         var nuevoCarro = $http.post($rootScope.dominio + '/usuario/carro/anadirCarroUsuario', dataNuevoCarro);
         nuevoCarro.success(function (data, status, headers, config) {
-            console.log("carro añadido");
-            console.log(data);
             $scope.carros.push(data);
             $scope.obtenerPrecioCarros();
             $scope.showFeedback("correcto", "se ha introducido un nuevo carro");
 
         });
         nuevoCarro.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
         $scope.carros.reverse();
     };
 
+
+
     $scope.popupEditarCarro = function(oldName,id_carro,index){
-      $ionicPopup.prompt({
+  $scope.data = {};
+      $ionicPopup.show({
+        template: '<input type="text" ng-model="data.email">',
           title: 'Modificar carro',
           inputType: 'text',
-          inputPlaceholder: oldName
-      }).then(function (nombre) {
-          if(nombre != undefined && nombre != ""){
-            dataEditarCarro.accesToken = $scope.token.accesToken;
-            dataEditarCarro.nombre = nombre;
-            dataEditarCarro.id_carro = id_carro;
-            $scope.editCart(index,nombre);
-          }else{
-            $scope.showFeedback("error","El campo no puede estar vacio","alert");
-          }
+          inputPlaceholder: oldName,
+          scope:$scope,
+          buttons: [
+            {text:'Cancel',onTap: function(e){ return true;}},
+            {
+              text:'<b>Guardar</b>',
+              type:'button-positive',
+              onTap:function(e){
+                if($scope.data.email != undefined && $scope.data.email != ""){
+                  dataEditarCarro.accesToken = $scope.token.accesToken;
+                  dataEditarCarro.nombre = $scope.data.email;
+                  dataEditarCarro.id_carro = id_carro;
+                  $scope.editCart(index,$scope.data.email);
+                }else{
+                  $scope.showFeedback("error","El campo no puede estar vacio","alert");
+                }
+              }
+            }
+          ]
       });
     }
 
@@ -132,7 +169,7 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
             $scope.carros.splice(index, 1);
         });
         deleteCarro.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     };
 
@@ -151,10 +188,10 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
         var productosCarro = $http.post($rootScope.dominio + '/usuario/carro/obtenerProductosCarro', dataProductosCarro);
         productosCarro.success(function (data, status, headers, config) {
             $scope.productosCarro = data;
-            console.log(data);
+            obtenerProductoTienda();
         });
         productosCarro.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     };
 
@@ -171,9 +208,77 @@ app.controller("misCarrosCtrl", function ($rootScope, $http, $scope, $ionicModal
             $scope.carros[$scope.index_carro].precioTotal -= data;
         });
         eliminarProducto.error(function (data, status, headers, config) {
-            $scope.showFeedback("error", "ha surguido un error en la consulta");
+            $scope.showFeedback("error", "ha surguido un error en la consulta",305);
         });
     };
+
+    var obtenerProductoTienda = function(){
+      $scope.verificarToken();
+      var parametros = "";
+      var old = 0;
+      if($scope.productosCarro.length > 0){
+      for(var i = 0; i < $scope.productosCarro.length; i++){
+          if(i == 0){
+            parametros += $scope.productosCarro[i].idProductoTienda;
+            old = $scope.productosCarro[i].idProductoTienda;
+          }else{
+            if(old != $scope.productosCarro[i].idProductoTienda){
+                parametros += ","+$scope.productosCarro[i].idProductoTienda;
+                old = $scope.productosCarro[i].idProductoTienda;
+            }
+          }
+      }
+      var ajaxProductoTienda = $http.get($rootScope.dominio + '/productoTienda/obtenerListaProductoTiendasPorId?id_productosTiendas='+parametros);
+      ajaxProductoTienda.success(function (data, status, headers, config) {
+          $scope.productoTiendas = data;
+          obtenerInformacionProductos();
+      });
+      ajaxProductoTienda.error(function (data, status, headers, config) {
+          $scope.showFeedback("error", "ha surguido un error en la consulta",305);
+      });
+    }
+    }
+
+    var obtenerInformacionProductos = function(){
+      $scope.verificarToken();
+      var parametros = "";
+      var old = 0;
+      for(var i = 0; i < $scope.productoTiendas.length; i++){
+        if(i == 0){
+          parametros += $scope.productoTiendas[i].idProducto;
+          old = $scope.productoTiendas[i].idProducto;
+        }else{
+          if(old != $scope.productoTiendas[i].idProducto){
+              parametros += ","+$scope.productoTiendas[i].idProducto;
+              old = $scope.productoTiendas[i].idProducto;
+          }
+        }
+      }
+      var ajaxProductoTienda = $http.get($rootScope.dominio + '/producto/obtenerProductoIds?id_producto='+parametros);
+      ajaxProductoTienda.success(function (data, status, headers, config) {
+          $scope.productos = data;
+          var productoFormatado = false;
+          for(var i = 0; i < $scope.productosCarro.length;i++){
+            for(var x  =0; x < $scope.productos.length; x++){
+              for(var j = 0; j < $scope.productos[x].productoTiendas.length;j++){
+                if($scope.productos[x].productoTiendas[j].id == $scope.productosCarro[i].idProductoTienda){
+                    $scope.productosCarro[i].nombre = $scope.productos[x].nombre;
+                    $scope.productosCarro[i].precio = $scope.productos[x].productoTiendas[j].historialPrecio[0].precio;
+                    productoFormatado = true;
+                    break;
+                }
+              }
+              if(productoFormatado){
+                productoFormatado = false;
+                break;
+              }
+            }
+          }
+      });
+      ajaxProductoTienda.error(function (data, status, headers, config) {
+          $scope.showFeedback("error", "ha surguido un error en la consulta",305);
+      });
+    }
 
 
     $scope.openModal = function (id_carro, index_carro) {

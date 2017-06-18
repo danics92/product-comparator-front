@@ -88,7 +88,6 @@ angular.module('starter.controllers', [])
         var ajax;
 
         $scope.verificarToken = function () {
-            console.log("verificando");
             ajax = $http.post($rootScope.dominio + '/token/validarToken', $scope.token);
             ajax.success(function (data, status, headers, config) {
                 if (data === 300) {
