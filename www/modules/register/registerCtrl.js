@@ -47,7 +47,7 @@ app.controller("registroCtrl", function($rootScope,$http, $scope,$location,$ioni
       if($scope.register.email == "" || $scope.register.email == null || $scope.register.email == undefined){
           $scope.errorEmailRegistro = true;
       }
-      if($scope.register.localidad == "" || $scope.register.localidad == null || $scope.register.localidad == undefined){
+      if($scope.register.idLocalidad == "" || $scope.register.idLocalidad == null || $scope.register.idLocalidad == undefined){
           $scope.errorLocalidadRegistro = true;
       }
       if($scope.errorTelefonoRegistro || $scope.errorEmailRegistro || $scope.errorPasswordRegistro || $scope.errorLocalidadRegistro){

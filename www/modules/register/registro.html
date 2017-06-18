@@ -33,8 +33,6 @@
                       <select id="localidad" ng-model="register.idLocalidad">
                         <option ng-repeat="localidad in localidades" value={{localidad.id}}>{{localidad.nombre}}</option>
                     </select>
-                    <p ng-show="errorLocalidadRegistro">Debe seleccionar una localidad</p>
-
                 </label>
 
                 <button type="submit" class="button button-block button-positive">

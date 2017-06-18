@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-    .controller('AppCtrl', function ($scope,$state, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope,filtradoService) {
+    .controller('AppCtrl', function ($scope,$state, $ionicModal, $timeout, $location, $http,$ionicPopup,$rootScope,$cordovaBarcodeScanner,filtradoService) {
         $scope.closeSession = function () {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
@@ -125,6 +125,8 @@ angular.module('starter.controllers', [])
         $scope.goTo = function(url){
               $location.path(url);
         }
+
+
 
         $scope.verificarToken();
     });

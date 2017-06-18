@@ -71,7 +71,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
             valoracionesUser += valoraciones[i].valoracion;
         }
 
-        return (valoracionesUser / valoraciones.length);
+        return (valoracionesUser / valoraciones.length).toFixed(2);
     };
 
      var comprobarValoracionUsuario = function(){
@@ -79,10 +79,11 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
       var valoracionUsuario = $http.post($rootScope.dominio + '/producto/comprobarValoracionUsuario', $scope.token);
       valoracionUsuario.success(function (data, status, headers, config) {
           if(data.length > 0){
-            for(var i = 0; i < data.length; i++){
-              for(var j = 0; j < $scope.productos.length; j++){
-                if(data[i].idProducto == $scope.productos[j].id){
-                  $scope.productos[j].verBotonValorar = false;
+            for(var i = 0; i < $scope.productos.length; i++){
+              $scope.productos[i].verBotonValorar = true;
+              for(var j = 0; j < data.length; j++){
+                if(data[j].idProducto == $scope.productos[i].id){
+                  $scope.productos[i].verBotonValorar = false;
                   break;
                 }
               }
@@ -160,7 +161,7 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
                 }
 
                 $scope.productos.push(data[i]);
-                $scope.productos[i].valoracionTotal = valoracion.toFixed(2);
+                $scope.productos[i].valoracionTotal = valoracion;
                 $scope.productos[i].verBotonValorar = false;
                 mejorPrecio = 0;
                 valoracion = 0;
@@ -292,7 +293,6 @@ app.controller("productosCtrl", function ($rootScope, $http, $state, $scope, $io
 
         var productoAnadido = $http.post($rootScope.dominio + '/usuario/carro/anadirProductoACarro', dataAnadirProducto);
         productoAnadido.success(function (data, status, headers, config) {
-            console.log(data);
             $scope.carros[index].precioTotal += data;
         });
         productoAnadido.error(function (data, status, headers, config) {
